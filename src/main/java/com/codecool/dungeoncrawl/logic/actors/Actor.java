@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
+    protected boolean canStepOn = false;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -14,9 +15,14 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        cell.setActor(null);
-        nextCell.setActor(this);
-        cell = nextCell;
+        if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+        } else if (nextCell.getActor()!=null) {
+//            hit();
+            // TODO ^^^^
+        }
     }
 
     public int getHealth() {
@@ -33,5 +39,9 @@ public abstract class Actor implements Drawable {
 
     public int getY() {
         return cell.getY();
+    }
+
+    public boolean getCanStepOn() {
+        return canStepOn;
     }
 }
