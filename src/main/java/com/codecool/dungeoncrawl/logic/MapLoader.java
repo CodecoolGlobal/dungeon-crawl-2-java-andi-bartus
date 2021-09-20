@@ -33,7 +33,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.addSkeleton(new Skeleton(cell));//make generic ? (<enemy> ? for multiple enemy types)
                             break;
                         case 'k':
                             cell.setType(CellType.SKULL);

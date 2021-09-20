@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 
+import java.util.ArrayList;
+
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
@@ -33,6 +35,30 @@ public class Cell implements Drawable {
 
     public Cell getNeighbor(int dx, int dy) {
         return gameMap.getCell(x + dx, y + dy);
+    }
+
+    public ArrayList<Cell> getPossibleBotMoves(){
+        int[][] coordinateDifferences ={
+                {0,  1},
+                {0, -1},
+                {1,  0},
+                {-1, 0},
+        };
+        Cell neighbor;
+        ArrayList<Cell> stepAbleCells = new ArrayList<>();
+        for (int[] difference:coordinateDifferences) {
+            neighbor = gameMap.getCell(x+difference[0], y+difference[1]);
+            if (neighbor.getActor()!= null && neighbor.getActor().getTileName().equals("player")){
+                neighbor.getActor().setHealth(
+                        neighbor.getActor().getHealth() - gameMap.getCell(x,y).getActor().getDamage()
+                );//hit player
+                return new ArrayList<>();//no movement (check length == 0 when returned
+                                         // if true : pass movement, else pick rand if length>2)
+            }else if (neighbor.getType().getCanStepOn()){
+                stepAbleCells.add(neighbor);
+            }
+        }
+        return stepAbleCells;
     }
 
     @Override
