@@ -53,22 +53,25 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
-                refresh();
+                movement(0,-1);
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
-                refresh();
+                movement(0,1);
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
-                refresh();
+                movement(-1,0);
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
-                refresh();
+                movement(1,0);
                 break;
         }
+    }
+
+    private void movement(int dx, int dy){
+        map.getPlayer().move(dx, dy);
+        map.removeDeadSkeletons();
+        map.moveSkeletons();
+        refresh();
     }
 
     private void refresh() {
