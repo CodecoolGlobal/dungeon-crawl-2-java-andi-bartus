@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Gun;
 import com.codecool.dungeoncrawl.logic.items.Star;
 import com.codecool.dungeoncrawl.logic.actors.BigBoy;
+import com.codecool.dungeoncrawl.logic.items.Tequila;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -59,16 +60,15 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.addItem(new Gun(cell));
                             break;
-                        case 'c':
-                            cell.setType(CellType.SCORPIO);
-                            break;
+
                         case 't':
-                            cell.setType(CellType.TEQUILA);
+                            cell.setType(CellType.FLOOR);
+                            map.addItem(new Tequila(cell));
                             break;
                         case 'a':
                             cell.setType(CellType.RED_HOUSE1);
                             break;
-                        case 'b':
+                        case 'B':
                             cell.setType(CellType.RED_HOUSE2);
                             break;
                         case 'd':
