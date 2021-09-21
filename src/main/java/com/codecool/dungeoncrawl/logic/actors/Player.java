@@ -6,6 +6,13 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.ArrayList;
 
 public class Player extends Actor {
+    @Override
+    public String toString() {
+        return "Player{" +
+                "inventory=" + inventory +
+                '}';
+    }
+
     ArrayList<Item> inventory;
 
 
