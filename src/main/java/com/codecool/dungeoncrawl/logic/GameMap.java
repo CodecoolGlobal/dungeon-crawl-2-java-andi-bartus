@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.*;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,9 @@ public class GameMap {
     private int height;
     private Cell[][] cells;
     private ArrayList<Skeleton> skeletons;
+    private ArrayList<Item> items;
+    private int ITEMS_OF_FIRST_MAP;
+
 
     private Player player;
 
@@ -16,6 +20,7 @@ public class GameMap {
         this.width = width;
         this.height = height;
         this.skeletons = new ArrayList<>();
+        this.items = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -39,6 +44,18 @@ public class GameMap {
     public void addSkeleton(Skeleton skeleton) {
         this.skeletons.add(skeleton);
     }
+
+    public void addItem(Item item) {
+        this.items.add(item);
+    }
+
+    public void removeItem(Cell currentCell){
+        cells[currentCell.getX()][currentCell.getY()].setItem(null);
+
+    }
+
+
+
 
     public void removeDeadSkeletons(){
         for (Skeleton skeleton:skeletons){

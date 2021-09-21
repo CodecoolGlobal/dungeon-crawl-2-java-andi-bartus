@@ -64,6 +64,11 @@ public class Main extends Application {
             case RIGHT:
                 movement(1,0);
                 break;
+            case E:
+                int x = map.getPlayer().getX();
+                int y = map.getPlayer().getY();
+                map.getPlayer().addToInventory(map.getCell(x, y).getItem());
+                map.removeItem(map.getCell(x, y));
         }
     }
 
@@ -82,7 +87,10 @@ public class Main extends Application {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
-                } else {
+                } else if(cell.getItem() != null){
+                    Tiles.drawTile(context, cell.getItem(), x , y);
+                }
+                else {
                     Tiles.drawTile(context, cell, x, y);
                 }
             }
