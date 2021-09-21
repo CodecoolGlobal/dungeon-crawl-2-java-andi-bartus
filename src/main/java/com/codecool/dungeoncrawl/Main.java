@@ -64,14 +64,20 @@ public class Main extends Application {
             case RIGHT:
                 movement(1,0);
                 break;
-        }
+        }//restart?
     }
 
     private void movement(int dx, int dy){
-        map.getPlayer().move(dx, dy);
-        map.removeDeadSkeletons();
-        map.moveSkeletons();
-        refresh();
+        if(map.getPlayer().getHealth() > 0){
+            map.getPlayer().move(dx, dy);
+            map.removeDeadSkeletons();
+            map.moveSkeletons();
+            if(map.getPlayer().getHealth() < 1){
+                map.getPlayer().setHealth(0);
+                map.getPlayer().setTileNameToTombStone();
+            }
+            refresh();
+        }
     }
 
     private void refresh() {
