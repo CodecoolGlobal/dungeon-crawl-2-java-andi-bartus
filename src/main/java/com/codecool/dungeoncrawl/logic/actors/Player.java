@@ -3,23 +3,22 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Tequila;
 
 import java.util.ArrayList;
-
 public class Player extends Actor {
-
-
-
     ArrayList<Item> inventory;
-
-
+    int waterLevel;
+    int MAX_WATER_LEVEL = 20;
 
     private String tileName = "player";
 
     public Player(Cell cell) {
         super(cell);
-        this.damage = 2;
+        this.damage = 4;
+        this.setHealth(20000);
         this.inventory = new ArrayList<>();
+        this.waterLevel = MAX_WATER_LEVEL;
     }
 
     public String getTileName() {
@@ -28,18 +27,13 @@ public class Player extends Actor {
 
 
     public void addToInventory(Item item){
-        if (item != null){inventory.add(item);};
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder inventoryText = new StringBuilder();
-        for (Item item : inventory){
-            inventoryText.append(Tiles.getTileMap().get(item.getTileName()));
-            inventoryText.append(" ");
-            inventoryText.append("\n");
+        if (item instanceof Tequila){
+            this.setHealth(this.getHealth() + ((Tequila) item).getValue());
+            this.setWaterLevel(MAX_WATER_LEVEL);
         }
-        return inventoryText.toString();
+        else if (item != null){
+            inventory.add(item);
+        }
     }
 
     public ArrayList<Item> getInventory() {
@@ -49,6 +43,31 @@ public class Player extends Actor {
 
     public void setTileNameToTombStone() {
         this.tileName = "tombStone";
+    }
+
+    public void setWaterLevel(int waterLevel) {
+        this.waterLevel = waterLevel;
+    }
+
+    public int getWaterLevel() {
+        return waterLevel;
+    }
+
+
+    public void move(){}
+
+
+    public void movePlayer(int dx, int dy) {//player
+        Cell nextCell = cell.getNeighbor(dx, dy);
+        if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+        } else if (nextCell.getActor()!=null) {//hitTargetEnemyBot;
+            nextCell.getActor().setHealth(
+                    nextCell.getActor().getHealth() - cell.getActor().getDamage()
+            );
+        }
     }
 
 }

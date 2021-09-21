@@ -49,6 +49,9 @@ public class Tiles {
         tileMap.put("churchHouse", new Tile(0, 13));
 
 
+        tileMap.put("scorpion", new Tile(24, 5));
+        tileMap.put("bigBoy", new Tile(30, 6));
+
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
@@ -56,6 +59,4 @@ public class Tiles {
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
-
-
 }

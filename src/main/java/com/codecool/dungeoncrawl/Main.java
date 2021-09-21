@@ -31,6 +31,7 @@ public class Main extends Application {
 
     Label healthLabel = new Label();
     Label inventoryLabel = new Label();
+    Label waterLevelLabel = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -44,8 +45,10 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
-        ui.add(new Label("Inventory: "), 0, 1);
-        ui.add(inventoryLabel, 0, 2);
+        ui.add(new Label("Water level: "), 0, 1);
+        ui.add(waterLevelLabel, 1, 1);
+        ui.add(new Label("Inventory: "), 0, 2);
+        ui.add(inventoryLabel, 0, 3);
 
         ui.add(inventorycanvas,0,10);
 
@@ -84,23 +87,29 @@ public class Main extends Application {
                 map.getPlayer().addToInventory(map.getCell(x, y).getItem());
                 map.removeItem(map.getCell(x, y));
                 refresh();
-        
+
 
         }//restart?
-
     }
 
     private void movement(int dx, int dy){
-        if(map.getPlayer().getHealth() > 0){
-            map.getPlayer().move(dx, dy);
-            map.removeDeadSkeletons();
-            map.moveSkeletons();
-            if(map.getPlayer().getHealth() < 1){
-                map.getPlayer().setHealth(0);
-                map.getPlayer().setTileNameToTombStone();
-            }
-            refresh();
+        if (map.getPlayer().getWaterLevel() > 0){
+            map.getPlayer().setWaterLevel(map.getPlayer().getWaterLevel()-1);
         }
+        else {
+            map.getPlayer().setHealth(map.getPlayer().getHealth()-1);
+        }
+
+        if(map.getPlayer().getHealth() > 0){
+            map.getPlayer().movePlayer(dx, dy);
+            map.removeDeadEnemies();
+            map.moveEnemies();
+        }
+        else if(map.getPlayer().getHealth() < 1){
+            map.getPlayer().setHealth(0);
+            map.getPlayer().setTileNameToTombStone();
+        }
+        refresh();
     }
 
     private void refresh() {
@@ -120,7 +129,7 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-
+        waterLevelLabel.setText("" + map.getPlayer().getWaterLevel());
         for (int i = 0; i < map.getPlayer().getInventory().size(); i++) {
             Tiles.drawTile(inventoryContext,map.getPlayer().getInventory().get(i), 2, i);
 
