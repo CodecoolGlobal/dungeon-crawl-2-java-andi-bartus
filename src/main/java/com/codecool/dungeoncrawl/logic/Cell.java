@@ -51,14 +51,86 @@ public class Cell implements Drawable {
             if (neighbor.getActor()!= null && neighbor.getActor().getTileName().equals("player")){
                 neighbor.getActor().setHealth(
                         neighbor.getActor().getHealth() - gameMap.getCell(x,y).getActor().getDamage()
-                );//hit player
-                return new ArrayList<>();//no movement (check length == 0 when returned
-                                         // if true : pass movement, else pick rand if length>1)
+                );
+
+                ArrayList<Cell> player = new ArrayList<>();//no movement (check length == 0 when returned
+                player.add(neighbor);
+                return player;
             }else if (neighbor.getType().getCanStepOn() && neighbor.getActor()==null){
                 stepAbleCells.add(neighbor);
             }
         }
         return stepAbleCells;
+    }
+
+
+    public Cell getCornerPlayer(Cell mob){
+        int[][] coordinateDifferences ={
+                {1,  1},
+                {-1, -1},
+                {1,  -1},
+                {-1, 1},
+        };
+
+        int newX;
+        int newY;
+        Cell moveTo;
+        for (int[] CD: coordinateDifferences) {
+            newX = mob.getX() + CD[0];
+            newY = mob.getY() + CD[1];
+            if (newX >=0 && newX < gameMap.getWidth() &&
+                newY >=0 && newY < gameMap.getHeight()) {
+
+                if (gameMap.getCell(newX, newY).getActor() != null &&
+                    gameMap.getCell(newX, newY).getActor().getTileName().equals("player")) {
+
+                    if (gameMap.getCell(mob.getX(), newY).getActor() == null
+                        && gameMap.getCell(mob.getX(), newY).getType().getCanStepOn()) {
+
+                        moveTo = gameMap.getCell(mob.getX(), newY);
+                        return moveTo;
+                    } else if (gameMap.getCell(newX, mob.getY()).getActor() == null
+                               && gameMap.getCell(newX, mob.getY()).getType().getCanStepOn()) {
+
+                        moveTo = gameMap.getCell(newX, mob.getY());
+                        return moveTo;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public Cell getFurtherPlayer(Cell mob){
+        int[][] coordinateDifferences ={
+                {2,  0},
+                {0, 2},
+                {-2,  0},
+                {0, -2},
+        };
+
+        int newX;
+        int newY;
+        Cell moveTo;
+        for (int[] CD: coordinateDifferences) {
+            newX = mob.getX() + CD[0];
+            newY = mob.getY() + CD[1];
+            if (newX >=0 && newX < gameMap.getWidth() &&
+                newY >=0 && newY < gameMap.getHeight()){
+
+                if (gameMap.getCell(newX, newY).getActor() != null &&
+                        gameMap.getCell(newX, newY).getActor().getTileName().equals("player")){
+
+                    if(gameMap.getCell(newX - CD[0] / 2, newY - CD[1] / 2).getActor() == null &&
+                       gameMap.getCell(newX - CD[0] / 2, newY - CD[1] / 2).getType().getCanStepOn()){
+
+                        moveTo = gameMap.getCell(newX - CD[0] / 2, newY - CD[1] / 2);
+                        return moveTo;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     @Override

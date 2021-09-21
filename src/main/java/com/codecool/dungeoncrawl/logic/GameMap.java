@@ -8,14 +8,14 @@ public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
-    private ArrayList<Skeleton> skeletons;
+    private ArrayList<Actor> enemies;
 
     private Player player;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
         this.height = height;
-        this.skeletons = new ArrayList<>();
+        this.enemies = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -36,32 +36,32 @@ public class GameMap {
         return player;
     }
 
-    public void addSkeleton(Skeleton skeleton) {
-        this.skeletons.add(skeleton);
+    public void addEnemy(Actor enemy) {
+        this.enemies.add(enemy);
     }
 
-    public void removeDeadSkeletons(){
-        for (Skeleton skeleton:skeletons){
-            if (skeleton.getHealth() < 0){
-                cells[skeleton.getX()][skeleton.getY()].setActor(null);
-                skeletons.remove(skeleton);
+    public void removeDeadEnemies(){
+        for (Actor enemy: enemies){
+            if (enemy.getHealth() < 0){
+                cells[enemy.getX()][enemy.getY()].setActor(null);
+                enemies.remove(enemy);
                 break;
             }
         }
     }
 
-    public void setSkeletons(ArrayList<Skeleton> skeletons) {
-        this.skeletons = skeletons;
+    public void setEnemies(ArrayList<Actor> enemy) {
+        this.enemies = enemy;
     }
 
-    public void moveSkeletons() {
-        for (Skeleton skeleton:skeletons){
-            skeleton.move();
+    public void moveEnemies() {
+        for (Actor enemy:enemies){
+            enemy.move();
         }
     }
 
-    public ArrayList<Skeleton> getSkeletons() {
-        return skeletons;
+    public ArrayList<Actor> getEnemies() {
+        return enemies;
     }
 
     public int getWidth() {
