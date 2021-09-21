@@ -1,17 +1,13 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.ArrayList;
 
 public class Player extends Actor {
-    @Override
-    public String toString() {
-        return "Player{" +
-                "inventory=" + inventory +
-                '}';
-    }
+
 
     ArrayList<Item> inventory;
 
@@ -28,6 +24,21 @@ public class Player extends Actor {
 
     public void addToInventory(Item item){
         if (item != null){inventory.add(item);};
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder inventoryText = new StringBuilder();
+        for (Item item : inventory){
+            inventoryText.append(Tiles.getTileMap().get(item.getTileName()));
+            inventoryText.append(" ");
+            inventoryText.append("\n");
+        }
+        return inventoryText.toString();
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 
 }

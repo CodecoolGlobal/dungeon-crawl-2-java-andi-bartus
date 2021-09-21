@@ -22,6 +22,10 @@ public class Tiles {
         }
     }
 
+    public static Map<String, Tile> getTileMap() {
+        return tileMap;
+    }
+
     static {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(6, 1));
@@ -37,4 +41,6 @@ public class Tiles {
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
+
+
 }
