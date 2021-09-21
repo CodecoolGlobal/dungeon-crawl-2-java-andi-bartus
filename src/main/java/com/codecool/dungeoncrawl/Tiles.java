@@ -22,14 +22,21 @@ public class Tiles {
         }
     }
 
+    public static Map<String, Tile> getTileMap() {
+        return tileMap;
+    }
+
     static {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(6, 1));
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("player", new Tile(27, 4));
         tileMap.put("skeleton", new Tile(29, 6));
+        tileMap.put("star", new Tile(28, 25));
+        tileMap.put("gun", new Tile(10, 20));
         tileMap.put("skull", new Tile(0, 15));
         tileMap.put("tombStone", new Tile(1, 14));//0:14 or 1:14 ?
+
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
@@ -37,4 +44,6 @@ public class Tiles {
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
+
+
 }
