@@ -36,7 +36,8 @@ public class Tiles {
         tileMap.put("gun", new Tile(10, 20));
         tileMap.put("skull", new Tile(0, 15));
         tileMap.put("tombStone", new Tile(1, 14));//0:14 or 1:14 ?
-
+        tileMap.put("scorpion", new Tile(24, 5));
+        tileMap.put("bigBoy", new Tile(30, 6));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
@@ -44,6 +45,4 @@ public class Tiles {
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
-
-
 }

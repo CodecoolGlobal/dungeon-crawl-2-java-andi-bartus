@@ -90,7 +90,6 @@ public class Main extends Application {
 
 
         }//restart?
-
     }
 
     private void movement(int dx, int dy){
@@ -102,11 +101,10 @@ public class Main extends Application {
         }
 
         if(map.getPlayer().getHealth() > 0){
-            map.getPlayer().move(dx, dy);
-            map.removeDeadSkeletons();
-            map.moveSkeletons();
+            map.getPlayer().movePlayer(dx, dy);
+            map.removeDeadEnemies();
+            map.moveEnemies();
         }
-
         else if(map.getPlayer().getHealth() < 1){
             map.getPlayer().setHealth(0);
             map.getPlayer().setTileNameToTombStone();
