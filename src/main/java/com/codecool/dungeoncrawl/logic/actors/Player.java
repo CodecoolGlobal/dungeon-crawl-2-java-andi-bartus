@@ -6,10 +6,10 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Tequila;
 
 import java.util.ArrayList;
-
 public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
+    int MAX_WATER_LEVEL = 20;
 
     private String tileName = "player";
 
@@ -17,7 +17,7 @@ public class Player extends Actor {
         super(cell);
         this.damage = 2;
         this.inventory = new ArrayList<>();
-        this.waterLevel = 20;
+        this.waterLevel = MAX_WATER_LEVEL;
     }
 
     public String getTileName() {
@@ -28,7 +28,7 @@ public class Player extends Actor {
     public void addToInventory(Item item){
         if (item instanceof Tequila){
             this.setHealth(this.getHealth() + ((Tequila) item).getValue());
-            this.setWaterLevel(20);
+            this.setWaterLevel(MAX_WATER_LEVEL);
         }
         else if (item != null){
             inventory.add(item);
