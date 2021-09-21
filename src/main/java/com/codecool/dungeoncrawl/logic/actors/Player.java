@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Tequila;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,12 @@ public class Player extends Actor {
 
 
     public void addToInventory(Item item){
-        if (item != null){inventory.add(item);};
+        if (item instanceof Tequila){
+            this.setHealth(this.getHealth() + ((Tequila) item).getValue());
+        }
+        else if (item != null){
+            inventory.add(item);
+        }
     }
 
     @Override

@@ -84,7 +84,7 @@ public class Main extends Application {
                 map.getPlayer().addToInventory(map.getCell(x, y).getItem());
                 map.removeItem(map.getCell(x, y));
                 refresh();
-        
+
 
         }//restart?
 
