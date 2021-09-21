@@ -8,12 +8,8 @@ import com.codecool.dungeoncrawl.logic.items.Tequila;
 import java.util.ArrayList;
 
 public class Player extends Actor {
-
-
-
     ArrayList<Item> inventory;
-
-
+    int waterLevel;
 
     private String tileName = "player";
 
@@ -21,6 +17,7 @@ public class Player extends Actor {
         super(cell);
         this.damage = 2;
         this.inventory = new ArrayList<>();
+        this.waterLevel = 20;
     }
 
     public String getTileName() {
@@ -31,21 +28,11 @@ public class Player extends Actor {
     public void addToInventory(Item item){
         if (item instanceof Tequila){
             this.setHealth(this.getHealth() + ((Tequila) item).getValue());
+            this.setWaterLevel(20);
         }
         else if (item != null){
             inventory.add(item);
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder inventoryText = new StringBuilder();
-        for (Item item : inventory){
-            inventoryText.append(Tiles.getTileMap().get(item.getTileName()));
-            inventoryText.append(" ");
-            inventoryText.append("\n");
-        }
-        return inventoryText.toString();
     }
 
     public ArrayList<Item> getInventory() {
@@ -55,6 +42,14 @@ public class Player extends Actor {
 
     public void setTileNameToTombStone() {
         this.tileName = "tombStone";
+    }
+
+    public void setWaterLevel(int waterLevel) {
+        this.waterLevel = waterLevel;
+    }
+
+    public int getWaterLevel() {
+        return waterLevel;
     }
 
 }
