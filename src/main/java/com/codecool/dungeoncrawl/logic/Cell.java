@@ -71,8 +71,8 @@ public class Cell implements Drawable {
                         neighbor.getActor().getHealth() - gameMap.getCell(x,y).getActor().getDamage()
                 );//hit player
                 return new ArrayList<>();//no movement (check length == 0 when returned
-                                         // if true : pass movement, else pick rand if length>2)
-            }else if (neighbor.getType().getCanStepOn()){
+                                         // if true : pass movement, else pick rand if length>1)
+            }else if (neighbor.getType().getCanStepOn() && neighbor.getActor()==null){
                 stepAbleCells.add(neighbor);
             }
         }

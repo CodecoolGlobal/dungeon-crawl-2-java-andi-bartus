@@ -9,8 +9,12 @@ import java.util.ArrayList;
 public class Player extends Actor {
 
 
+
     ArrayList<Item> inventory;
 
+
+
+    private String tileName = "player";
 
     public Player(Cell cell) {
         super(cell);
@@ -19,8 +23,9 @@ public class Player extends Actor {
     }
 
     public String getTileName() {
-        return "player";
+        return this.tileName;
     }
+
 
     public void addToInventory(Item item){
         if (item != null){inventory.add(item);};
@@ -39,6 +44,11 @@ public class Player extends Actor {
 
     public ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+
+    public void setTileNameToTombStone() {
+        this.tileName = "tombStone";
     }
 
 }
