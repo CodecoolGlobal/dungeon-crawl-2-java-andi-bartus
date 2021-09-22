@@ -7,19 +7,21 @@ import java.util.Random;
 
 public class BigBoy extends Actor{
     private int coolDown;
+    String tileName;
 
-    public BigBoy(Cell cell){
-        super(cell);
-        this.damage = 7;
-        this.coolDown = 0;
+
+
+    public BigBoy(Cell cell, String tileName) {
+        super(cell, tileName);
+        this.tileName = tileName;
     }
 
     @Override
     public String getTileName() {
-        return "bigBoy";
+        return tileName;
     }
 
-    public String setTileNameToBigBoy2(){ return "bigBoy2";}
+   // public String setTileNameToBigBoy2(){ return "bigBoy2";}
 
     public int getCoolDown() {
         return coolDown;
