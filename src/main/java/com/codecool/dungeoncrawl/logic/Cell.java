@@ -20,6 +20,7 @@ public class Cell implements Drawable {
         this.x = x;
         this.y = y;
         this.type = type;
+
     }
 
     public CellType getType() {
@@ -166,4 +167,6 @@ public class Cell implements Drawable {
     public int getY() {
         return y;
     }
+
+
 }

@@ -81,6 +81,8 @@ public class GameMap {
         this.enemies = enemy;
     }
 
+
+
     public void moveEnemies() {
         for (Actor enemy:enemies){
             enemy.move();

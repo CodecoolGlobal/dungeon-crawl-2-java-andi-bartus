@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
-    int MAX_WATER_LEVEL = 20;
+    private static final int MAX_WATER_LEVEL = 20;
     private String tileName = "player";
     private int playerMapLevel;
 
@@ -33,8 +33,7 @@ public class Player extends Actor {
 
     public void addToInventory(Item item){
         if (item instanceof Tequila){
-            this.setHealth(this.getHealth() + ((Tequila) item).getValue());
-            this.setWaterLevel(MAX_WATER_LEVEL);
+            ((Tequila) item).useTequila(this);
         }
         else if (item != null){
             inventory.add(item);
@@ -56,6 +55,10 @@ public class Player extends Actor {
 
     public void setTileNameToTombStone() {
         this.tileName = "tombStone";
+    }
+
+    public void setTileNameToPlayer2() {
+        this.tileName = "player2";
     }
 
     public void setWaterLevel(int waterLevel) {

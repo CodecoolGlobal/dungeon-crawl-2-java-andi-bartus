@@ -10,7 +10,7 @@ import java.util.Map;
 public class Tiles {
     public static int TILE_WIDTH = 32;
 
-    private static Image tileset = new Image("/tiles.png", 543 * 2, 543 * 2, true, false);
+    private static Image tileset = new Image("/tiles2.png", 543 * 2, 543 * 2, true, false);
     private static Map<String, Tile> tileMap = new HashMap<>();
     public static class Tile {
         public final int x, y, w, h;
@@ -30,7 +30,11 @@ public class Tiles {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(6, 1));
         tileMap.put("floor", new Tile(2, 0));
-        tileMap.put("player", new Tile(27, 4));
+        tileMap.put("player2", new Tile(27, 4));
+        tileMap.put("player", new Tile(30, 4));
+        tileMap.put("boots", new Tile(7, 23));
+        tileMap.put("hat", new Tile(14, 24));
+        tileMap.put("horse", new Tile(28, 7));
         tileMap.put("skeleton", new Tile(29, 6));
         tileMap.put("star", new Tile(28, 25));
         tileMap.put("gun", new Tile(7, 31));
@@ -50,7 +54,27 @@ public class Tiles {
         tileMap.put("door", new Tile(8, 10));
         tileMap.put("closedDoor", new Tile(7, 10));
         tileMap.put("scorpion", new Tile(24, 5));
-        tileMap.put("bigBoy", new Tile(30, 6));
+        tileMap.put("town_road", new Tile(1,0));
+        tileMap.put("house_base_left", new Tile(10, 16));
+        tileMap.put("house_base_center", new Tile(11, 16));
+        tileMap.put("house_base_right", new Tile(12, 16));
+        tileMap.put("house_wall", new Tile(13, 16));
+        tileMap.put("house_window_1", new Tile(13, 15));
+        tileMap.put("house_window_2", new Tile(14, 16));
+        tileMap.put("house_roof_left", new Tile(10, 15));
+        tileMap.put("house_roof_straight", new Tile(11, 15));
+        tileMap.put("house_roof_right", new Tile(12, 15));
+        tileMap.put("house_door", new Tile(15, 16));
+        tileMap.put("S", new Tile(24, 31));
+        tileMap.put("A", new Tile(19, 30));
+        tileMap.put("L", new Tile(30, 30));
+        tileMap.put("O", new Tile(20, 31));
+        tileMap.put("N", new Tile(19, 31));
+        tileMap.put("G", new Tile(25, 30));
+        tileMap.put("U", new Tile(26, 31));
+        tileMap.put("saloon_door", new Tile(5, 7));
+        tileMap.put("bigBoy2", new Tile(30, 6));
+        tileMap.put("bigBoy", new Tile(31, 6));
 
     }
 

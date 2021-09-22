@@ -3,10 +3,8 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Scorpion;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.items.Gun;
-import com.codecool.dungeoncrawl.logic.items.Star;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.BigBoy;
-import com.codecool.dungeoncrawl.logic.items.Tequila;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map.txt", "/testmap2.txt"};
+    private static final String[] mapFileNames = {"/map.txt", "/map2.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
@@ -58,15 +56,25 @@ public class MapLoader {
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            Player player2 = new Player(cell);
+                            player2.setTileNameToPlayer2();
+                            map.setPlayer(player2);
+                            /*map.setPlayer(map.getPlayer());
+                            map.getPlayer().setTileNameToPlayer2();*/
                             break;
                         case 'c':
                             cell.setType(CellType.FLOOR);
                             map.addEnemy(new Scorpion(cell));
                             break;
-                        case 'b':
+                        case 'W':
                             cell.setType(CellType.FLOOR);
                             map.addEnemy(new BigBoy(cell));
+                            break;
+                        case 'b':
+                            cell.setType(CellType.FLOOR);
+                            BigBoy bigBoy2 = new BigBoy(cell);
+                            bigBoy2.setTileNameToBigBoy2();
+                            map.addEnemy(bigBoy2);
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);
@@ -113,6 +121,78 @@ public class MapLoader {
                         case 'd':
                             cell.setType(CellType.DOOR);
                             cell.addDoor(new Door(cell, true, currentMap-1));
+                            break;
+                        case '-':
+                            cell.setType(CellType.TOWN_ROAD);
+                            break;
+                        case 'Q':
+                            cell.setType(CellType.HOUSE_BASE_LEFT);
+                            break;
+                        case 'l':
+                            cell.setType(CellType.HOUSE_BASE_CENTER);
+                            break;
+                        case 'E':
+                            cell.setType(CellType.HOUSE_BASE_RIGHT);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.HOUSE_WALL);
+                            break;
+                        case 'T':
+                            cell.setType(CellType.HOUSE_WINDOW_1);
+                            break;
+                        case 'Z':
+                            cell.setType(CellType.HOUSE_WINDOW_2);
+                            break;
+                        case 'U':
+                            cell.setType(CellType.HOUSE_ROOF_LEFT);
+                            break;
+                        case 'I':
+                            cell.setType(CellType.HOUSE_ROOF_STRAIGHT);
+                            break;
+                        case 'O':
+                            cell.setType(CellType.HOUSE_ROOF_RIGHT);
+                            break;
+                        case 'P':
+                            cell.setType(CellType.HOUSE_DOOR);
+                            break;
+                        case 'A':
+                            cell.setType(CellType.S);
+                            break;
+                        case 'S':
+                            cell.setType(CellType.A);
+                            break;
+                        case 'L':
+                            cell.setType(CellType.L);
+                            break;
+                        case 'F':
+                            cell.setType(CellType.O);
+                            break;
+                        case 'G':
+                            cell.setType(CellType.N);
+                            break;
+                        case 'H':
+                            cell.setType(CellType.G);
+                            break;
+                        case 'J':
+                            cell.setType(CellType.U);
+                            break;
+                        case 'K':
+                            cell.setType(CellType.SALOON_DOOR);
+                            break;
+                        case '&':
+                            cell.setType(CellType.FLOOR);
+                            map.setPlayer(new Player(cell));
+                            break;
+                        case 'q':
+                            cell.setType(CellType.FLOOR);
+                            map.addItem(new Boots(cell));
+                            break;
+                        case 'Ü':
+                            cell.setType(CellType.FLOOR);
+                            map.addItem(new Hat(cell));
+                            break;
+                        case 'ó':
+                            cell.setType(CellType.HORSE);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

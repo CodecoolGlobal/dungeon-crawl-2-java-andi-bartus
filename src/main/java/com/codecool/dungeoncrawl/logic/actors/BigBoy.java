@@ -19,6 +19,8 @@ public class BigBoy extends Actor{
         return "bigBoy";
     }
 
+    public String setTileNameToBigBoy2(){ return "bigBoy2";}
+
     public int getCoolDown() {
         return coolDown;
     }

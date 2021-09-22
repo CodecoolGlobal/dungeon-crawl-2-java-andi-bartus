@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
@@ -89,6 +90,23 @@ public class Main extends Application {
                 maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
                 maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                 refresh();
+            case A:
+                map.getCell(40, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+            case N:
+                map.getCell(41, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+            case D:
+                map.getCell(42, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+            case I:
+                map.getCell(43, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+
 
 
         }//restart?
