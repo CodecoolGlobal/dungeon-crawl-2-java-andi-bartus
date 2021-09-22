@@ -3,10 +3,8 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Scorpion;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.items.Gun;
-import com.codecool.dungeoncrawl.logic.items.Star;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.BigBoy;
-import com.codecool.dungeoncrawl.logic.items.Tequila;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -46,15 +44,22 @@ public class MapLoader {
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(map.getPlayer());
+                            map.getPlayer().setTileNameToPlayer2();
                             break;
                         case 'c':
                             cell.setType(CellType.FLOOR);
                             map.addEnemy(new Scorpion(cell));
                             break;
-                        case 'b':
+                        case 'W':
                             cell.setType(CellType.FLOOR);
                             map.addEnemy(new BigBoy(cell));
+                            break;
+                        case 'b':
+                            cell.setType(CellType.FLOOR);
+                            BigBoy bigBoy2 = new BigBoy(cell);
+                            bigBoy2.setTileNameToBigBoy2();
+                            map.addEnemy(bigBoy2);
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);
@@ -152,7 +157,21 @@ public class MapLoader {
                         case 'K':
                             cell.setType(CellType.SALOON_DOOR);
                             break;
-
+                        case '&':
+                            cell.setType(CellType.FLOOR);
+                            map.setPlayer(new Player(cell));
+                            break;
+                        case 'q':
+                            cell.setType(CellType.FLOOR);
+                            map.addItem(new Boots(cell));
+                            break;
+                        case 'Ü':
+                            cell.setType(CellType.FLOOR);
+                            map.addItem(new Hat(cell));
+                            break;
+                        case 'ó':
+                            cell.setType(CellType.HORSE);
+                            break;
 
 
                         default:

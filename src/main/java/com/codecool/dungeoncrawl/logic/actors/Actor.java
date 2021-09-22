@@ -42,6 +42,8 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+
+
     public boolean getCanStepOn() {
         return canStepOn;
     }
