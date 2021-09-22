@@ -68,6 +68,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        primaryStage.setMaximized(true);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -90,19 +91,19 @@ public class Main extends Application {
                 maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
                 maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                 refresh();
-            case A:
+            case A: //andi
                 maps.get(0).getCell(40, 2).setType(CellType.FLOOR);
                 refresh();
                break;
-            case B:
+            case B: //bence
                 maps.get(0).getCell(41, 2).setType(CellType.FLOOR);
                refresh();
                 break;
-            case P:
+            case P: //peti
                 maps.get(0).getCell(42, 2).setType(CellType.FLOOR);
                 refresh();
                 break;
-            case T:
+            case T: //tomi
                 maps.get(0).getCell(43, 2).setType(CellType.FLOOR);
                 refresh();
                 break;
@@ -111,6 +112,8 @@ public class Main extends Application {
 
 
         }//restart?
+
+
     }
 
     private void movement(int dx, int dy){
