@@ -51,6 +51,8 @@ public class Tiles {
         tileMap.put("churchTop1", new Tile(25, 12));
         tileMap.put("churchTop2", new Tile(2, 12));
         tileMap.put("churchHouse", new Tile(0, 13));
+        tileMap.put("door", new Tile(8, 10));
+        tileMap.put("closedDoor", new Tile(7, 10));
         tileMap.put("scorpion", new Tile(24, 5));
         tileMap.put("town_road", new Tile(1,0));
         tileMap.put("house_base_left", new Tile(10, 16));

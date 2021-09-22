@@ -4,7 +4,6 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.items.Star;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -16,12 +15,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.util.List;
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
+    List<GameMap> maps = MapLoader.loadAllMaps();
+    int currentMap = 0;
+    int lastMap;
     Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            maps.get(currentMap).getWidth() * Tiles.TILE_WIDTH,
+            maps.get(currentMap).getHeight() * Tiles.TILE_WIDTH);
 
     Canvas inventorycanvas = new Canvas(
             3 * Tiles.TILE_WIDTH,
@@ -83,10 +85,10 @@ public class Main extends Application {
                 movement(1,0);
                 break;
             case E:
-                int x = map.getPlayer().getX();
-                int y = map.getPlayer().getY();
-                map.getPlayer().addToInventory(map.getCell(x, y).getItem());
-                map.removeItem(map.getCell(x, y));
+                int x = maps.get(currentMap).getPlayer().getX();
+                int y = maps.get(currentMap).getPlayer().getY();
+                maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
+                maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                 refresh();
             case A:
                 map.getCell(40, 2).setType(CellType.FLOOR);
@@ -111,21 +113,25 @@ public class Main extends Application {
     }
 
     private void movement(int dx, int dy){
-        if (map.getPlayer().getWaterLevel() > 0){
-            map.getPlayer().setWaterLevel(map.getPlayer().getWaterLevel()-1);
+        if (maps.get(currentMap).getPlayer().getWaterLevel() > 0){
+            maps.get(currentMap).getPlayer().setWaterLevel(maps.get(currentMap).getPlayer().getWaterLevel()-1);
         }
         else {
-            map.getPlayer().setHealth(map.getPlayer().getHealth()-1);
+            maps.get(currentMap).getPlayer().setHealth(maps.get(currentMap).getPlayer().getHealth()-1);
         }
-
-        if(map.getPlayer().getHealth() > 0){
-            map.getPlayer().movePlayer(dx, dy);
-            map.removeDeadEnemies();
-            map.moveEnemies();
+        if(maps.get(currentMap).getPlayer().getHealth() > 0){
+            maps.get(currentMap).getPlayer().movePlayer(dx, dy);
+            maps.get(currentMap).removeDeadEnemies();
+            maps.get(currentMap).moveEnemies();
+            if (currentMap != maps.get(currentMap).getPlayer().getPlayerMapLevel()) {
+                this.lastMap = currentMap;
+                this.currentMap = maps.get(currentMap).getPlayer().getPlayerMapLevel();
+                maps.get(currentMap).setPlayerStats(maps.get(lastMap).getPlayer());
+            }
         }
-        else if(map.getPlayer().getHealth() < 1){
-            map.getPlayer().setHealth(0);
-            map.getPlayer().setTileNameToTombStone();
+        else if(maps.get(currentMap).getPlayer().getHealth() < 1){
+            maps.get(currentMap).getPlayer().setHealth(0);
+            maps.get(currentMap).getPlayer().setTileNameToTombStone();
         }
         refresh();
     }
@@ -133,9 +139,9 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
+        for (int x = 0; x < maps.get(currentMap).getWidth(); x++) {
+            for (int y = 0; y < maps.get(currentMap).getHeight(); y++) {
+                Cell cell = maps.get(currentMap).getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
                 } else if(cell.getItem() != null){
@@ -146,13 +152,19 @@ public class Main extends Application {
                 }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth());
-        waterLevelLabel.setText("" + map.getPlayer().getWaterLevel());
-        for (int i = 0; i < map.getPlayer().getInventory().size(); i++) {
-            Tiles.drawTile(inventoryContext,map.getPlayer().getInventory().get(i), 2, i);
+        healthLabel.setText("" + maps.get(currentMap).getPlayer().getHealth());
+        waterLevelLabel.setText("" + maps.get(currentMap).getPlayer().getWaterLevel());
+        for (int i = 0; i < maps.get(currentMap).getPlayer().getInventory().size(); i++) {
+            Tiles.drawTile(inventoryContext, maps.get(currentMap).getPlayer().getInventory().get(i), 2, i);
 
         }
+    }
 
+    public int getCurrentMap() {
+        return currentMap;
+    }
 
+    public void setCurrentMap(int currentMap) {
+        this.currentMap=currentMap;
     }
 }

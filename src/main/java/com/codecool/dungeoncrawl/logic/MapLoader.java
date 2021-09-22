@@ -7,17 +7,29 @@ import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.BigBoy;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map2.txt");
+
+    private static final String[] mapFileNames = {"/map.txt", "/map2.txt"};
+
+    public static ArrayList<GameMap> loadAllMaps() {
+        int currentMapNumber = 0;
+        ArrayList<GameMap> allMaps = new ArrayList<>();
+        for(String mapName : mapFileNames) {
+            allMaps.add(loadMap(mapName, currentMapNumber));
+            currentMapNumber++;
+        }
+        return allMaps;
+    }
+
+    public static GameMap loadMap(String mapFileName, int currentMap) {
+        InputStream is = MapLoader.class.getResourceAsStream(mapFileName);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
-
         scanner.nextLine(); // empty line
-
         GameMap map = new GameMap(width, height, CellType.EMPTY);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
@@ -68,7 +80,6 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.addItem(new Gun(cell));
                             break;
-
                         case 't':
                             cell.setType(CellType.FLOOR);
                             map.addItem(new Tequila(cell));
@@ -79,7 +90,7 @@ public class MapLoader {
                         case 'B':
                             cell.setType(CellType.RED_HOUSE2);
                             break;
-                        case 'd':
+                        case 'C':
                             cell.setType(CellType.RED_HOUSE3);
                             break;
                         case 'e':
@@ -92,7 +103,7 @@ public class MapLoader {
                             cell.setType(CellType.CHURCH_TOP2);
                             break;
                         case 'y':
-                            cell.setType(CellType.CHURH_HOUSE);
+                            cell.setType(CellType.CHURCH_HOUSE);
                             break;
                         case '0':
                             cell.setType(CellType.TOMB_STONE);
@@ -102,6 +113,14 @@ public class MapLoader {
                             break;
                         case '2':
                             cell.setType(CellType.SKULL2);
+                            break;
+                        case 'D':
+                            cell.setType(CellType.CLOSED_DOOR);
+                            cell.addDoor(new Door(cell, false, currentMap+1));
+                            break;
+                        case 'd':
+                            cell.setType(CellType.DOOR);
+                            cell.addDoor(new Door(cell, true, currentMap-1));
                             break;
                         case '-':
                             cell.setType(CellType.TOWN_ROAD);
@@ -142,7 +161,7 @@ public class MapLoader {
                         case 'S':
                             cell.setType(CellType.A);
                             break;
-                        case 'D':
+                        case 'L':
                             cell.setType(CellType.L);
                             break;
                         case 'F':
@@ -175,8 +194,6 @@ public class MapLoader {
                         case 'ó':
                             cell.setType(CellType.HORSE);
                             break;
-
-
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
