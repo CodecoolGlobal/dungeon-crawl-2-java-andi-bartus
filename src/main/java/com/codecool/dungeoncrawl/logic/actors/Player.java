@@ -44,6 +44,10 @@ public class Player extends Actor {
         this.tileName = "tombStone";
     }
 
+    public void setTileNameToPlayer2() {
+        this.tileName = "player2";
+    }
+
     public void setWaterLevel(int waterLevel) {
         this.waterLevel = waterLevel;
     }

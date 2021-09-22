@@ -16,7 +16,8 @@ public enum CellType {
     CHURH_HOUSE("churchHouse", false),
     TOMB_STONE("tombStone", false),
     SKULL1("skull1", false),
-    SKULL2("skull2", false);
+    SKULL2("skull2", false),
+    HORSE("horse", false);
 
 
     private final String tileName;

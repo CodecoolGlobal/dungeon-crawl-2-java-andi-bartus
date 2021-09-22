@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.Star;
@@ -87,6 +88,23 @@ public class Main extends Application {
                 map.getPlayer().addToInventory(map.getCell(x, y).getItem());
                 map.removeItem(map.getCell(x, y));
                 refresh();
+            case A:
+                map.getCell(40, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+            case N:
+                map.getCell(41, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+            case D:
+                map.getCell(42, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+            case I:
+                map.getCell(43, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+
 
 
         }//restart?
