@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class MapLoader {
     public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+        InputStream is = MapLoader.class.getResourceAsStream("/map2.txt");
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -100,6 +100,63 @@ public class MapLoader {
                         case '2':
                             cell.setType(CellType.SKULL2);
                             break;
+                        case '-':
+                            cell.setType(CellType.TOWN_ROAD);
+                            break;
+                        case 'Q':
+                            cell.setType(CellType.HOUSE_BASE_LEFT);
+                            break;
+                        case 'W':
+                            cell.setType(CellType.HOUSE_BASE_CENTER);
+                            break;
+                        case 'E':
+                            cell.setType(CellType.HOUSE_BASE_RIGHT);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.HOUSE_WALL);
+                            break;
+                        case 'T':
+                            cell.setType(CellType.HOUSE_WINDOW_1);
+                            break;
+                        case 'Z':
+                            cell.setType(CellType.HOUSE_WINDOW_2);
+                            break;
+                        case 'U':
+                            cell.setType(CellType.HOUSE_ROOF_LEFT);
+                            break;
+                        case 'I':
+                            cell.setType(CellType.HOUSE_ROOF_STRAIGHT);
+                            break;
+                        case 'O':
+                            cell.setType(CellType.HOUSE_ROOF_RIGHT);
+                            break;
+                        case 'P':
+                            cell.setType(CellType.HOUSE_DOOR);
+                            break;
+                        case 'A':
+                            cell.setType(CellType.S);
+                            break;
+                        case 'S':
+                            cell.setType(CellType.A);
+                            break;
+                        case 'D':
+                            cell.setType(CellType.L);
+                            break;
+                        case 'F':
+                            cell.setType(CellType.O);
+                            break;
+                        case 'G':
+                            cell.setType(CellType.N);
+                            break;
+                        case 'H':
+                            cell.setType(CellType.G);
+                            break;
+                        case 'J':
+                            cell.setType(CellType.U);
+                            break;
+                        case 'K':
+                            cell.setType(CellType.SALOON_DOOR);
+                            break;
                         case '&':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
@@ -108,15 +165,13 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.addItem(new Boots(cell));
                             break;
-                        case 'Q':
+                        case 'Ü':
                             cell.setType(CellType.FLOOR);
                             map.addItem(new Hat(cell));
                             break;
                         case 'ó':
                             cell.setType(CellType.HORSE);
                             break;
-
-
 
 
                         default:
