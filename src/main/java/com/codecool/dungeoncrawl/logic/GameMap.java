@@ -13,6 +13,7 @@ public class GameMap {
     private int ITEMS_OF_FIRST_MAP;
 
     private ArrayList<Actor> enemies;
+    private ArrayList<Door> doors;
 
     private Player player;
 
@@ -21,12 +22,20 @@ public class GameMap {
         this.height = height;
         this.items = new ArrayList<>();
         this.enemies = new ArrayList<>();
+        this.doors = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 cells[x][y] = new Cell(this, x, y, defaultCellType);
             }
         }
+    }
+
+    public void setPlayerStats(Player originalPlayer) {
+        player.setPlayerMapLevel(originalPlayer.getPlayerMapLevel());
+        player.setInventory(originalPlayer.getInventory());
+        player.setWaterLevel(originalPlayer.getWaterLevel());
+        player.setHealth(originalPlayer.getHealth());
     }
 
     public Cell getCell(int x, int y) {
@@ -43,6 +52,10 @@ public class GameMap {
 
     public void addEnemy(Actor enemy) {
         this.enemies.add(enemy);
+    }
+
+    public void addDoor(Door door) {
+        this.doors.add(door);
     }
 
     public void removeDeadEnemies(){

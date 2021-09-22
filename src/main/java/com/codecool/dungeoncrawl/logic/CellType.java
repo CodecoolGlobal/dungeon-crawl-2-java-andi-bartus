@@ -13,10 +13,12 @@ public enum CellType {
     RED_HOUSE4("redHouse4", false),
     CHURCH_TOP("churchTop1", false),
     CHURCH_TOP2("churchTop2", false),
-    CHURH_HOUSE("churchHouse", false),
+    CHURCH_HOUSE("churchHouse", false),
     TOMB_STONE("tombStone", false),
     SKULL1("skull1", false),
-    SKULL2("skull2", false);
+    SKULL2("skull2", false),
+    DOOR("door", false),
+    CLOSED_DOOR("closedDoor", false);
 
 
     private final String tileName;
