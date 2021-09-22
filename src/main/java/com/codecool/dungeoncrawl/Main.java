@@ -143,8 +143,12 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < maps.get(currentMap).getWidth(); x++) {
-            for (int y = 0; y < maps.get(currentMap).getHeight(); y++) {
+        int visibleSize = 15;
+        int[] startCoordinates = maps.get(currentMap).getRefreshStartCoordinates(visibleSize);
+        int mapWidth = maps.get(currentMap).getWidth();
+        int mapHeight = maps.get(currentMap).getHeight();
+        for (int x = startCoordinates[0]; x < startCoordinates[0] + visibleSize; x++) {
+            for (int y = startCoordinates[1]; y < startCoordinates[1] + visibleSize; y++) {
                 Cell cell = maps.get(currentMap).getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);

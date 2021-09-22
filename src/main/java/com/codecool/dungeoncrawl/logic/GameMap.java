@@ -100,4 +100,29 @@ public class GameMap {
     public int getHeight() {
         return height;
     }
+
+    public int[] getRefreshStartCoordinates(int visibleSize){
+        int playerX = player.getX();
+        int playerY = player.getY();
+
+        int side = (visibleSize - 1) / 2;
+
+        int startX = playerX - side;
+        int startY = playerY - side;
+
+
+        if (playerX - side < 0){
+            startX = 0;
+        }else if (playerX + side >= width){
+            startX = (width - 1) - visibleSize ;
+        }
+
+        if (playerY - side < 0){
+            startY = 0;
+        }else if (playerY + side >= height){
+            startY = (height - 1) - visibleSize;
+        }
+
+        return new int[]{startX,startY};
+    }
 }
