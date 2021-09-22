@@ -90,22 +90,23 @@ public class Main extends Application {
                 maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
                 maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                 refresh();
-//            case A:
-//                map.getCell(40, 2).setType(CellType.FLOOR);
-//                refresh();
-//                break;
-//            case N:
-//                map.getCell(41, 2).setType(CellType.FLOOR);
-//                refresh();
-//                break;
-//            case D:
-//                map.getCell(42, 2).setType(CellType.FLOOR);
-//                refresh();
-//                break;
-//            case I:
-//                map.getCell(43, 2).setType(CellType.FLOOR);
-//                refresh();
-//                break;
+            case A:
+                maps.get(0).getCell(40, 2).setType(CellType.FLOOR);
+                refresh();
+               break;
+            case B:
+                maps.get(0).getCell(41, 2).setType(CellType.FLOOR);
+               refresh();
+                break;
+            case P:
+                maps.get(0).getCell(42, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+            case T:
+                maps.get(0).getCell(43, 2).setType(CellType.FLOOR);
+                refresh();
+                break;
+
 
 
 
