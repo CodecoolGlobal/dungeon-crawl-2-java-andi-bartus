@@ -66,13 +66,12 @@ public class MapLoader {
                             break;
                         case 'W':
                             cell.setType(CellType.FLOOR);
-                            map.addEnemy(new BigBoy(cell));
+                            map.addEnemy(new BigBoy(cell, "bigBoy"));
                             break;
                         case 'b':
-                            cell.setType(CellType.FLOOR);
-                            BigBoy bigBoy2 = new BigBoy(cell);
-                            bigBoy2.setTileNameToBigBoy2();
-                            map.addEnemy(bigBoy2);
+                            cell.setType(CellType.TOWN_ROAD);
+                            map.addEnemy(new BigBoy(cell, "bigBoy2"));
+
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);

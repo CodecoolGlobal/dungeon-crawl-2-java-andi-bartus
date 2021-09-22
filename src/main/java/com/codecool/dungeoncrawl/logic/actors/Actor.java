@@ -11,6 +11,8 @@ public abstract class Actor implements Drawable {
     private int health = 10;
     protected boolean canStepOn = false;
     protected int damage = 2;
+    String name;
+
 
 
 
@@ -18,6 +20,15 @@ public abstract class Actor implements Drawable {
         this.cell = cell;
         this.cell.setActor(this);
     }
+
+    public Actor(Cell cell, String tileName) {
+        this.cell = cell;
+        this.cell.setActor(this);
+        this.name = tileName;
+    }
+
+
+
 
     public abstract void move();
 
