@@ -16,5 +16,8 @@ public class Tequila extends Item{
 
     public void useTequila(Player player) {
         player.setHealth(player.getHealth() + healAmount);
+        player.setWaterLevel(Player.getMaxWaterLevel());
     }
+
+
 }

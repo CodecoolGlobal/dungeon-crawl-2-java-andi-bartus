@@ -55,12 +55,10 @@ public class MapLoader {
                             map.addItem(new Star(cell));
                             break;
                         case '@':
-                            cell.setType(CellType.FLOOR);
+                            cell.setType(CellType.TOWN_ROAD);
                             Player player2 = new Player(cell);
                             player2.setTileNameToPlayer2();
                             map.setPlayer(player2);
-                            /*map.setPlayer(map.getPlayer());
-                            map.getPlayer().setTileNameToPlayer2();*/
                             break;
                         case 'c':
                             cell.setType(CellType.FLOOR);

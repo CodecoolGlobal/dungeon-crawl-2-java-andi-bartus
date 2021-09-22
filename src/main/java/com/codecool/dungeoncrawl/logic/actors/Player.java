@@ -96,15 +96,20 @@ public class Player extends Actor {
     }
 
     private boolean canOpenDoor() {
+        int counter = 0;
         for (Item item : inventory) {
-            if (item.getTileName().equals("star")) {
-                return true;
+            if (item.getTileName().equals("hat") || item.getTileName().equals("boots")) {
+                counter++;
             }
         }
-        return false;
+        return counter == 2;
     }
 
     public void setInventory(ArrayList<Item> inventory) {
         this.inventory = inventory;
+    }
+
+    public static int getMaxWaterLevel() {
+        return MAX_WATER_LEVEL;
     }
 }
