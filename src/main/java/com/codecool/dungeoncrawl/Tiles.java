@@ -47,10 +47,27 @@ public class Tiles {
         tileMap.put("churchTop1", new Tile(25, 12));
         tileMap.put("churchTop2", new Tile(2, 12));
         tileMap.put("churchHouse", new Tile(0, 13));
-
-
         tileMap.put("scorpion", new Tile(24, 5));
         tileMap.put("bigBoy", new Tile(30, 6));
+        tileMap.put("town_road", new Tile(1,0));
+        tileMap.put("house_base_left", new Tile(10, 16));
+        tileMap.put("house_base_center", new Tile(11, 16));
+        tileMap.put("house_base_right", new Tile(12, 16));
+        tileMap.put("house_wall", new Tile(13, 16));
+        tileMap.put("house_window_1", new Tile(13, 15));
+        tileMap.put("house_window_2", new Tile(14, 16));
+        tileMap.put("house_roof_left", new Tile(10, 15));
+        tileMap.put("house_roof_straight", new Tile(11, 15));
+        tileMap.put("house_roof_right", new Tile(12, 15));
+        tileMap.put("house_door", new Tile(15, 16));
+        tileMap.put("S", new Tile(24, 31));
+        tileMap.put("A", new Tile(19, 30));
+        tileMap.put("L", new Tile(30, 30));
+        tileMap.put("O", new Tile(20, 31));
+        tileMap.put("N", new Tile(19, 31));
+        tileMap.put("G", new Tile(25, 30));
+        tileMap.put("U", new Tile(26, 31));
+        tileMap.put("saloon_door", new Tile(5, 7));
 
     }
 
