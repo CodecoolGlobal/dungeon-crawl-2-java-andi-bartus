@@ -161,7 +161,7 @@ public class Main extends Application {
                 else {
                     Tiles.drawTile(context, cell, k, j);
                 }
-            j++;
+                j++;
             }
             j=0;
             k++;

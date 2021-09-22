@@ -113,14 +113,14 @@ public class GameMap {
 
         if (playerX - side < 0){
             startX = 0;
-        }else if (playerX + side >= width){
-            startX = (width - 1) - visibleSize ;
+        }else if (playerX + side >= width-1){
+            startX = (width) - visibleSize;
         }
 
         if (playerY - side < 0){
             startY = 0;
-        }else if (playerY + side >= height){
-            startY = (height - 1) - visibleSize;
+        }else if (playerY + side >= height-1){
+            startY = (height) - visibleSize;
         }
 
         return new int[]{startX,startY};
