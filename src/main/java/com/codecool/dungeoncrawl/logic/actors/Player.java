@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.items.Gun;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Tequila;
 
@@ -16,7 +17,7 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
-        this.damage = 4;
+        this.damage = 5;
         this.setHealth(1000);
         this.inventory = new ArrayList<>();
         this.waterLevel = MAX_WATER_LEVEL;
@@ -36,6 +37,9 @@ public class Player extends Actor {
             ((Tequila) item).useTequila(this);
         }
         else if (item != null){
+            if(item instanceof Gun){
+                ((Gun) item).pickUpGun(this);
+            }
             inventory.add(item);
         }
     }

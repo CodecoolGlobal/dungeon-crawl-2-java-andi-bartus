@@ -42,8 +42,6 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
-
-
     public boolean getCanStepOn() {
         return canStepOn;
     }
@@ -54,5 +52,9 @@ public abstract class Actor implements Drawable {
 
     public int getDamage() {
         return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }
