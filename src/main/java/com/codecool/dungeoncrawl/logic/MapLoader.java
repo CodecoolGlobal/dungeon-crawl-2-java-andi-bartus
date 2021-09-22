@@ -44,8 +44,11 @@ public class MapLoader {
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(map.getPlayer());
-                            map.getPlayer().setTileNameToPlayer2();
+                            Player player2 = new Player(cell);
+                            player2.setTileNameToPlayer2();
+                            map.setPlayer(player2);
+                            /*map.setPlayer(map.getPlayer());
+                            map.getPlayer().setTileNameToPlayer2();*/
                             break;
                         case 'c':
                             cell.setType(CellType.FLOOR);
@@ -106,7 +109,7 @@ public class MapLoader {
                         case 'Q':
                             cell.setType(CellType.HOUSE_BASE_LEFT);
                             break;
-                        case 'W':
+                        case 'l':
                             cell.setType(CellType.HOUSE_BASE_CENTER);
                             break;
                         case 'E':

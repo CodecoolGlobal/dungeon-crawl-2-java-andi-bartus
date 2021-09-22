@@ -35,7 +35,7 @@ public enum CellType {
     N("N", false),
     G("G", false),
     U("U", false),
-    SALOON_DOOR("saloon_door", false);
+    SALOON_DOOR("saloon_door", false),
     HORSE("horse", false);
 
 
