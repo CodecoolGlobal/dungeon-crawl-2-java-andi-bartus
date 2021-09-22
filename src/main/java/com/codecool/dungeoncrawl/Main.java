@@ -91,24 +91,29 @@ public class Main extends Application {
                 maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
                 maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                 refresh();
-            case A:
-                maps.get(currentMap).getCell(39, 2).setType(CellType.FLOOR);
-                maps.get(currentMap).getCell(40, 3).setType(CellType.FLOOR);
+            case A: //andi
+                maps.get(0).getCell(40, 2).setType(CellType.FLOOR);
+                refresh();
+               break;
+            case B: //bence
+                maps.get(0).getCell(41, 2).setType(CellType.FLOOR);
+               refresh();
+                break;
+            case P: //peti
+                maps.get(0).getCell(42, 2).setType(CellType.FLOOR);
                 refresh();
                 break;
-            case N:
-                maps.get(currentMap).getCell(41, 2).setType(CellType.FLOOR);
+            case T: //tomi
+                maps.get(0).getCell(43, 2).setType(CellType.FLOOR);
                 refresh();
                 break;
-            case D:
-                maps.get(currentMap).getCell(42, 2).setType(CellType.FLOOR);
-                refresh();
-                break;
-            case I:
-                maps.get(currentMap).getCell(43, 2).setType(CellType.FLOOR);
-                refresh();
-                break;
-        }
+
+
+
+
+        }//restart?
+
+
     }
 
     private void movement(int dx, int dy){
