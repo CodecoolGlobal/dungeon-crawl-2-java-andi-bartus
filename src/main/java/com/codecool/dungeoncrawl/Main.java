@@ -68,6 +68,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        primaryStage.setMaximized(true);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
