@@ -1,9 +1,10 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class Tequila extends Item{
-    private final int value = 5;
+    private final int healAmount = 5;
 
     public Tequila(Cell cell) {
         super(cell);
@@ -13,7 +14,7 @@ public class Tequila extends Item{
         return "tequila";
     }
 
-    public int getValue() {
-        return value;
+    public void useTequila(Player player) {
+        player.setHealth(player.getHealth() + healAmount);
     }
 }

@@ -28,8 +28,7 @@ public class Player extends Actor {
 
     public void addToInventory(Item item){
         if (item instanceof Tequila){
-            this.setHealth(this.getHealth() + ((Tequila) item).getValue());
-            this.setWaterLevel(MAX_WATER_LEVEL);
+            ((Tequila) item).useTequila(this);
         }
         else if (item != null){
             inventory.add(item);
