@@ -21,9 +21,10 @@ public class Main extends Application {
     List<GameMap> maps = MapLoader.loadAllMaps();
     int currentMap = 0;
     int lastMap;
+    int visibleSize = 20;
     Canvas canvas = new Canvas(
-            maps.get(currentMap).getWidth() * Tiles.TILE_WIDTH,
-            maps.get(currentMap).getHeight() * Tiles.TILE_WIDTH);
+            visibleSize * Tiles.TILE_WIDTH,
+            visibleSize * Tiles.TILE_WIDTH);
 
     Canvas inventorycanvas = new Canvas(
             3 * Tiles.TILE_WIDTH,
@@ -143,23 +144,29 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        int visibleSize = 15;
+
         int[] startCoordinates = maps.get(currentMap).getRefreshStartCoordinates(visibleSize);
-        int mapWidth = maps.get(currentMap).getWidth();
-        int mapHeight = maps.get(currentMap).getHeight();
+
+        int j = 0;
+        int k = 0;
+
         for (int x = startCoordinates[0]; x < startCoordinates[0] + visibleSize; x++) {
             for (int y = startCoordinates[1]; y < startCoordinates[1] + visibleSize; y++) {
                 Cell cell = maps.get(currentMap).getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
+                    Tiles.drawTile(context, cell.getActor(), k, j);
                 } else if(cell.getItem() != null){
-                    Tiles.drawTile(context, cell.getItem(), x , y);
+                    Tiles.drawTile(context, cell.getItem(), k , j);
                 }
                 else {
-                    Tiles.drawTile(context, cell, x, y);
+                    Tiles.drawTile(context, cell, k, j);
                 }
+            j++;
             }
+            j=0;
+            k++;
         }
+        k=0;
         healthLabel.setText("" + maps.get(currentMap).getPlayer().getHealth());
         waterLevelLabel.setText("" + maps.get(currentMap).getPlayer().getWaterLevel());
         for (int i = 0; i < maps.get(currentMap).getPlayer().getInventory().size(); i++) {

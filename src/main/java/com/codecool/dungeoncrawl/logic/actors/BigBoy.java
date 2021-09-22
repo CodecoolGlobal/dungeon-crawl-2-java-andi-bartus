@@ -35,7 +35,6 @@ public class BigBoy extends Actor{
     public void move(){//bot
         if(coolDown == 0){
             ArrayList<Cell> targetCells = cell.getPossibleBotMoves();
-            System.out.println("moveable tiles count "+targetCells.size());
             Cell nextCell;
             if (targetCells.size() == 1 && targetCells.get(0).getActor() == null){//move to that cell; (does it work?)
                 nextCell = targetCells.get(0);
