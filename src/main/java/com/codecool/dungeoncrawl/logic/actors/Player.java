@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
-    int MAX_WATER_LEVEL = 20;
+    private static final int MAX_WATER_LEVEL = 20;
 
     private String tileName = "player";
 
