@@ -1,4 +1,4 @@
-60 30
+62 30
 
 
 
@@ -7,22 +7,22 @@
 
 
 
-                                           ASLFFG
-            HJGA     x                    UIIIIIIO
-       UIO UIIIIO    R  UIO     UIO  UIIO TTTTTTTT UII
- UIIO  RZR RRRRRR   UTO RZRUIO  RRRO RZZR RRRRRRRR RRR
- ZPPZ  TPT ZZPPZZ   ZdZ TPTZPZ  ZPZR TPPT ZZPPZZDZ TPP
----------------------@--------------------------------
-------------------------------------------------------
----------b---------------------------------------------
-----------b--------------------------------------------
------------b-------------------------------------------
-------------b------------------------------------------
--------------b-----------------------------------------
-------------------------------UIIO----------UIIO------
------UIO----UIO--------UIIIO--RRRRUIIIIIO--URRRRO--UII
--UIO-RRR--UIRRR--UIIIO-RRRRR--RRRRRRRRRRR--RRRRRR--RRR
- RRR RRR  RRRRR  RRRRR RRRRR  RRRRRRRRRRR  RRRRRR  RRR
+                                            ASLFFG
+             HJGA     x                    UIIIIIIO
+        UIO UIIIIO    R  UIO     UIO  UIIO TTTTTTTT UII
+  UIIO  RZR RRRRRR   UTO RZRUIO  RRRO RZZR RRRRRRRR RRR
+  ZPPZ  TPT ZZPPZZ   ZdZ TPTZPZ  ZPZR TPPT ZZPPZZDZ TPP
+ ---------------------@--------------------------------
+ ------------------------------------------------------
+ ---------b--------------------------------------------
+ ----------b-------------------------------------------
+ -----------b------------------------------------------
+ ------------b-----------------------------------------
+ -------------b----------------------------------------
+ ------------------------------UIIO----------UIIO------
+ -----UIO----UIO--------UIIIO--RRRRUIIIIIO--URRRRO--UII
+ -UIO-RRR--UIRRR--UIIIO-RRRRR--RRRRRRRRRRR--RRRRRR--RRR
+  RRR RRR  RRRRR  RRRRR RRRRR  RRRRRRRRRRR  RRRRRR  RRR
 
 
 

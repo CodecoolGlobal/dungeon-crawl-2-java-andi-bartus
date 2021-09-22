@@ -70,7 +70,9 @@ public class Cell implements Drawable {
         ArrayList<Cell> stepAbleCells = new ArrayList<>();
         for (int[] difference:coordinateDifferences) {
             neighbor = gameMap.getCell(x+difference[0], y+difference[1]);
-            if (neighbor.getActor()!= null && neighbor.getActor().getTileName().equals("player")){
+            if (neighbor.getActor()!= null && (neighbor.getActor().getTileName().equals("player")
+                || neighbor.getActor().getTileName().equals("player2"))){
+
                 neighbor.getActor().setHealth(
                         neighbor.getActor().getHealth() - gameMap.getCell(x,y).getActor().getDamage()
                 );
