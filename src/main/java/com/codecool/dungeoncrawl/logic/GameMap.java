@@ -68,7 +68,9 @@ public class GameMap {
         for (Actor enemy: enemies){
             if (enemy.getHealth() < 0){
                 cells[enemy.getX()][enemy.getY()].setActor(null);
-                cells[enemy.getX()][enemy.getY()].setItem(new Coin(cells[enemy.getX()][enemy.getY()], enemy.getCoinValue()));
+                if(cells[enemy.getX()][enemy.getY()].getItem() == null){
+                    cells[enemy.getX()][enemy.getY()].setItem(new Coin(cells[enemy.getX()][enemy.getY()], enemy.getCoinValue()));
+                }
                 enemies.remove(enemy);
                 break;
             }
