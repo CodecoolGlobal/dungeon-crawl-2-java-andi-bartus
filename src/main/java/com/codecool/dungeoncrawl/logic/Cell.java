@@ -132,9 +132,10 @@ public class Cell implements Drawable {
             possibleMove = gameMap.getCell(gangstaX + difference[0], gangstaY + difference[1]);
 
             if (possibleMove.getActor() != null && possibleMove.getActor().getTileName().equals("player3")){
-                possibleMove.getActor().setHealth(
-                        possibleMove.getActor().getHealth() - gameMap.getCell(gangstaX, gangstaY).getActor().getDamage()
+                gameMap.getPlayer().setHealth(
+                        gameMap.getPlayer().getHealth() - gameMap.getCell(gangstaX, gangstaY).getActor().getDamage()
                 );
+                System.out.println(gameMap.getCell(gangstaX,gangstaY).getActor().getDamage());
             }else if (possibleMove.getType().getCanStepOn() && possibleMove.getActor()==null){
                 possibleMoveDistance = getDistanceOfCells(playerX, playerY, possibleMove.getX(), possibleMove.getY());
                 if (baseDistance >= possibleMoveDistance){
