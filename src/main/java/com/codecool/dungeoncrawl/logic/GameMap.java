@@ -39,6 +39,10 @@ public class GameMap {
         player.setDamage(originalPlayer.getDamage());
     }
 
+    public void setCellActor(int x, int y, Actor actor) {
+        this.cells[x][y].setActor(actor);
+    }
+
     public Cell getCell(int x, int y) {
         return cells[x][y];
     }

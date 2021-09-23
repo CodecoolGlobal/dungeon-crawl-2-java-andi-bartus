@@ -45,7 +45,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            map.addEnemy(new Skeleton(cell));//make generic ? (<enemy> ? for multiple enemy types)
+                            map.addEnemy(new Gangsta(cell));//make generic ? (<enemy> ? for multiple enemy types)
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
@@ -250,6 +250,11 @@ public class MapLoader {
                         case 'o':
                             cell.setType(CellType.SALOONWALL);
                             break;
+                        case 'm':
+                            cell.setType(CellType.SALOONFLOOR);
+                            map.addEnemy(new Gangsta(cell));
+                            break;
+
 
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

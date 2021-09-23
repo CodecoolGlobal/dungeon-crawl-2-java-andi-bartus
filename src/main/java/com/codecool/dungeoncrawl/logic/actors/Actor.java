@@ -35,7 +35,9 @@ public abstract class Actor implements Drawable {
     public void move(int dx, int dy){//player
     }
 
-
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
 
     public int getHealth() {
         return health;

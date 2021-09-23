@@ -54,7 +54,8 @@ public enum CellType {
     BARMAN("barMan", false),
     SALOONWALL("saloonWall", false),
     TEQUILA2("tequila2", true),
-    TEQUILA3("tequila3", true);
+    TEQUILA3("tequila3", true),
+    GANGSTA("gangsta", true);
 
 
 

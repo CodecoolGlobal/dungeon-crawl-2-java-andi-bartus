@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Gangsta;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class Cell implements Drawable {
         }
         return stepAbleCells;
     }
+
     public ArrayList<Cell> getPossibleNPCMoves(){
         int[][] coordinateDifferences ={
                 {0,  1},
@@ -102,6 +104,49 @@ public class Cell implements Drawable {
             }
         }
         return stepAbleCells;
+    }
+
+    public double getDistanceOfCells(int baseX, int baseY, int targetX, int targetY){
+        double dX = Math.abs(baseX - targetX);
+        double dY = Math.abs(baseY - targetY);
+
+        return (dX + dY) / 2;
+    }
+
+    public void gangstaMovement(Gangsta gangsta){
+        int playerX = gameMap.getPlayer().getX();
+        int playerY = gameMap.getPlayer().getY();
+        int gangstaX = gangsta.getX();
+        int gangstaY = gangsta.getY();
+        double baseDistance = getDistanceOfCells(playerX, playerY, gangstaX, gangstaY);
+        int[][] coordinateDifferences ={
+                {1,  0},
+                {-1, 0},
+                {0,  -1},
+                {0, 1},
+        };
+
+        Cell possibleMove;
+        double possibleMoveDistance;
+        for (int[] difference:coordinateDifferences) {
+            possibleMove = gameMap.getCell(gangstaX + difference[0], gangstaY + difference[1]);
+
+            if (possibleMove.getActor() != null && possibleMove.getActor().getTileName().equals("player2")){
+                possibleMove.getActor().setHealth(
+                        possibleMove.getActor().getHealth() - gameMap.getCell(gangstaX, gangstaY).getActor().getDamage()
+                );
+                System.out.println("hit");
+            }else if (possibleMove.getType().getCanStepOn() && possibleMove.getActor()==null){
+                possibleMoveDistance = getDistanceOfCells(playerX, playerY, possibleMove.getX(), possibleMove.getY());
+                if (baseDistance >= possibleMoveDistance){
+                    possibleMove.setActor(gangsta);
+                    gameMap.setCellActor(gangstaX, gangstaY,null);
+                    gangsta.setCell(possibleMove);
+                    System.out.println("move");
+                    break;
+                }
+            }
+        }
     }
 
 

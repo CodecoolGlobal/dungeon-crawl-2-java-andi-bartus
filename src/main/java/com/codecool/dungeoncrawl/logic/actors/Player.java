@@ -17,7 +17,7 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
-        this.damage = 5;
+        this.damage = 50;
         this.setHealth(100000);
         this.inventory = new ArrayList<>();
         this.waterLevel = MAX_WATER_LEVEL;
