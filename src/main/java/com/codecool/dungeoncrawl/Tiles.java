@@ -10,13 +10,13 @@ import java.util.Map;
 public class Tiles {
     public static int TILE_WIDTH = 32;
 
-    private static Image tileset = new Image("/tiles2.png", 543 * 2, 543 * 2, true, false);
+    private static Image tileset = new Image("/tiles2.png", 543 * 2, 543 * 2, false, false);
     private static Map<String, Tile> tileMap = new HashMap<>();
     public static class Tile {
         public final int x, y, w, h;
         Tile(int i, int j) {
-            x = i * (TILE_WIDTH + 2);
-            y = j * (TILE_WIDTH + 2);
+            x = (i * (TILE_WIDTH + 2));
+            y = (j * (TILE_WIDTH + 2));
             w = TILE_WIDTH;
             h = TILE_WIDTH;
         }
@@ -129,8 +129,9 @@ public class Tiles {
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
+        double a = 1.25;
         Tile tile = tileMap.get(d.getTileName());
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
-                x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+                x * TILE_WIDTH * a, y * TILE_WIDTH * a, TILE_WIDTH * a, TILE_WIDTH * a);
     }
 }
