@@ -11,6 +11,8 @@ public abstract class Actor implements Drawable {
     protected int health;
     protected boolean canStepOn = false;
     protected int damage;
+    protected int coinValue;
+
     String name;
 
 
@@ -67,5 +69,9 @@ public abstract class Actor implements Drawable {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getCoinValue() {
+        return coinValue;
     }
 }

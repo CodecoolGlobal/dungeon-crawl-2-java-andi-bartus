@@ -103,8 +103,7 @@ public class Tiles {
         tileMap.put("revolver", new Tile(5, 31));
         tileMap.put("uzi", new Tile(9, 31));
         tileMap.put("sniper", new Tile(10, 31));
-
-
+        tileMap.put("coin", new Tile(19, 28));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

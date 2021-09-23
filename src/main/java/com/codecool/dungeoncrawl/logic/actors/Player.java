@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.items.Coin;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Tequila;
 import com.codecool.dungeoncrawl.logic.items.Gun;
@@ -14,6 +15,7 @@ public class Player extends Actor {
     private static final int MAX_WATER_LEVEL = 20000;
     private String tileName = "player";
     private int playerMapLevel;
+    private int money;
 
     public Player(Cell cell) {
         super(cell);
@@ -22,6 +24,7 @@ public class Player extends Actor {
         this.inventory = new ArrayList<>();
         this.waterLevel = MAX_WATER_LEVEL;
         this.playerMapLevel = 0;
+        this.money = 0;
     }
 
     public String getTileName() {
@@ -35,7 +38,11 @@ public class Player extends Actor {
     public void addToInventory(Item item){
         if (item instanceof Tequila){
             ((Tequila) item).useTequila(this);
-        }else if (item != null){
+        }
+        else if (item instanceof Coin){
+            ((Coin) item).pickupCoin(this);
+        }
+        else if (item != null){
             if (item instanceof Gun){
                 ((Gun) item).pickUpGun(this);
             }
@@ -124,5 +131,13 @@ public class Player extends Actor {
 
     public static int getMaxWaterLevel() {
         return MAX_WATER_LEVEL;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }
