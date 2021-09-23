@@ -38,7 +38,6 @@ public class Tiles {
         tileMap.put("hat", new Tile(14, 24));
         tileMap.put("horse", new Tile(28, 7));
         tileMap.put("skeleton", new Tile(29, 6));
-
         tileMap.put("gun", new Tile(7, 31));
         tileMap.put("skull", new Tile(0, 15));
         tileMap.put("tombStone", new Tile(1, 14));//0:14 or 1:14 ?
@@ -48,9 +47,6 @@ public class Tiles {
         tileMap.put("tequila", new Tile(16, 25));
         tileMap.put("tequila2", new Tile(25, 23));
         tileMap.put("tequila3", new Tile(24, 23));
-        //tileMap.put("tequila2", new Tile(23, 24));
-        //tileMap.put("tequila3", new Tile(23, 25));
-
         tileMap.put("drink1", new Tile(16, 26));
         tileMap.put("drink2", new Tile(17, 25));
         tileMap.put("drink3", new Tile(18, 26));
@@ -105,7 +101,6 @@ public class Tiles {
         tileMap.put("barCenterDown", new Tile(17, 18));
         tileMap.put("barRightTop", new Tile(18, 16));
         tileMap.put("barRightDown", new Tile(18, 18));
-
         tileMap.put("poker1", new Tile(16, 19));
         tileMap.put("poker2", new Tile(17, 19));
         tileMap.put("poker3", new Tile(18, 19));
@@ -115,8 +110,6 @@ public class Tiles {
         tileMap.put("poker7", new Tile(17, 21));
         tileMap.put("poker8", new Tile(18, 21));
         tileMap.put("ace", new Tile(20, 16));
-
-
         tileMap.put("table1", new Tile(0, 16));
         tileMap.put("table2", new Tile(1, 16));
         tileMap.put("table3", new Tile(2, 16));
@@ -127,9 +120,6 @@ public class Tiles {
         tileMap.put("table8", new Tile(1, 18));
         tileMap.put("table9", new Tile(2, 18));
         tileMap.put("samli", new Tile(2, 8));
-
-
-
         tileMap.put("revolver", new Tile(5, 31));
         tileMap.put("uzi", new Tile(9, 31));
         tileMap.put("sniper", new Tile(10, 31));

@@ -48,7 +48,7 @@ public class MapLoader {
                             map.addEnemy(new Skeleton(cell));//make generic ? (<enemy> ? for multiple enemy types)
                             break;
                         case 'k':
-                            cell.setType(CellType.FLOOR);
+                            cell.setType(CellType.TOWN_ROAD);
                             map.addItem(new Star(cell));
                             break;
                         case '@':
