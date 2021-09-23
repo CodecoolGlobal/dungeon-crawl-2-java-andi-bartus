@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map3.txt"};
+    private static final String[] mapFileNames = {"/map1.txt", "/map2.txt", "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
