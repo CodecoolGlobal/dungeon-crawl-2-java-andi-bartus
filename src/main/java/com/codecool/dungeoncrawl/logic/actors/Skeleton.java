@@ -8,7 +8,8 @@ import java.util.Random;
 public class Skeleton extends Actor {
     public Skeleton(Cell cell) {
         super(cell);
-        this.damage = 3;
+        this.damage = 5;
+        this.health = 30;
     }
 
     @Override

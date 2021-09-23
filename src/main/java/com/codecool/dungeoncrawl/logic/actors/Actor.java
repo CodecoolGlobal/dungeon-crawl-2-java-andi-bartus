@@ -8,9 +8,9 @@ import java.util.Random;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
-    private int health = 10;
+    protected int health;
     protected boolean canStepOn = false;
-    protected int damage = 2;
+    protected int damage;
     String name;
 
 

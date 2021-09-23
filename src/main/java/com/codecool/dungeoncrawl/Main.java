@@ -120,10 +120,9 @@ public class Main extends Application {
     }
 
     private void movement(int dx, int dy){
-        if (maps.get(currentMap).getPlayer().getWaterLevel() > 0){
+        if (maps.get(currentMap).getPlayer().getWaterLevel() > 0 && maps.get(currentMap).getPlayer().getHealth() > 0){
             maps.get(currentMap).getPlayer().setWaterLevel(maps.get(currentMap).getPlayer().getWaterLevel()-1);
-        }
-        else {
+        } else if (maps.get(currentMap).getPlayer().getHealth() > 0){
             maps.get(currentMap).getPlayer().setHealth(maps.get(currentMap).getPlayer().getHealth()-1);
         }
         if(maps.get(currentMap).getPlayer().getHealth() > 0){
@@ -136,7 +135,7 @@ public class Main extends Application {
                 maps.get(currentMap).setPlayerStats(maps.get(lastMap).getPlayer());
             }
         }
-        else if(maps.get(currentMap).getPlayer().getHealth() < 1){
+        if(maps.get(currentMap).getPlayer().getHealth() < 1){
             maps.get(currentMap).getPlayer().setHealth(0);
             maps.get(currentMap).getPlayer().setTileNameToTombStone();
         }

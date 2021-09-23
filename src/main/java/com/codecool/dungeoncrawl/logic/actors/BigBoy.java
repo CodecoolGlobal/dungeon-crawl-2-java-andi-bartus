@@ -14,6 +14,8 @@ public class BigBoy extends Actor{
     public BigBoy(Cell cell, String tileName) {
         super(cell, tileName);
         this.tileName = tileName;
+        this.health = 40;
+        this.damage = 20;
     }
 
     @Override
@@ -49,7 +51,8 @@ public class BigBoy extends Actor{
                 nextCell.setActor(this);
                 cell = nextCell;
             }
-            coolDown = 1;
+            Random random = new Random();
+            coolDown = random.nextInt(3);
         }
         else{
             coolDown--;
