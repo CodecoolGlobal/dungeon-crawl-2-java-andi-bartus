@@ -92,6 +92,7 @@ public class Main extends Application {
                 maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
                 maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                 refresh();
+                break;
             case A: //andi
                 maps.get(0).getCell(40, 3).setType(CellType.FLOOR);
                 refresh();

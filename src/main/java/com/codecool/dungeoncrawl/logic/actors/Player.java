@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Tequila;
+import com.codecool.dungeoncrawl.logic.items.Gun;
 
 import java.util.ArrayList;
 public class Player extends Actor {
@@ -34,8 +35,10 @@ public class Player extends Actor {
     public void addToInventory(Item item){
         if (item instanceof Tequila){
             ((Tequila) item).useTequila(this);
-        }
-        else if (item != null){
+        }else if (item != null){
+            if (item instanceof Gun){
+                ((Gun) item).pickUpGun(this);
+            }
             inventory.add(item);
         }
     }
