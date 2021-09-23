@@ -43,10 +43,12 @@ public class Player extends Actor {
             ((Coin) item).pickupCoin(this);
         }
         else if (item != null){
-            if (item instanceof Gun){
+            if (item instanceof Gun) {
                 ((Gun) item).pickUpGun(this);
             }
-            inventory.add(item);
+                inventory.add(item);
+
+
         }
     }
 
@@ -139,5 +141,9 @@ public class Player extends Actor {
 
     public int getMoney() {
         return money;
+    }
+
+    public boolean checkMoneyForGun(){
+        return this.getMoney() >= Gun.getCost();
     }
 }

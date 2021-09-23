@@ -5,21 +5,22 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class Gun extends Item{
     private final int damage = 15;
+    private static final int cost = 100;
 
     public Gun(Cell cell) {
         super(cell);
     }
 
-
     public String getTileName() {
         return "gun";
     }
 
-    public int getDamage() {
-        return damage;
+    public void pickUpGun(Player player){
+        player.setMoney(player.getMoney()-cost);
+        player.setDamage(player.getDamage() + damage);
     }
 
-    public void pickUpGun(Player player){
-        player.setDamage(player.getDamage() + damage);
+    public static int getCost() {
+        return cost;
     }
 }
