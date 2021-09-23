@@ -329,12 +329,17 @@ public class MapLoader {
                         case 'Ö':
                             cell.setType(CellType.ACE);
                             break;
+                       case 'r':
+                            cell.setType(CellType.REVOLVER);
+                            break;
 
+                        case 'u':
+                            cell.setType(CellType.UZI);
+                            break;
 
-
-
-
-
+                        case 'm':
+                            cell.setType(CellType.SNIPER);
+                            break;
 
 
                         default:
