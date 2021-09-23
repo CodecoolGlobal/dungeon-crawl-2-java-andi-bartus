@@ -88,6 +88,12 @@ public class Tiles {
         tileMap.put("bigBoy", new Tile(31, 6));
         tileMap.put("sky", new Tile(8, 5));
         tileMap.put("gate" , new Tile(0,7));
+        tileMap.put("NPC1", new Tile(25, 7));
+        tileMap.put("NPC2", new Tile(31, 7));
+        tileMap.put("NPC3", new Tile(25, 4));
+        tileMap.put("NPC4", new Tile(31, 4));
+        tileMap.put("NPC5", new Tile(27, 1));
+        tileMap.put("NPC6", new Tile(26, 1));
         tileMap.put("saloonFloor", new Tile(0, 1));
         tileMap.put("barLeftTop", new Tile(16, 16));
         tileMap.put("barLeftDown", new Tile(16, 18));
@@ -95,9 +101,6 @@ public class Tiles {
         tileMap.put("barCenterDown", new Tile(17, 18));
         tileMap.put("barRightTop", new Tile(18, 16));
         tileMap.put("barRightDown", new Tile(18, 18));
-
-
-
 
 
     }
