@@ -268,13 +268,13 @@ public class MapLoader {
                             cell.setType(CellType.SALOONWALL);
                             break;
 
-                        case 'r':
+                        case 'V':
                             cell.setType(CellType.TABLE1);
                             break;
                         case 'z':
                             cell.setType(CellType.TABLE2);
                             break;
-                        case 'u':
+                        case 'Á':
                             cell.setType(CellType.TABLE3);
                             break;
                         case 'i':
@@ -296,7 +296,7 @@ public class MapLoader {
                             cell.setType(CellType.TABLE9);
                             break;
 
-                        case 'm':
+                        case 'M':
                             cell.setType(CellType.SAMLI);
                             break;
 
@@ -329,6 +329,7 @@ public class MapLoader {
                         case 'Ö':
                             cell.setType(CellType.ACE);
                             break;
+
 
 
 
