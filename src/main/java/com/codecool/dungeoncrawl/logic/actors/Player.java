@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Coin;
@@ -90,7 +89,7 @@ public class Player extends Actor {
     public void move(){}
 
 
-    public void movePlayer(int dx, int dy) {//player
+    public void movePlayer(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
             cell.setActor(null);
@@ -104,7 +103,7 @@ public class Player extends Actor {
                     if(canOpenGate(nextCell)) {
                         this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
                     }
-        }else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {//hitTargetEnemyBot;
+        }else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {
             nextCell.getActor().setHealth(
                     nextCell.getActor().getHealth() - cell.getActor().getDamage()
             );
@@ -130,15 +129,11 @@ public class Player extends Actor {
                 }
             }
         }
-        return counter == 2;//if currentMap == 0
+        return counter == 2;
     }
 
     public void setInventory(ArrayList<Item> inventory) {
         this.inventory = inventory;
-    }
-
-    public static int getMaxWaterLevel() {
-        return initialWaterLevel;
     }
 
     public void setMoney(int money) {

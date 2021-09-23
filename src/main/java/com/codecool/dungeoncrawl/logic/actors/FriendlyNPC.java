@@ -24,16 +24,15 @@ public class FriendlyNPC extends Actor {
     }
 
     @Override
-    public void move(){//bot
+    public void move(){
         ArrayList<Cell> targetCells = cell.getPossibleNPCMoves();
         Cell nextCell;
-        if (targetCells.size() == 1 && targetCells.get(0).getActor() == null){//move to that cell; (does it work?)
+        if (targetCells.size() == 1 && targetCells.get(0).getActor() == null){
             nextCell = targetCells.get(0);
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }else if(targetCells.size() > 1){
-            //pick random cell to move to (does it work yet?)
             nextCell = targetCells.get(random.nextInt(targetCells.size()));
             cell.setActor(null);
             nextCell.setActor(this);

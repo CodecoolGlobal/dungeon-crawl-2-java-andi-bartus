@@ -24,7 +24,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.List;
 
@@ -136,14 +135,7 @@ public class Main extends Application {
                 maps.get(0).getCell(43, 3).setType(CellType.FLOOR);
                 refresh();
                 break;
-
-
-
-
-
-        }//restart?
-
-
+        }
     }
 
     private void movement(int dx, int dy){
@@ -203,16 +195,8 @@ public class Main extends Application {
         }
     }
 
-    public int getCurrentMap() {
-        return currentMap;
-    }
-
-    public void setCurrentMap(int currentMap) {
-        this.currentMap=currentMap;
-    }
 
     public void end() {
-        //Creating a Text object
         Text text = new Text();
 
 

@@ -78,7 +78,7 @@ public class Cell implements Drawable {
                         neighbor.getActor().getHealth() - gameMap.getCell(x,y).getActor().getDamage()
                 );
 
-                ArrayList<Cell> player = new ArrayList<>();//no movement (check length == 0 when returned
+                ArrayList<Cell> player = new ArrayList<>();
                 player.add(neighbor);
                 return player;
             }else if (neighbor.getType().getCanStepOn() && neighbor.getActor()==null){

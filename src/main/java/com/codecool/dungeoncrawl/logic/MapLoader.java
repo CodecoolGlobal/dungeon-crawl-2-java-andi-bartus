@@ -127,27 +127,27 @@ public class MapLoader {
                             break;
                         case 'D':
                             cell.setType(CellType.GATE);
-                            cell.addDoor(new Gate(cell, false, 1));
+                            cell.addDoor(new Gate(cell, 1));
                             break;
                         case 'd':
                             cell.setType(CellType.GATE);
-                            cell.addDoor(new Gate(cell, true, 0));
+                            cell.addDoor(new Gate(cell, 0));
                             break;
                         case 'É':
                             cell.setType(CellType.SALOON_DOOR);
-                            cell.addDoor(new Gate(cell, false, 3));
+                            cell.addDoor(new Gate(cell, 3));
                             break;
                         case 'é':
                             cell.setType(CellType.SALOON_DOOR);
-                            cell.addDoor(new Gate(cell, true, 1));
+                            cell.addDoor(new Gate(cell, 1));
                             break;
                         case 'Í':
                             cell.setType(CellType.GUN_STORE_DOOR);
-                            cell.addDoor(new Gate(cell, false, 2));
+                            cell.addDoor(new Gate(cell, 2));
                             break;
                         case 'í':
                             cell.setType(CellType.GUN_STORE_DOOR);
-                            cell.addDoor(new Gate(cell, true, 1));
+                            cell.addDoor(new Gate(cell, 1));
                             break;
                         case '-':
                             cell.setType(CellType.TOWN_ROAD);

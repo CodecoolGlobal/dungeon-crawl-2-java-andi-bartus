@@ -20,13 +20,11 @@ public class Scorpion extends Actor{
     }
 
     @Override
-    public void move(){//botn
+    public void move(){
         ArrayList<Cell> targetCells = cell.getPossibleBotMoves();
         Cell nextCell;
         if (targetCells.size() == 1 && targetCells.get(0).getActor() == null
-            ){//move to that cell; (does it work?)
-            //surrounding
-
+            ){
             Cell furtherMove = cell.getFurtherPlayer(getCell());
             Cell cornerMove = cell.getCornerPlayer(getCell());
 
@@ -42,9 +40,6 @@ public class Scorpion extends Actor{
             nextCell.setActor(this);
             cell = nextCell;
         } else if(targetCells.size() > 1){
-            //check surroundings
-            //
-            //pick random cell to move to (does it work yet?)
             Cell furtherMove = cell.getFurtherPlayer(getCell());
             Cell cornerMove = cell.getCornerPlayer(getCell());
 

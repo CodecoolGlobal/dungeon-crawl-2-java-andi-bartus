@@ -24,18 +24,8 @@ public class BigBoy extends Actor{
         return tileName;
     }
 
-   // public String setTileNameToBigBoy2(){ return "bigBoy2";}
-
-    public int getCoolDown() {
-        return coolDown;
-    }
-
-    public void setCoolDown(int coolDown) {
-        this.coolDown = coolDown;
-    }
-
     @Override
-    public void move(){//bot
+    public void move(){
         if(coolDown == 0){
             ArrayList<Cell> targetCells = cell.getPossibleBotMoves();
             Cell nextCell;
@@ -45,7 +35,6 @@ public class BigBoy extends Actor{
                 nextCell.setActor(this);
                 cell = nextCell;
             }else if(targetCells.size() > 1){
-                //pick random cell to move to (does it work yet?)
                 Random random = new Random();
                 nextCell = targetCells.get(random.nextInt(targetCells.size()));
                 cell.setActor(null);
