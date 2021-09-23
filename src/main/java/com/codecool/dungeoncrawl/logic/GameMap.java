@@ -40,6 +40,10 @@ public class GameMap {
         player.setMoney(originalPlayer.getMoney());
     }
 
+    public void setCellActor(int x, int y, Actor actor) {
+        this.cells[x][y].setActor(actor);
+    }
+
     public Cell getCell(int x, int y) {
         return cells[x][y];
     }

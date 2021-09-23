@@ -105,6 +105,7 @@ public class Tiles {
         tileMap.put("barCenterDown", new Tile(17, 18));
         tileMap.put("barRightTop", new Tile(18, 16));
         tileMap.put("barRightDown", new Tile(18, 18));
+        tileMap.put("gangsta", new Tile(30, 0));
 
         tileMap.put("poker1", new Tile(16, 19));
         tileMap.put("poker2", new Tile(17, 19));
