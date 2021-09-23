@@ -10,14 +10,14 @@ import java.util.ArrayList;
 public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
-    private static final int MAX_WATER_LEVEL = 22;
+    private static final int MAX_WATER_LEVEL = 20;
     private String tileName = "player";
     private int playerMapLevel;
 
     public Player(Cell cell) {
         super(cell);
         this.damage = 4;
-        this.setHealth(2000);
+        this.setHealth(1000);
         this.inventory = new ArrayList<>();
         this.waterLevel = MAX_WATER_LEVEL;
         this.playerMapLevel = 0;
