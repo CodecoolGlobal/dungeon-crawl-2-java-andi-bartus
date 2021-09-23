@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {/*"/map.txt", "/map2.txt","/gunstore.txt", */"/map3.txt"};
+    private static final String[] mapFileNames = {"/map.txt", "/map2.txt","/gunstore.txt", "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
@@ -271,8 +271,6 @@ public class MapLoader {
                             cell.setType(CellType.SALOONFLOOR);
                             map.addEnemy(new Gangsta(cell));
                             break;
-
-
                         case 'V':
                             cell.setType(CellType.TABLE1);
                             break;
@@ -342,7 +340,7 @@ public class MapLoader {
                             cell.setType(CellType.UZI);
                             break;
 
-                        case 'm':
+                        case 'ű':
                             cell.setType(CellType.SNIPER);
                             break;
 
