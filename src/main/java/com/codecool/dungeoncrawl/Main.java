@@ -110,7 +110,7 @@ public class Main extends Application {
                 if (maps.get(currentMap).getPlayer().getHealth()>0) {
                     if (maps.get(currentMap).getCell(x, y).getItem() instanceof Chick && maps.get(currentMap).getPlayer().canPickUpChick()) {
                         end();
-                    } else if (!(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun)) {
+                    } else if (!(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun) && !(maps.get(currentMap).getCell(x, y).getItem() instanceof Chick)) {
                         maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
                         maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                     } else if (maps.get(currentMap).getCell(x, y).getItem() instanceof Gun && maps.get(currentMap).getPlayer().checkMoneyForGun()) {
