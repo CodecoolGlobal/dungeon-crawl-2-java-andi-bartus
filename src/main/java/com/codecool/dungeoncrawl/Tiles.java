@@ -77,6 +77,12 @@ public class Tiles {
         tileMap.put("bigBoy2", new Tile(30, 6));
         tileMap.put("bigBoy", new Tile(31, 6));
         tileMap.put("sky", new Tile(8, 5));
+        tileMap.put("NPC1", new Tile(25, 7));
+        tileMap.put("NPC2", new Tile(31, 7));
+        tileMap.put("NPC3", new Tile(25, 4));
+        tileMap.put("NPC4", new Tile(31, 4));
+        tileMap.put("NPC5", new Tile(27, 1));
+        tileMap.put("NPC6", new Tile(26, 1));
 
 
     }

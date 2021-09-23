@@ -1,10 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Scorpion;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.items.*;
-import com.codecool.dungeoncrawl.logic.actors.BigBoy;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -197,6 +194,11 @@ public class MapLoader {
                         case '?':
                             cell.setType(CellType.CHURCHTOP2);
                             break;
+                        case 'N':
+                            cell.setType(CellType.TOWN_ROAD);
+                            map.addEnemy(new FriendlyNPC(cell, FriendlyNPC.getRandomNPCName()));
+                            break;
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

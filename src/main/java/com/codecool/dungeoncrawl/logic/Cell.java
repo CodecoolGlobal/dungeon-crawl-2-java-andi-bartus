@@ -86,6 +86,23 @@ public class Cell implements Drawable {
         }
         return stepAbleCells;
     }
+    public ArrayList<Cell> getPossibleNPCMoves(){
+        int[][] coordinateDifferences ={
+                {0,  1},
+                {0, -1},
+                {1,  0},
+                {-1, 0},
+        };
+        Cell neighbor;
+        ArrayList<Cell> stepAbleCells = new ArrayList<>();
+        for (int[] difference:coordinateDifferences) {
+            neighbor = gameMap.getCell(x+difference[0], y+difference[1]);
+            if (neighbor.getType().getCanStepOn() && neighbor.getActor()==null){
+                stepAbleCells.add(neighbor);
+            }
+        }
+        return stepAbleCells;
+    }
 
 
     public Cell getCornerPlayer(Cell mob){

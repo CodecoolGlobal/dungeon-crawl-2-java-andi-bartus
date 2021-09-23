@@ -91,7 +91,7 @@ public class Player extends Actor {
             System.out.println(nextCell.getDoor());
             System.out.println(nextCell.getDoor().getNewCurrentMap());
             this.playerMapLevel=nextCell.getDoor().getNewCurrentMap();
-        } else if (nextCell.getActor()!=null) {//hitTargetEnemyBot;
+        } else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {//hitTargetEnemyBot;
             nextCell.getActor().setHealth(
                     nextCell.getActor().getHealth() - cell.getActor().getDamage()
             );
