@@ -74,8 +74,10 @@ public enum CellType {
     ACE("ace", false),
     REVOLVER("revolver", true),
     UZI("uzi", true),
-    SNIPER("sniper", true);
-
+    SNIPER("sniper", true),
+    TEQUILA2("tequila2", true),
+    TEQUILA3("tequila3", true),
+    GANGSTA("gangsta", true);
 
 
 
