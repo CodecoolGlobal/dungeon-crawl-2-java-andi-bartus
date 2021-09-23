@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {/*"/map.txt", "/map2.txt","/gunstore.txt",*/ "/map3.txt"};
+    private static final String[] mapFileNames = {"/map.txt", "/map2.txt","/gunstore.txt", "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
