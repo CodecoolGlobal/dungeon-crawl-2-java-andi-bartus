@@ -12,17 +12,17 @@ import java.util.ArrayList;
 public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
-    private static final int MAX_WATER_LEVEL = 20000;
+    private static final int initialWaterLevel = 20;
     private String tileName = "player";
     private int playerMapLevel;
     private int money;
 
     public Player(Cell cell) {
         super(cell);
-        this.damage = 50;
-        this.setHealth(100000);
+        this.damage = 5;
+        this.setHealth(100);
         this.inventory = new ArrayList<>();
-        this.waterLevel = MAX_WATER_LEVEL;
+        this.waterLevel = initialWaterLevel;
         this.playerMapLevel = 0;
         this.money = 0;
     }
@@ -137,7 +137,7 @@ public class Player extends Actor {
     }
 
     public static int getMaxWaterLevel() {
-        return MAX_WATER_LEVEL;
+        return initialWaterLevel;
     }
 
     public void setMoney(int money) {
