@@ -131,7 +131,7 @@ public class Cell implements Drawable {
         for (int[] difference:coordinateDifferences) {
             possibleMove = gameMap.getCell(gangstaX + difference[0], gangstaY + difference[1]);
 
-            if (possibleMove.getActor() != null && possibleMove.getActor().getTileName().equals("player2")){
+            if (possibleMove.getActor() != null && possibleMove.getActor().getTileName().equals("player3")){
                 possibleMove.getActor().setHealth(
                         possibleMove.getActor().getHealth() - gameMap.getCell(gangstaX, gangstaY).getActor().getDamage()
                 );
