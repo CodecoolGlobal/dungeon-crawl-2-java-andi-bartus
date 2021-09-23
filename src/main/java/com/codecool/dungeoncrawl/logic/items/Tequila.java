@@ -5,13 +5,15 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class Tequila extends Item{
     private final int healAmount = 5;
+    String name;
 
-    public Tequila(Cell cell) {
-        super(cell);
+    public Tequila(Cell cell, String tileName) {
+        super(cell, tileName);
+
     }
 
     public String getTileName() {
-        return "tequila";
+        return name;
     }
 
     public void useTequila(Player player) {

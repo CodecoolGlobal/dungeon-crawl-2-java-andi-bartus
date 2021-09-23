@@ -30,6 +30,7 @@ public class Tiles {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(6, 1));
         tileMap.put("floor", new Tile(2, 0));
+        tileMap.put("barMan", new Tile(28, 4));
         tileMap.put("player2", new Tile(27, 4));
         tileMap.put("player", new Tile(30, 4));
         tileMap.put("boots", new Tile(7, 23));
@@ -44,6 +45,13 @@ public class Tiles {
         tileMap.put("skull2", new Tile(0, 15));
         tileMap.put("scorpio", new Tile(25, 5));
         tileMap.put("tequila", new Tile(16, 25));
+        tileMap.put("tequila2", new Tile(23, 24));
+        tileMap.put("tequila3", new Tile(23, 25));
+
+        tileMap.put("drink1", new Tile(16, 26));
+        tileMap.put("drink2", new Tile(17, 25));
+        tileMap.put("drink3", new Tile(18, 26));
+        tileMap.put("saloonWall", new Tile(1, 1));
         tileMap.put("redHouse1", new Tile(0, 20));
         tileMap.put("redHouse2", new Tile(1, 20));
         tileMap.put("redHouse3", new Tile(0, 21));
@@ -51,6 +59,7 @@ public class Tiles {
         tileMap.put("churchTop1", new Tile(25, 12));
         tileMap.put("churchTop2", new Tile(2, 12));
         tileMap.put("churchTopMap2", new Tile(26, 12));
+        tileMap.put("barLeg", new Tile(25, 13));
         tileMap.put("churchHouse", new Tile(0, 13));
         tileMap.put("door", new Tile(8, 10));
         tileMap.put("closedDoor", new Tile(7, 10));
@@ -77,6 +86,16 @@ public class Tiles {
         tileMap.put("bigBoy2", new Tile(30, 6));
         tileMap.put("bigBoy", new Tile(31, 6));
         tileMap.put("sky", new Tile(8, 5));
+        tileMap.put("saloonFloor", new Tile(0, 1));
+        tileMap.put("barLeftTop", new Tile(16, 16));
+        tileMap.put("barLeftDown", new Tile(16, 18));
+        tileMap.put("barCenterTop", new Tile(17, 16));
+        tileMap.put("barCenterDown", new Tile(17, 18));
+        tileMap.put("barRightTop", new Tile(18, 16));
+        tileMap.put("barRightDown", new Tile(18, 18));
+
+
+
 
 
     }
