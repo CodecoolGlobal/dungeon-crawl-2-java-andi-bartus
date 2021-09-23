@@ -111,6 +111,7 @@ public class Player extends Actor {
         }
     }
 
+
     private boolean canOpenGate(Cell gateCell) {
         int counter = 0;
         for (Item item : inventory) {
@@ -150,5 +151,14 @@ public class Player extends Actor {
 
     public boolean checkMoneyForGun(){
         return this.getMoney() >= Gun.getCost();
+    }
+
+    public boolean canPickUpChick() {
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).getTileName().equals("rose")){
+                return true;
+            }
+
+        } return false;
     }
 }
