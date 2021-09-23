@@ -33,6 +33,7 @@ public class Tiles {
         tileMap.put("barMan", new Tile(28, 4));
         tileMap.put("player2", new Tile(27, 4));
         tileMap.put("player3", new Tile(26, 4));
+        tileMap.put("chick", new Tile(24, 4));
         tileMap.put("player", new Tile(30, 4));
         tileMap.put("boots", new Tile(7, 23));
         tileMap.put("hat", new Tile(14, 24));
@@ -101,7 +102,7 @@ public class Tiles {
         tileMap.put("barCenterDown", new Tile(17, 18));
         tileMap.put("barRightTop", new Tile(18, 16));
         tileMap.put("barRightDown", new Tile(18, 18));
-        tileMap.put("gangsta", new Tile(30, 0));
+        tileMap.put("gangsta", new Tile(28, 1));
         tileMap.put("poker1", new Tile(16, 19));
         tileMap.put("poker2", new Tile(17, 19));
         tileMap.put("poker3", new Tile(18, 19));
@@ -125,6 +126,7 @@ public class Tiles {
         tileMap.put("uzi", new Tile(9, 31));
         tileMap.put("sniper", new Tile(10, 31));
         tileMap.put("coin", new Tile(19, 28));
+        tileMap.put("rose", new Tile(2, 2));
 
     }
 

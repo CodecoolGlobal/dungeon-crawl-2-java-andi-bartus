@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map.txt", "/map2.txt","/gunstore.txt", "/map3.txt"};
+    private static final String[] mapFileNames = {/*"/map.txt", "/map2.txt","/gunstore.txt",*/ "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
@@ -343,7 +343,14 @@ public class MapLoader {
                         case 'ű':
                             cell.setType(CellType.SNIPER);
                             break;
-
+                        case '9':
+                            cell.setType(CellType.SALOONFLOOR);
+                            map.addItem(new Chick(cell));
+                            break;
+                        case '8':
+                            cell.setType(CellType.SALOONFLOOR);
+                            map.addItem(new Rose(cell));
+                            break;
 
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
