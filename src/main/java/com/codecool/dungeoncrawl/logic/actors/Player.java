@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
-    private static final int MAX_WATER_LEVEL = 20;
+    private static final int MAX_WATER_LEVEL = 20000;
     private String tileName = "player";
     private int playerMapLevel;
 
     public Player(Cell cell) {
         super(cell);
         this.damage = 5;
-        this.setHealth(100);
+        this.setHealth(100000);
         this.inventory = new ArrayList<>();
         this.waterLevel = MAX_WATER_LEVEL;
         this.playerMapLevel = 0;
@@ -82,8 +82,11 @@ public class Player extends Actor {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-        } else if (!nextCell.getType().getCanStepOn() && (nextCell.getType().equals(CellType.GATE) ||
-                nextCell.getType().equals(CellType.SALOON_DOOR))){
+        } else if (!nextCell.getType().getCanStepOn() &&
+                (nextCell.getType().equals(CellType.GATE) ||
+                nextCell.getType().equals(CellType.GUN_STORE_DOOR) ||
+                nextCell.getType().equals(CellType.SALOON_DOOR))
+        ){
             if(canOpenGate(nextCell)) {
                 this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
             }

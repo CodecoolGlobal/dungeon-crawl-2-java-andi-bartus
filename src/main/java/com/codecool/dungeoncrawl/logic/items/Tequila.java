@@ -8,8 +8,8 @@ public class Tequila extends Item{
     String name;
 
     public Tequila(Cell cell, String tileName) {
-        super(cell, tileName);
-
+        super(cell);
+        this.name = tileName;
     }
 
     public String getTileName() {
