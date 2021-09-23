@@ -82,15 +82,11 @@ public class Player extends Actor {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-        } else if (!nextCell.getType().getCanStepOn() && nextCell.getType().equals(CellType.CLOSED_DOOR)) {
-            if(canOpenDoor()) {
-                nextCell.setType(CellType.DOOR);
+        } else if (!nextCell.getType().getCanStepOn() && (nextCell.getType().equals(CellType.GATE) ||
+                nextCell.getType().equals(CellType.SALOON_DOOR))){
+            if(canOpenGate(nextCell)) {
+                this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
             }
-        } else if (!nextCell.getType().getCanStepOn() && nextCell.getType().equals(CellType.DOOR)) {
-            System.out.println(nextCell);
-            System.out.println(nextCell.getDoor());
-            System.out.println(nextCell.getDoor().getNewCurrentMap());
-            this.playerMapLevel=nextCell.getDoor().getNewCurrentMap();
         } else if (nextCell.getActor()!=null) {//hitTargetEnemyBot;
             nextCell.getActor().setHealth(
                     nextCell.getActor().getHealth() - cell.getActor().getDamage()
@@ -98,14 +94,25 @@ public class Player extends Actor {
         }
     }
 
-    private boolean canOpenDoor() {
+    private boolean canOpenGate(Cell gateCell) {
         int counter = 0;
         for (Item item : inventory) {
-            if (item.getTileName().equals("hat") || item.getTileName().equals("boots")) {
-                counter++;
+            int toMapId = gateCell.getGate().getNewCurrentMap();
+            if((toMapId == 1 && playerMapLevel == 0) || (toMapId == 0 && playerMapLevel == 1)){
+                if (item.getTileName().equals("hat") || item.getTileName().equals("boots")) {
+                    counter++;
+                }
+            }else if((toMapId == 1 && playerMapLevel == 2) || (toMapId == 2 && playerMapLevel == 1)){
+                if (item.getTileName().equals("star")){
+                    return true;
+                }
+            }else if((toMapId == 1 && playerMapLevel == 3) || (toMapId == 3 && playerMapLevel == 1)){
+                if (item.getTileName().equals("gun")){
+                    return true;
+                }
             }
         }
-        return counter == 2;
+        return counter == 2;//if currentMap == 0
     }
 
     public void setInventory(ArrayList<Item> inventory) {

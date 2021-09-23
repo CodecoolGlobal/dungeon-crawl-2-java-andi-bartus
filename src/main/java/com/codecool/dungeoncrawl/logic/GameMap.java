@@ -13,7 +13,7 @@ public class GameMap {
     private int ITEMS_OF_FIRST_MAP;
 
     private ArrayList<Actor> enemies;
-    private ArrayList<Door> doors;
+    private ArrayList<Gate> gates;
 
     private Player player;
 
@@ -22,7 +22,7 @@ public class GameMap {
         this.height = height;
         this.items = new ArrayList<>();
         this.enemies = new ArrayList<>();
-        this.doors = new ArrayList<>();
+        this.gates = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -55,8 +55,8 @@ public class GameMap {
         this.enemies.add(enemy);
     }
 
-    public void addDoor(Door door) {
-        this.doors.add(door);
+    public void addDoor(Gate gate) {
+        this.gates.add(gate);
     }
 
     public void removeDeadEnemies(){

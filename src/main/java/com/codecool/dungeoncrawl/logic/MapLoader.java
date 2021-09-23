@@ -112,12 +112,28 @@ public class MapLoader {
                             cell.setType(CellType.SKULL2);
                             break;
                         case 'D':
-                            cell.setType(CellType.CLOSED_DOOR);
-                            cell.addDoor(new Door(cell, false, currentMap+1));
+                            cell.setType(CellType.GATE);
+                            cell.addDoor(new Gate(cell, false, currentMap+1));
                             break;
                         case 'd':
-                            cell.setType(CellType.DOOR);
-                            cell.addDoor(new Door(cell, true, currentMap-1));
+                            cell.setType(CellType.GATE);
+                            cell.addDoor(new Gate(cell, true, currentMap-1));
+                            break;
+                        case 'É':
+                            cell.setType(CellType.SALOON_DOOR);
+                            cell.addDoor(new Gate(cell, false, currentMap+2));
+                            break;
+                        case 'é':
+                            cell.setType(CellType.SALOON_DOOR);
+                            cell.addDoor(new Gate(cell, true, currentMap-2));
+                            break;
+                        case 'Í':
+                            cell.setType(CellType.GUN_STORE_DOOR);
+                            cell.addDoor(new Gate(cell, false, currentMap+1));
+                            break;
+                        case 'í':
+                            cell.setType(CellType.GUN_STORE_DOOR);
+                            cell.addDoor(new Gate(cell, true, currentMap-1));
                             break;
                         case '-':
                             cell.setType(CellType.TOWN_ROAD);
@@ -172,9 +188,6 @@ public class MapLoader {
                             break;
                         case 'J':
                             cell.setType(CellType.U);
-                            break;
-                        case 'K':
-                            cell.setType(CellType.SALOON_DOOR);
                             break;
                         case '&':
                             cell.setType(CellType.FLOOR);

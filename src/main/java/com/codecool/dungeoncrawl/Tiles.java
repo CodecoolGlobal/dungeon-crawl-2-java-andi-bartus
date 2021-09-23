@@ -74,9 +74,11 @@ public class Tiles {
         tileMap.put("G", new Tile(25, 30));
         tileMap.put("U", new Tile(26, 31));
         tileMap.put("saloon_door", new Tile(5, 7));
+        tileMap.put("gun_store_door", new Tile(8, 9));
         tileMap.put("bigBoy2", new Tile(30, 6));
         tileMap.put("bigBoy", new Tile(31, 6));
         tileMap.put("sky", new Tile(8, 5));
+        tileMap.put("gate" , new Tile(16,7));
 
 
     }
