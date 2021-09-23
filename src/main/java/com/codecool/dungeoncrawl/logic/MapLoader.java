@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map1.txt", "/map2.txt", "/map3.txt"};
+    private static final String[] mapFileNames = {"/map1.txt", "/map2.txt","/gunstore.txt", "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
@@ -26,6 +26,7 @@ public class MapLoader {
 
     public static GameMap loadMap(String mapFileName, int currentMap) {
         InputStream is = MapLoader.class.getResourceAsStream(mapFileName);
+        System.out.println(mapFileName);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -243,7 +244,7 @@ public class MapLoader {
                         case '!':
                             cell.setType(CellType.DRINK3);
                             break;
-                        case 'Í':
+                        case '+':
                             cell.setType(CellType.BARMAN);
                             break;
                         case 'o':
