@@ -215,39 +215,40 @@ public class Main extends Application {
         //Creating a Text object
         Text text = new Text();
 
-        //Setting the text to be added.
+
         text.setText("You win!");
         text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 100));
         text.setFill(Color.FUCHSIA);
 
-        //setting the position of the text
         text.setX(500);
         text.setY(500);
 
-        //Creating a Group object
         Group root = new Group(text);
 
-        //Creating a scene object
-       // Scene scene = new Scene(root, 600, 300);
+        GridPane ui = new GridPane();
+        ui.setStyle("-fx-font-size: 25px");
+        ui.setPrefWidth(350);
+        ui.setPadding(new Insets(10));
+
         Scene sceneOld = primaryStage.getScene();
         double x = sceneOld.getWidth();
         double y = sceneOld.getHeight();
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(canvas, root);
+        BorderPane borderPane = new BorderPane();
 
-        primaryStage.setScene(new Scene(stackPane, x, y));
+        borderPane.setCenter(stackPane);
+        borderPane.setLeft(ui);
+        borderPane.setStyle("-fx-background-color:black;");
 
 
 
+        primaryStage.setScene(new Scene(borderPane, x, y));
 
-        //Setting title to the Stage
+
         primaryStage.setTitle("Sample Application");
 
-        //Adding scene to the stage
-      //  primaryStage.setScene(scene);
-
-        //Displaying the contents of the stage
         primaryStage.show();
     }
 
