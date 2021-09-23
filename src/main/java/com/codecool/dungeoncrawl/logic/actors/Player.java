@@ -86,16 +86,11 @@ public class Player extends Actor {
                 (nextCell.getType().equals(CellType.GATE) ||
                 nextCell.getType().equals(CellType.GUN_STORE_DOOR) ||
                 nextCell.getType().equals(CellType.SALOON_DOOR))
-        ){
-            if(canOpenGate(nextCell)) {
-                this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
-            }
-        } else if (!nextCell.getType().getCanStepOn() && nextCell.getType().equals(CellType.DOOR)) {
-            System.out.println(nextCell);
-            System.out.println(nextCell.getDoor());
-            System.out.println(nextCell.getDoor().getNewCurrentMap());
-            this.playerMapLevel=nextCell.getDoor().getNewCurrentMap();
-        } else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {//hitTargetEnemyBot;
+                ){
+                    if(canOpenGate(nextCell)) {
+                        this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
+                    }
+        }else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {//hitTargetEnemyBot;
             nextCell.getActor().setHealth(
                     nextCell.getActor().getHealth() - cell.getActor().getDamage()
             );
