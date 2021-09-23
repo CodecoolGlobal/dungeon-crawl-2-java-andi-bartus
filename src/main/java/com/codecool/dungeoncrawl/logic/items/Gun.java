@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class Gun extends Item{
-    private final int damage = 10;
+    private final int damage = 15;
 
     public Gun(Cell cell) {
         super(cell);
