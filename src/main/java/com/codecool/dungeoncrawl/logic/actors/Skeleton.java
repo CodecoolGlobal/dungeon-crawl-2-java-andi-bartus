@@ -10,6 +10,7 @@ public class Skeleton extends Actor {
         super(cell);
         this.damage = 5;
         this.health = 30;
+        this.coinValue = 25;
     }
 
     @Override
