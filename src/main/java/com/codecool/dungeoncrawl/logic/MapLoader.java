@@ -79,7 +79,7 @@ public class MapLoader {
 
                             break;
                         case 'g':
-                            cell.setType(CellType.FLOOR);
+                            cell.setType(CellType.SALOONFLOOR);
                             map.addItem(new Gun(cell));
                             break;
                         case 't':

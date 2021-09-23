@@ -48,8 +48,8 @@ public class Tiles {
         tileMap.put("tequila", new Tile(16, 25));
         tileMap.put("tequila2", new Tile(25, 23));
         tileMap.put("tequila3", new Tile(24, 23));
-        tileMap.put("tequila2", new Tile(23, 24));
-        tileMap.put("tequila3", new Tile(23, 25));
+        //tileMap.put("tequila2", new Tile(23, 24));
+        //tileMap.put("tequila3", new Tile(23, 25));
 
         tileMap.put("drink1", new Tile(16, 26));
         tileMap.put("drink2", new Tile(17, 25));
