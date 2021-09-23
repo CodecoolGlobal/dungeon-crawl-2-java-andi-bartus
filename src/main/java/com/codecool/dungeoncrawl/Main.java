@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.items.Gun;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -92,8 +93,14 @@ public class Main extends Application {
             case E:
                 int x = maps.get(currentMap).getPlayer().getX();
                 int y = maps.get(currentMap).getPlayer().getY();
-                maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
-                maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
+                if(!(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun)) {
+                    maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
+                    maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
+                }
+                else if(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun && maps.get(currentMap).getPlayer().checkMoneyForGun()){
+                    maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
+                    maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
+                }
                 refresh();
                 break;
             case A: //andi
