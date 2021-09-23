@@ -36,6 +36,7 @@ public class GameMap {
         player.setInventory(originalPlayer.getInventory());
         player.setWaterLevel(originalPlayer.getWaterLevel());
         player.setHealth(originalPlayer.getHealth());
+        player.setDamage(originalPlayer.getDamage());
     }
 
     public Cell getCell(int x, int y) {
@@ -114,13 +115,13 @@ public class GameMap {
         if (playerX - side < 0){
             startX = 0;
         }else if (playerX + side >= width-1){
-            startX = (width) - visibleSize;
+            startX = width - visibleSize;
         }
 
         if (playerY - side < 0){
             startY = 0;
         }else if (playerY + side >= height-1){
-            startY = (height) - visibleSize;
+            startY = height - visibleSize;
         }
 
         return new int[]{startX,startY};

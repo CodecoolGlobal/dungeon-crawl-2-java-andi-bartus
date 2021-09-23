@@ -21,7 +21,7 @@ public class Main extends Application {
     List<GameMap> maps = MapLoader.loadAllMaps();
     int currentMap = 0;
     int lastMap;
-    int visibleSize = 20;
+    int visibleSize = 25;
     Canvas canvas = new Canvas(
             visibleSize * Tiles.TILE_WIDTH,
             visibleSize * Tiles.TILE_WIDTH);
@@ -93,19 +93,19 @@ public class Main extends Application {
                 maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
                 refresh();
             case A: //andi
-                maps.get(0).getCell(40, 2).setType(CellType.FLOOR);
+                maps.get(0).getCell(40, 3).setType(CellType.FLOOR);
                 refresh();
                break;
             case B: //bence
-                maps.get(0).getCell(41, 2).setType(CellType.FLOOR);
+                maps.get(0).getCell(41, 3).setType(CellType.FLOOR);
                refresh();
                 break;
             case P: //peti
-                maps.get(0).getCell(42, 2).setType(CellType.FLOOR);
+                maps.get(0).getCell(42, 3).setType(CellType.FLOOR);
                 refresh();
                 break;
             case T: //tomi
-                maps.get(0).getCell(43, 2).setType(CellType.FLOOR);
+                maps.get(0).getCell(43, 3).setType(CellType.FLOOR);
                 refresh();
                 break;
 
@@ -166,7 +166,6 @@ public class Main extends Application {
             j=0;
             k++;
         }
-        k=0;
         healthLabel.setText("" + maps.get(currentMap).getPlayer().getHealth());
         waterLevelLabel.setText("" + maps.get(currentMap).getPlayer().getWaterLevel());
         for (int i = 0; i < maps.get(currentMap).getPlayer().getInventory().size(); i++) {
