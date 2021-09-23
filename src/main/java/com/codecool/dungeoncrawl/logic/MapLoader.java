@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map.txt", "/map2.txt"};
+    private static final String[] mapFileNames = {"/map1.txt", "/map2.txt","/gunstore.txt", "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
@@ -23,6 +23,7 @@ public class MapLoader {
 
     public static GameMap loadMap(String mapFileName, int currentMap) {
         InputStream is = MapLoader.class.getResourceAsStream(mapFileName);
+        System.out.println(mapFileName);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -76,7 +77,7 @@ public class MapLoader {
                             break;
                         case 't':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Tequila(cell));
+                            map.addItem(new Tequila(cell, "tequila"));
                             break;
                         case 'a':
                             cell.setType(CellType.RED_HOUSE1);
@@ -109,12 +110,28 @@ public class MapLoader {
                             cell.setType(CellType.SKULL2);
                             break;
                         case 'D':
-                            cell.setType(CellType.CLOSED_DOOR);
-                            cell.addDoor(new Door(cell, false, currentMap+1));
+                            cell.setType(CellType.GATE);
+                            cell.addDoor(new Gate(cell, false, currentMap+1));
                             break;
                         case 'd':
-                            cell.setType(CellType.DOOR);
-                            cell.addDoor(new Door(cell, true, currentMap-1));
+                            cell.setType(CellType.GATE);
+                            cell.addDoor(new Gate(cell, true, currentMap-1));
+                            break;
+                        case 'É':
+                            cell.setType(CellType.SALOON_DOOR);
+                            cell.addDoor(new Gate(cell, false, currentMap+2));
+                            break;
+                        case 'é':
+                            cell.setType(CellType.SALOON_DOOR);
+                            cell.addDoor(new Gate(cell, true, currentMap-2));
+                            break;
+                        case 'Í':
+                            cell.setType(CellType.GUN_STORE_DOOR);
+                            cell.addDoor(new Gate(cell, false, currentMap+1));
+                            break;
+                        case 'í':
+                            cell.setType(CellType.GUN_STORE_DOOR);
+                            cell.addDoor(new Gate(cell, true, currentMap-1));
                             break;
                         case '-':
                             cell.setType(CellType.TOWN_ROAD);
@@ -170,9 +187,6 @@ public class MapLoader {
                         case 'J':
                             cell.setType(CellType.U);
                             break;
-                        case 'K':
-                            cell.setType(CellType.SALOON_DOOR);
-                            break;
                         case '&':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
@@ -197,6 +211,45 @@ public class MapLoader {
                         case 'N':
                             cell.setType(CellType.TOWN_ROAD);
                             map.addEnemy(new FriendlyNPC(cell, FriendlyNPC.getRandomNPCName()));
+                            break;
+                        case '_':
+                            cell.setType(CellType.SALOONFLOOR);
+                            break;
+                        case '(':
+                            cell.setType(CellType.BARLEFTTOP);
+                            break;
+                        case '[':
+                            cell.setType(CellType.BARLEFTDOWN);
+                            break;
+                        case '=':
+                            cell.setType(CellType.BARCENTERTOP);
+                            break;
+                        case '`':
+                            cell.setType(CellType.BARCENTERDOWN);
+                            break;
+                        case ')':
+                            cell.setType(CellType.BARRIGHTTOP);
+                            break;
+                        case ']':
+                            cell.setType(CellType.BARRIGHTDOWN);
+                            break;
+                        case '|':
+                            cell.setType(CellType.BARLEG);
+                            break;
+                        case ';':
+                            cell.setType(CellType.DRINK1);
+                            break;
+                        case '%':
+                            cell.setType(CellType.DRINK2);
+                            break;
+                        case '!':
+                            cell.setType(CellType.DRINK3);
+                            break;
+                        case '+':
+                            cell.setType(CellType.BARMAN);
+                            break;
+                        case 'o':
+                            cell.setType(CellType.SALOONWALL);
                             break;
 
                         default:

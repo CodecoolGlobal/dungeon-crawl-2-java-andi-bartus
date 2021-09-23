@@ -9,7 +9,7 @@ public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
     private Item item;
-    private Door door;
+    private Gate gate;
 
 
     private GameMap gameMap;
@@ -35,8 +35,8 @@ public class Cell implements Drawable {
         return item;
     }
 
-    public Door getDoor() {
-        return door;
+    public Gate getGate() {
+        return gate;
     }
 
     public void setItem(Item item) {
@@ -47,8 +47,8 @@ public class Cell implements Drawable {
         this.actor = actor;
     }
 
-    public void addDoor(Door door) {
-        this.door = door;
+    public void addDoor(Gate gate) {
+        this.gate = gate;
     }
 
     public Actor getActor() {

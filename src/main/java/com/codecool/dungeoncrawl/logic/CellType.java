@@ -17,8 +17,6 @@ public enum CellType {
     TOMB_STONE("tombStone", false),
     SKULL1("skull1", false),
     SKULL2("skull2", false),
-    DOOR("door", false),
-    CLOSED_DOOR("closedDoor", false),
     TOWN_ROAD("town_road", true),
     HOUSE_ROOF_LEFT("house_roof_left", false),
     HOUSE_ROOF_STRAIGHT("house_roof_straight", false),
@@ -38,9 +36,28 @@ public enum CellType {
     G("G", false),
     U("U", false),
     SALOON_DOOR("saloon_door", false),
+    GUN_STORE_DOOR("gun_store_door", false),
     HORSE("horse", false),
     SKY("sky", false),
-    CHURCHTOP2("churchTopMap2", false);
+    CHURCHTOP2("churchTopMap2", false),
+    GATE("gate",false),
+    SALOONFLOOR("saloonFloor", true),
+    BARLEFTTOP("barLeftTop", false),
+    BARLEFTDOWN("barLeftDown", false),
+    BARCENTERTOP("barCenterTop", false),
+    BARCENTERDOWN("barCenterDown", false),
+    BARRIGHTTOP("barRightTop", false),
+    BARRIGHTDOWN("barRightDown", false),
+    BARLEG("barLeg", false),
+    DRINK1("drink1", false),
+    DRINK2("drink2", false),
+    DRINK3("drink3", false),
+    BARMAN("barMan", false),
+    SALOONWALL("saloonWall", false),
+    TEQUILA2("tequila2", true),
+    TEQUILA3("tequila3", true);
+
+
 
 
     private final String tileName;

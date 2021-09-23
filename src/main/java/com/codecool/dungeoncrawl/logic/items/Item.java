@@ -5,7 +5,12 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Item implements Drawable {
     protected Cell cell;
+    String name;
 
+    public Item(Cell cell, String tileName) {
+        this.cell = cell;
+        this.name = tileName;
+    }
 
     public Item(Cell cell) {
         this.cell = cell;
