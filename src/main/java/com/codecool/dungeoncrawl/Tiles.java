@@ -47,7 +47,6 @@ public class Tiles {
         tileMap.put("tequila", new Tile(16, 25));
         tileMap.put("tequila2", new Tile(23, 24));
         tileMap.put("tequila3", new Tile(23, 25));
-
         tileMap.put("drink1", new Tile(16, 26));
         tileMap.put("drink2", new Tile(17, 25));
         tileMap.put("drink3", new Tile(18, 26));
@@ -101,6 +100,9 @@ public class Tiles {
         tileMap.put("barCenterDown", new Tile(17, 18));
         tileMap.put("barRightTop", new Tile(18, 16));
         tileMap.put("barRightDown", new Tile(18, 18));
+        tileMap.put("revolver", new Tile(5, 31));
+        tileMap.put("uzi", new Tile(9, 31));
+        tileMap.put("sniper", new Tile(10, 31));
 
 
     }

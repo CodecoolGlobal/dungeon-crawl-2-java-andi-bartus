@@ -251,6 +251,18 @@ public class MapLoader {
                             cell.setType(CellType.SALOONWALL);
                             break;
 
+                        case 'r':
+                            cell.setType(CellType.REVOLVER);
+                            break;
+
+                        case 'u':
+                            cell.setType(CellType.UZI);
+                            break;
+
+                        case 'm':
+                            cell.setType(CellType.SNIPER);
+                            break;
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
