@@ -34,11 +34,11 @@ public class Main extends Application {
     int lastMap;
     int visibleSize = 25;
     Canvas canvas = new Canvas(
-            visibleSize * Tiles.TILE_WIDTH,
-            visibleSize * Tiles.TILE_WIDTH);
+            visibleSize* Tiles.TILE_WIDTH*1.25,
+            visibleSize* Tiles.TILE_WIDTH*1.25);
 
     Canvas inventorycanvas = new Canvas(
-            3 * Tiles.TILE_WIDTH,
+            4 * Tiles.TILE_WIDTH,
             8 * Tiles.TILE_WIDTH);
 
     GraphicsContext context = canvas.getGraphicsContext2D();
@@ -58,7 +58,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
+        ui.setStyle("-fx-font-size: 25px");
+        ui.setPrefWidth(350);
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
@@ -76,6 +77,7 @@ public class Main extends Application {
 
         borderPane.setCenter(canvas);
         borderPane.setLeft(ui);
+        borderPane.setStyle("-fx-background-color:lightgrey;");
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
@@ -91,39 +93,40 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                movement(0, -1);
+                movement(0,-1);
                 break;
             case DOWN:
-                movement(0, 1);
+                movement(0,1);
                 break;
             case LEFT:
-                movement(-1, 0);
+                movement(-1,0);
                 break;
             case RIGHT:
-                movement(1, 0);
+                movement(1,0);
                 break;
             case E:
                 int x = maps.get(currentMap).getPlayer().getX();
                 int y = maps.get(currentMap).getPlayer().getY();
-
-                if (maps.get(currentMap).getCell(x, y).getItem() instanceof Chick && maps.get(currentMap).getPlayer().canPickUpChick()) {
-                   end();
-                } else if (!(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun)) {
-                    maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
-                    maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
-                } else if (maps.get(currentMap).getCell(x, y).getItem() instanceof Gun && maps.get(currentMap).getPlayer().checkMoneyForGun()) {
-                    maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
-                    maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
+                if (maps.get(currentMap).getPlayer().getHealth()>0) {
+                    if (maps.get(currentMap).getCell(x, y).getItem() instanceof Chick && maps.get(currentMap).getPlayer().canPickUpChick()) {
+                        end();
+                    } else if (!(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun)) {
+                        maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
+                        maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
+                    } else if (maps.get(currentMap).getCell(x, y).getItem() instanceof Gun && maps.get(currentMap).getPlayer().checkMoneyForGun()) {
+                        maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
+                        maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
+                    }
                 }
                 refresh();
                 break;
             case A: //andi
                 maps.get(0).getCell(40, 3).setType(CellType.FLOOR);
                 refresh();
-                break;
+               break;
             case B: //bence
                 maps.get(0).getCell(41, 3).setType(CellType.FLOOR);
-                refresh();
+               refresh();
                 break;
             case P: //peti
                 maps.get(0).getCell(42, 3).setType(CellType.FLOOR);
@@ -135,18 +138,21 @@ public class Main extends Application {
                 break;
 
 
+
+
+
         }//restart?
 
 
     }
 
-    private void movement(int dx, int dy) {
-        if (maps.get(currentMap).getPlayer().getWaterLevel() > 0 && maps.get(currentMap).getPlayer().getHealth() > 0) {
-            maps.get(currentMap).getPlayer().setWaterLevel(maps.get(currentMap).getPlayer().getWaterLevel() - 1);
-        } else if (maps.get(currentMap).getPlayer().getHealth() > 0) {
-            maps.get(currentMap).getPlayer().setHealth(maps.get(currentMap).getPlayer().getHealth() - 1);
+    private void movement(int dx, int dy){
+        if (maps.get(currentMap).getPlayer().getWaterLevel() > 0 && maps.get(currentMap).getPlayer().getHealth() > 0){
+            maps.get(currentMap).getPlayer().setWaterLevel(maps.get(currentMap).getPlayer().getWaterLevel()-1);
+        } else if (maps.get(currentMap).getPlayer().getHealth() > 0){
+            maps.get(currentMap).getPlayer().setHealth(maps.get(currentMap).getPlayer().getHealth()-1);
         }
-        if (maps.get(currentMap).getPlayer().getHealth() > 0) {
+        if(maps.get(currentMap).getPlayer().getHealth() > 0){
             maps.get(currentMap).getPlayer().movePlayer(dx, dy);
             maps.get(currentMap).removeDeadEnemies();
             maps.get(currentMap).moveEnemies();
@@ -156,7 +162,7 @@ public class Main extends Application {
                 maps.get(currentMap).setPlayerStats(maps.get(lastMap).getPlayer());
             }
         }
-        if (maps.get(currentMap).getPlayer().getHealth() < 1) {
+        if(maps.get(currentMap).getPlayer().getHealth() < 1){
             maps.get(currentMap).getPlayer().setHealth(0);
             maps.get(currentMap).getPlayer().setTileNameToTombStone();
         }
@@ -177,19 +183,20 @@ public class Main extends Application {
                 Cell cell = maps.get(currentMap).getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), k, j);
-                } else if (cell.getItem() != null) {
-                    Tiles.drawTile(context, cell.getItem(), k, j);
-                } else {
+                } else if(cell.getItem() != null){
+                    Tiles.drawTile(context, cell.getItem(), k , j);
+                }
+                else {
                     Tiles.drawTile(context, cell, k, j);
                 }
                 j++;
             }
-            j = 0;
+            j=0;
             k++;
         }
         healthLabel.setText("" + maps.get(currentMap).getPlayer().getHealth());
         waterLevelLabel.setText("" + maps.get(currentMap).getPlayer().getWaterLevel());
-        moneyLabel.setText("" + maps.get(currentMap).getPlayer().getMoney() + "$");
+        moneyLabel.setText("" + maps.get(currentMap).getPlayer().getMoney()+"$");
         for (int i = 0; i < maps.get(currentMap).getPlayer().getInventory().size(); i++) {
             Tiles.drawTile(inventoryContext, maps.get(currentMap).getPlayer().getInventory().get(i), 2, i);
 
@@ -201,7 +208,7 @@ public class Main extends Application {
     }
 
     public void setCurrentMap(int currentMap) {
-        this.currentMap = currentMap;
+        this.currentMap=currentMap;
     }
 
     public void end() {

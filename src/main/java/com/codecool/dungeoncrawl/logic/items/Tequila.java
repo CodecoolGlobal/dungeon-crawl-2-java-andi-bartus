@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class Tequila extends Item{
     private final int healAmount = 5;
+    private final int waterAmount = 15;
     String name;
 
     public Tequila(Cell cell, String tileName) {
@@ -18,7 +19,7 @@ public class Tequila extends Item{
 
     public void useTequila(Player player) {
         player.setHealth(player.getHealth() + healAmount);
-        player.setWaterLevel(Player.getMaxWaterLevel());
+        player.setWaterLevel(player.getWaterLevel() + waterAmount);
     }
 
 
