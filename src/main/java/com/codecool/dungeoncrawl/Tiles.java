@@ -50,6 +50,7 @@ public class Tiles {
         tileMap.put("redHouse4", new Tile (1, 21));
         tileMap.put("churchTop1", new Tile(25, 12));
         tileMap.put("churchTop2", new Tile(2, 12));
+        tileMap.put("churchTopMap2", new Tile(26, 12));
         tileMap.put("churchHouse", new Tile(0, 13));
         tileMap.put("door", new Tile(8, 10));
         tileMap.put("closedDoor", new Tile(7, 10));
@@ -75,6 +76,8 @@ public class Tiles {
         tileMap.put("saloon_door", new Tile(5, 7));
         tileMap.put("bigBoy2", new Tile(30, 6));
         tileMap.put("bigBoy", new Tile(31, 6));
+        tileMap.put("sky", new Tile(8, 5));
+
 
     }
 
