@@ -135,7 +135,6 @@ public class Cell implements Drawable {
                 gameMap.getPlayer().setHealth(
                         gameMap.getPlayer().getHealth() - gameMap.getCell(gangstaX, gangstaY).getActor().getDamage()
                 );
-                System.out.println(gameMap.getCell(gangstaX,gangstaY).getActor().getDamage());
             }else if (possibleMove.getType().getCanStepOn() && possibleMove.getActor()==null){
                 possibleMoveDistance = getDistanceOfCells(playerX, playerY, possibleMove.getX(), possibleMove.getY());
                 if (baseDistance >= possibleMoveDistance){
