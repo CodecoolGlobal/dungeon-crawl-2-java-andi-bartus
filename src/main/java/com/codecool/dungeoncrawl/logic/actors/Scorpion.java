@@ -12,6 +12,7 @@ public class Scorpion extends Actor{
         super(cell);
         this.damage = 1;
         this.health = 10;
+        this.coinValue = 10;
     }
 
     public String getTileName() {

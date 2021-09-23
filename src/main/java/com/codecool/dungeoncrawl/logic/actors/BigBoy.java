@@ -16,6 +16,7 @@ public class BigBoy extends Actor{
         this.tileName = tileName;
         this.health = 40;
         this.damage = 20;
+        this.coinValue = 50;
     }
 
     @Override

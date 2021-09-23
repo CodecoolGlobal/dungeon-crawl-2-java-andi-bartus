@@ -71,7 +71,10 @@ public enum CellType {
     POKER6("poker6", false),
     POKER7("poker7", false),
     POKER8("poker8", false),
-    ACE("ace", false);
+    ACE("ace", false),
+    REVOLVER("revolver", true),
+    UZI("uzi", true),
+    SNIPER("sniper", true);
 
 
 
