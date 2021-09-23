@@ -38,7 +38,9 @@ public enum CellType {
     G("G", false),
     U("U", false),
     SALOON_DOOR("saloon_door", false),
-    HORSE("horse", false);
+    HORSE("horse", false),
+    SKY("sky", false),
+    CHURCHTOP2("churchTopMap2", false);
 
 
     private final String tileName;

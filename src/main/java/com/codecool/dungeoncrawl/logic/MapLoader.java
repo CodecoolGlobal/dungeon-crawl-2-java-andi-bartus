@@ -191,6 +191,12 @@ public class MapLoader {
                         case 'ó':
                             cell.setType(CellType.HORSE);
                             break;
+                        case ':':
+                            cell.setType(CellType.SKY);
+                            break;
+                        case '?':
+                            cell.setType(CellType.CHURCHTOP2);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
