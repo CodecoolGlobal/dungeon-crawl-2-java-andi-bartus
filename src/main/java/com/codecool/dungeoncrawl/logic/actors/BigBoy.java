@@ -14,7 +14,7 @@ public class BigBoy extends Actor{
     public BigBoy(Cell cell, String tileName) {
         super(cell, tileName);
         this.tileName = tileName;
-        this.health = 40;
+        this.health = 30;
         this.damage = 20;
         this.coinValue = 50;
     }
