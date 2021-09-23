@@ -53,11 +53,29 @@ public enum CellType {
     DRINK3("drink3", false),
     BARMAN("barMan", false),
     SALOONWALL("saloonWall", false),
-    TEQUILA2("tequila2", true),
-    TEQUILA3("tequila3", true),
+    TABLE1("table1", false),
+    TABLE2("table2", false),
+    TABLE3("table3", false),
+    TABLE4("table4", false),
+    TABLE5("table5", false),
+    TABLE6("table6", false),
+    TABLE7("table7", false),
+    TABLE8("table8", false),
+    TABLE9("table9", false),
+    SAMLI("samli", false),
+    POKER1("poker1", false),
+    POKER2("poker2", false),
+    POKER3("poker3", false),
+    POKER4("poker4", false),
+    POKER5("poker5", false),
+    POKER6("poker6", false),
+    POKER7("poker7", false),
+    POKER8("poker8", false),
+    ACE("ace", false),
     REVOLVER("revolver", true),
     UZI("uzi", true),
     SNIPER("sniper", true);
+
 
 
 
