@@ -36,6 +36,7 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Label inventoryLabel = new Label();
     Label waterLevelLabel = new Label();
+    Label moneyLabel = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -51,8 +52,10 @@ public class Main extends Application {
         ui.add(healthLabel, 1, 0);
         ui.add(new Label("Water level: "), 0, 1);
         ui.add(waterLevelLabel, 1, 1);
-        ui.add(new Label("Inventory: "), 0, 2);
-        ui.add(inventoryLabel, 0, 3);
+        ui.add(new Label("Money: "), 0, 2);
+        ui.add(moneyLabel, 1, 2);
+        ui.add(new Label("Inventory: "), 0, 3);
+        ui.add(inventoryLabel, 0, 4);
 
         ui.add(inventorycanvas,0,10);
 
@@ -169,6 +172,7 @@ public class Main extends Application {
         }
         healthLabel.setText("" + maps.get(currentMap).getPlayer().getHealth());
         waterLevelLabel.setText("" + maps.get(currentMap).getPlayer().getWaterLevel());
+        moneyLabel.setText("" + maps.get(currentMap).getPlayer().getMoney()+"$");
         for (int i = 0; i < maps.get(currentMap).getPlayer().getInventory().size(); i++) {
             Tiles.drawTile(inventoryContext, maps.get(currentMap).getPlayer().getInventory().get(i), 2, i);
 

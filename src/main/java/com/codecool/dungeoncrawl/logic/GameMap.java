@@ -37,6 +37,7 @@ public class GameMap {
         player.setWaterLevel(originalPlayer.getWaterLevel());
         player.setHealth(originalPlayer.getHealth());
         player.setDamage(originalPlayer.getDamage());
+        player.setMoney(originalPlayer.getMoney());
     }
 
     public Cell getCell(int x, int y) {
@@ -63,6 +64,7 @@ public class GameMap {
         for (Actor enemy: enemies){
             if (enemy.getHealth() < 0){
                 cells[enemy.getX()][enemy.getY()].setActor(null);
+                cells[enemy.getX()][enemy.getY()].setItem(new Coin(cells[enemy.getX()][enemy.getY()], enemy.getCoinValue()));
                 enemies.remove(enemy);
                 break;
             }
