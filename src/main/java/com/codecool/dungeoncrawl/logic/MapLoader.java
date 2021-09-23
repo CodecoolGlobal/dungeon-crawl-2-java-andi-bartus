@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map.txt", "/map2.txt"};
+    private static final String[] mapFileNames = {"/map1.txt", "/map2.txt", "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
@@ -79,7 +79,7 @@ public class MapLoader {
                             break;
                         case 't':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Tequila(cell));
+                            map.addItem(new Tequila(cell, "tequila"));
                             break;
                         case 'a':
                             cell.setType(CellType.RED_HOUSE1);
@@ -210,6 +210,48 @@ public class MapLoader {
                         case '?':
                             cell.setType(CellType.CHURCHTOP2);
                             break;
+                        case '_':
+                            cell.setType(CellType.SALOONFLOOR);
+                            break;
+                        case '(':
+                            cell.setType(CellType.BARLEFTTOP);
+                            break;
+                        case '[':
+                            cell.setType(CellType.BARLEFTDOWN);
+                            break;
+                        case '=':
+                            cell.setType(CellType.BARCENTERTOP);
+                            break;
+                        case '`':
+                            cell.setType(CellType.BARCENTERDOWN);
+                            break;
+                        case ')':
+                            cell.setType(CellType.BARRIGHTTOP);
+                            break;
+                        case ']':
+                            cell.setType(CellType.BARRIGHTDOWN);
+                            break;
+                        case '|':
+                            cell.setType(CellType.BARLEG);
+                            break;
+                        case ';':
+                            cell.setType(CellType.DRINK1);
+                            break;
+                        case '%':
+                            cell.setType(CellType.DRINK2);
+                            break;
+                        case '!':
+                            cell.setType(CellType.DRINK3);
+                            break;
+                        case 'Í':
+                            cell.setType(CellType.BARMAN);
+                            break;
+                        case 'o':
+                            cell.setType(CellType.SALOONWALL);
+                            break;
+
+
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

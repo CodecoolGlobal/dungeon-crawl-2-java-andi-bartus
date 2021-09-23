@@ -40,7 +40,24 @@ public enum CellType {
     HORSE("horse", false),
     SKY("sky", false),
     CHURCHTOP2("churchTopMap2", false),
-    GATE("gate",false);
+    GATE("gate",false),
+    SALOONFLOOR("saloonFloor", true),
+    BARLEFTTOP("barLeftTop", false),
+    BARLEFTDOWN("barLeftDown", false),
+    BARCENTERTOP("barCenterTop", false),
+    BARCENTERDOWN("barCenterDown", false),
+    BARRIGHTTOP("barRightTop", false),
+    BARRIGHTDOWN("barRightDown", false),
+    BARLEG("barLeg", false),
+    DRINK1("drink1", false),
+    DRINK2("drink2", false),
+    DRINK3("drink3", false),
+    BARMAN("barMan", false),
+    SALOONWALL("saloonWall", false),
+    TEQUILA2("tequila2", true),
+    TEQUILA3("tequila3", true);
+
+
 
 
     private final String tileName;
