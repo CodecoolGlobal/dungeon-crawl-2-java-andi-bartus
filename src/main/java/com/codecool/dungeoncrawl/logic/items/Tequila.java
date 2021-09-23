@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class Tequila extends Item{
     private final int healAmount = 5;
-    private final int waterAmount = 20;
+    private final int waterAmount = 15;
     String name;
 
     public Tequila(Cell cell, String tileName) {
