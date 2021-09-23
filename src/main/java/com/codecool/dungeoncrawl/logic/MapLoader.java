@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map.txt", "/map2.txt","/gunstore.txt", "/map3.txt"};
+    private static final String[] mapFileNames = {/*"/map.txt", "/map2.txt","/gunstore.txt", */"/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
         int currentMapNumber = 0;
@@ -57,6 +57,14 @@ public class MapLoader {
                             player2.setTileNameToPlayer2();
                             map.setPlayer(player2);
                             break;
+
+                        case 'ß':
+                            cell.setType(CellType.SALOONFLOOR);
+                            Player player3 = new Player(cell);
+                            player3.setTilenameToPlayer3();
+                            map.setPlayer(player3);
+                            break;
+
                         case 'c':
                             cell.setType(CellType.FLOOR);
                             map.addEnemy(new Scorpion(cell));
@@ -77,6 +85,15 @@ public class MapLoader {
                         case 't':
                             cell.setType(CellType.FLOOR);
                             map.addItem(new Tequila(cell, "tequila"));
+                            break;
+
+                        case 'Y':
+                            cell.setType(CellType.TOWN_ROAD);
+                            map.addItem(new Tequila(cell, "tequila2"));
+                            break;
+                        case 'X':
+                            cell.setType(CellType.SALOONFLOOR);
+                            map.addItem(new Tequila(cell, "tequila3"));
                             break;
                         case 'a':
                             cell.setType(CellType.RED_HOUSE1);
@@ -250,6 +267,74 @@ public class MapLoader {
                         case 'o':
                             cell.setType(CellType.SALOONWALL);
                             break;
+
+                        case 'r':
+                            cell.setType(CellType.TABLE1);
+                            break;
+                        case 'z':
+                            cell.setType(CellType.TABLE2);
+                            break;
+                        case 'u':
+                            cell.setType(CellType.TABLE3);
+                            break;
+                        case 'i':
+                            cell.setType(CellType.TABLE4);
+                            break;
+                        case 'p':
+                            cell.setType(CellType.TABLE5);
+                            break;
+                        case 'ő':
+                            cell.setType(CellType.TABLE6);
+                            break;
+                        case 'ú':
+                            cell.setType(CellType.TABLE7);
+                            break;
+                        case 'ü':
+                            cell.setType(CellType.TABLE8);
+                            break;
+                        case 'ö':
+                            cell.setType(CellType.TABLE9);
+                            break;
+
+                        case 'm':
+                            cell.setType(CellType.SAMLI);
+                            break;
+
+                        case 'n':
+                            cell.setType(CellType.POKER1);
+                            break;
+                        case 'f':
+                            cell.setType(CellType.POKER2);
+                            break;
+                        case 'h':
+                            cell.setType(CellType.POKER3);
+                            break;
+
+                        case 'K':
+                            cell.setType(CellType.POKER4);
+                            break;
+
+                        case 'á':
+                            cell.setType(CellType.POKER5);
+                            break;
+                        case 'Ő':
+                            cell.setType(CellType.POKER6);
+                            break;
+                        case 'Ú':
+                            cell.setType(CellType.POKER7);
+                            break;
+                        case 'Ű':
+                            cell.setType(CellType.POKER8);
+                            break;
+                        case 'Ö':
+                            cell.setType(CellType.ACE);
+                            break;
+
+
+
+
+
+
 
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

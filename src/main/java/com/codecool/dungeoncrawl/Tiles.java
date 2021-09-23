@@ -32,12 +32,13 @@ public class Tiles {
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("barMan", new Tile(28, 4));
         tileMap.put("player2", new Tile(27, 4));
+        tileMap.put("player3", new Tile(26, 4));
         tileMap.put("player", new Tile(30, 4));
         tileMap.put("boots", new Tile(7, 23));
         tileMap.put("hat", new Tile(14, 24));
         tileMap.put("horse", new Tile(28, 7));
         tileMap.put("skeleton", new Tile(29, 6));
-        tileMap.put("star", new Tile(28, 25));
+
         tileMap.put("gun", new Tile(7, 31));
         tileMap.put("skull", new Tile(0, 15));
         tileMap.put("tombStone", new Tile(1, 14));//0:14 or 1:14 ?
@@ -45,8 +46,8 @@ public class Tiles {
         tileMap.put("skull2", new Tile(0, 15));
         tileMap.put("scorpio", new Tile(25, 5));
         tileMap.put("tequila", new Tile(16, 25));
-        tileMap.put("tequila2", new Tile(23, 24));
-        tileMap.put("tequila3", new Tile(23, 25));
+        tileMap.put("tequila2", new Tile(25, 23));
+        tileMap.put("tequila3", new Tile(24, 23));
 
         tileMap.put("drink1", new Tile(16, 26));
         tileMap.put("drink2", new Tile(17, 25));
@@ -75,6 +76,7 @@ public class Tiles {
         tileMap.put("house_roof_straight", new Tile(11, 15));
         tileMap.put("house_roof_right", new Tile(12, 15));
         tileMap.put("house_door", new Tile(15, 16));
+        tileMap.put("star", new Tile(30, 29));
         tileMap.put("S", new Tile(24, 31));
         tileMap.put("A", new Tile(19, 30));
         tileMap.put("L", new Tile(30, 30));
@@ -101,6 +103,27 @@ public class Tiles {
         tileMap.put("barCenterDown", new Tile(17, 18));
         tileMap.put("barRightTop", new Tile(18, 16));
         tileMap.put("barRightDown", new Tile(18, 18));
+        tileMap.put("poker1", new Tile(16, 19));
+        tileMap.put("poker2", new Tile(17, 19));
+        tileMap.put("poker3", new Tile(18, 19));
+        tileMap.put("poker4", new Tile(16, 20));
+        tileMap.put("poker5", new Tile(18, 20));
+        tileMap.put("poker6", new Tile(16, 21));
+        tileMap.put("poker7", new Tile(17, 21));
+        tileMap.put("poker8", new Tile(18, 21));
+        tileMap.put("ace", new Tile(20, 16));
+
+
+        tileMap.put("table1", new Tile(0, 16));
+        tileMap.put("table2", new Tile(1, 16));
+        tileMap.put("table3", new Tile(2, 16));
+        tileMap.put("table4", new Tile(0, 17));
+        tileMap.put("table5", new Tile(1, 17));
+        tileMap.put("table6", new Tile(2, 17));
+        tileMap.put("table7", new Tile(0, 18));
+        tileMap.put("table8", new Tile(1, 18));
+        tileMap.put("table9", new Tile(2, 18));
+        tileMap.put("samli", new Tile(2, 8));
 
 
     }
