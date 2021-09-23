@@ -24,11 +24,11 @@ public class Main extends Application {
     int lastMap;
     int visibleSize = 25;
     Canvas canvas = new Canvas(
-            visibleSize * Tiles.TILE_WIDTH,
-            visibleSize * Tiles.TILE_WIDTH);
+            visibleSize* Tiles.TILE_WIDTH*1.25,
+            visibleSize* Tiles.TILE_WIDTH*1.25);
 
     Canvas inventorycanvas = new Canvas(
-            3 * Tiles.TILE_WIDTH,
+            4 * Tiles.TILE_WIDTH,
             8 * Tiles.TILE_WIDTH);
 
     GraphicsContext context = canvas.getGraphicsContext2D();
@@ -46,7 +46,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
+        ui.setStyle("-fx-font-size: 25px");
+        ui.setPrefWidth(350);
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
@@ -61,9 +62,9 @@ public class Main extends Application {
         ui.add(inventorycanvas,0,10);
 
         BorderPane borderPane = new BorderPane();
-
         borderPane.setCenter(canvas);
         borderPane.setLeft(ui);
+        borderPane.setStyle("-fx-background-color:lightgrey;");
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
