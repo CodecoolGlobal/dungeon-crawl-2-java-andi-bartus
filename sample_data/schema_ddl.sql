@@ -15,5 +15,14 @@ CREATE TABLE public.player (
     y integer NOT NULL
 );
 
+
+DROP TABLE IF EXISTS public.saves;
+CREATE TABLE public.saves (
+    id serial NOT NULL PRIMARY KEY,
+    name text NOT NULL,
+    json text NOT NULL );
+
+)
+
 ALTER TABLE ONLY public.game_state
     ADD CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES public.player(id);
