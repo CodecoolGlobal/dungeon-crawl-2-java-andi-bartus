@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.util.ArrayList;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class GameMap {
     private int width;

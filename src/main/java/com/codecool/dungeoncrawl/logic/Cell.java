@@ -21,7 +21,6 @@ public class Cell implements Drawable {
         this.x = x;
         this.y = y;
         this.type = type;
-
     }
 
     public CellType getType() {

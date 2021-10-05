@@ -15,8 +15,8 @@ public class Tiles {
     public static class Tile {
         public final int x, y, w, h;
         Tile(int i, int j) {
-            x = (i * (TILE_WIDTH + 2));
-            y = (j * (TILE_WIDTH + 2));
+            x = i * (TILE_WIDTH + 2);
+            y = j * (TILE_WIDTH + 2);
             w = TILE_WIDTH;
             h = TILE_WIDTH;
         }
