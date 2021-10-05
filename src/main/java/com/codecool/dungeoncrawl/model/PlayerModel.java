@@ -15,7 +15,8 @@ public class PlayerModel extends BaseModel {
     }
 
     public PlayerModel(Player player) {
-        this.playerName = player.getName();
+//        this.playerName = player.getName(); ToDo create player name
+        this.playerName = "Béla";
         this.x = player.getX();
         this.y = player.getY();
 
