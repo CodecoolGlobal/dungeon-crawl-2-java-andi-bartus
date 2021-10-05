@@ -1,4 +1,9 @@
 package com.codecool.dungeoncrawl;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
@@ -308,6 +313,14 @@ public class Main extends Application {
         primaryStage.setTitle("Sample Application");
 
         primaryStage.show();
+    }
+
+    public void save(String saveName) throws SQLException {
+        JsonObject new_save = new JsonObject(); // TODO bens
+        GameDatabaseManager dbManager = new GameDatabaseManager();
+        dbManager.setup();
+        dbManager.saveJSON(saveName, new_save.toString());
+
     }
 
 }

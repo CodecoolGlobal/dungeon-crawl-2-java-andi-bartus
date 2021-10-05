@@ -8,16 +8,23 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public class GameDatabaseManager {
+
     private PlayerDao playerDao;
+    private GameStateDao gameStateDao;
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
+        gameStateDao = new GameStateDaoJdbc(dataSource);
     }
 
     public void savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);
         playerDao.add(model);
+    }
+
+    public void saveJSON(String name, String jsonString){
+        gameStateDao.add(name, jsonString);
     }
 
     private DataSource connect() throws SQLException {
@@ -35,5 +42,13 @@ public class GameDatabaseManager {
         System.out.println("Connection ok.");
 
         return dataSource;
+    }
+
+    public PlayerDao getPlayerDao() {
+        return playerDao;
+    }
+
+    public GameStateDao getGameStateDao() {
+        return gameStateDao;
     }
 }
