@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 
 
 public abstract class Actor implements Drawable {
-    protected Cell cell;
+    transient protected Cell cell;
     protected int health;
     protected boolean canStepOn = false;
     protected int damage;

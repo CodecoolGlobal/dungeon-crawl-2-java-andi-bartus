@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 public class Gate {
-    private Cell cell;
+    transient private Cell cell;
     private final int newCurrentMap;
 
     public Gate(Cell cell, int newCurrentMap) {

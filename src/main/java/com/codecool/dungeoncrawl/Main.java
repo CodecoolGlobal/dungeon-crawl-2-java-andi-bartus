@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Chick;
 import com.codecool.dungeoncrawl.logic.items.Gun;
+import com.google.gson.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -30,6 +31,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.beans.Transient;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -107,7 +109,17 @@ public class Main extends Application {
         }
     }
 
+
+    private void soutMapToJson(){
+        System.out.println(new Gson().toJson(maps.get(0).getPlayer().getMoney()));
+        System.out.println(new Gson().toJson(maps.get(0).getPlayer()));
+        System.out.println(new Gson().toJson(maps.get(0)));
+        //System.out.println(new Gson().toJson(maps.get(0)));
+        //System.out.println(new Gson().toJson(maps));
+    }
+
     private void onKeyPressed(KeyEvent keyEvent) {
+        soutMapToJson();
         switch (keyEvent.getCode()) {
             case UP:
                 movement(0,-1);

@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class Cell implements Drawable {
     private CellType type;
-    private Actor actor;
+    transient private Actor actor;
     private Item item;
     private Gate gate;
 
 
-    private GameMap gameMap;
+    transient private GameMap gameMap;
     private int x, y;
 
     Cell(GameMap gameMap, int x, int y, CellType type) {
