@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.dao.queries.Queries;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
@@ -43,7 +44,23 @@ public class GameStateDaoJdbc implements GameStateDao {
     }
 
     @Override
-    public List<GameState> getAll() {
-        return null;
+    public List<String> getAll() {
+        try (Connection connection = dataSource.getConnection()){
+            String sql = Queries.getAllSaveNames();
+
+            ResultSet resultSet = connection.createStatement().executeQuery(sql);
+            List<String> result = new ArrayList<>();
+
+            while (resultSet.next()){
+                String name = resultSet.getString(0);
+                result.add(name);
+            }
+
+            return result;
+        }
+        catch (SQLException e){
+            throw new RuntimeException("Error while reading all authors", e);
+        }
     }
+
 }
