@@ -6,6 +6,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameDatabaseManager {
 
@@ -21,6 +22,10 @@ public class GameDatabaseManager {
     public void savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);
         playerDao.add(model);
+    }
+
+    public List<String> getAllNames(){
+        return gameStateDao.getAll();
     }
 
     public void saveJSON(String name, String jsonString){

@@ -63,6 +63,7 @@ public class Main extends Application {
     Label moneyLabel = new Label();
     Stage primaryStage;
     GameDatabaseManager dbManager;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -106,6 +107,8 @@ public class Main extends Application {
     }
 
     public void popup() {
+        List<String> names = dbManager.getAllNames();
+
         Stage popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
         popupWindow.setTitle("This is a popup");
@@ -125,6 +128,16 @@ public class Main extends Application {
             fileNameToSave = fileName.getText();
             popupWindow.close();
             System.out.println(fileNameToSave);
+            if (names.contains(fileNameToSave)){
+                //TODO pop-up window --> theres a name like this...
+            } else {
+                try {
+                    save(fileNameToSave);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
         });
         VBox layout = new VBox(10);
         layout.getChildren().addAll(fileNameLabel, fileName, saveButton, cancelButton);
@@ -317,8 +330,7 @@ public class Main extends Application {
 
     public void save(String saveName) throws SQLException {
         JsonObject new_save = new JsonObject(); // TODO bens
-        GameDatabaseManager dbManager = new GameDatabaseManager();
-        dbManager.setup();
+
         dbManager.saveJSON(saveName, new_save.toString());
 
     }
