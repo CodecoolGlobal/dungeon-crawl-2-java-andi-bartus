@@ -52,14 +52,14 @@ public class GameStateDaoJdbc implements GameStateDao {
             List<String> result = new ArrayList<>();
 
             while (resultSet.next()){
-                String name = resultSet.getString(0);
+                String name = resultSet.getString(1);
                 result.add(name);
             }
 
             return result;
         }
         catch (SQLException e){
-            throw new RuntimeException("Error while reading all authors", e);
+            throw new RuntimeException("Error while reading all names", e);
         }
     }
 

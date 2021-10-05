@@ -127,8 +127,9 @@ public class Main extends Application {
         saveButton.setOnAction(e -> {
             fileNameToSave = fileName.getText();
             popupWindow.close();
-            System.out.println(fileNameToSave);
+
             if (names.contains(fileNameToSave)){
+                System.out.println("nonononoNOOOno");
                 //TODO pop-up window --> theres a name like this...
             } else {
                 try {

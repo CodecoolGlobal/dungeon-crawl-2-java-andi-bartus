@@ -22,7 +22,6 @@ CREATE TABLE public.saves (
     name text NOT NULL,
     json text NOT NULL );
 
-)
 
 ALTER TABLE ONLY public.game_state
     ADD CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES public.player(id);
