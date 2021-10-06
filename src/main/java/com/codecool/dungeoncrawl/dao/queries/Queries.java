@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.dao.queries;
 
 public class Queries {
-    public static String getSaveFileName(){
+    public static String getSaveFileJson(){
         return "SELECT json FROM saves WHERE id = ?";
     }
 
