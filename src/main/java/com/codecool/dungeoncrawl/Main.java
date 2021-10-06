@@ -2,15 +2,14 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.dao.queries.Queries;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
+import java.io.*;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Chick;
 import com.codecool.dungeoncrawl.logic.items.Gun;
 import javafx.application.Application;
@@ -33,6 +32,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +133,7 @@ public class Main extends Application {
                 popupWindow.close();
                 try {
                     save(fileNameToSave);
-                } catch (SQLException ex) {
+                } catch (SQLException | IOException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -373,6 +373,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
     public void save(String saveName) throws SQLException {
         JsonObject new_save = new JsonObject(); // TODO bens
         List<String> names = dbManager.getAllNames();
@@ -380,8 +381,21 @@ public class Main extends Application {
             //ToDo update DB with new save
         } else {
             dbManager.saveJSON(saveName, new_save.toString());
+            writeSaveToFile(saveName, new_save);
         }
 
+
+    }
+
+    public void writeSaveToFile(String saveName, JsonObject saveContent) throws IOException {
+        try {
+            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.txt", saveName));
+            writer.write(saveContent.toString());
+            writer.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 }
