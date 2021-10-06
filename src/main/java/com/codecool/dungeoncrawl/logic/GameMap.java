@@ -78,13 +78,18 @@ public class GameMap {
     public void removeDeadEnemies() {
         for (Actor enemy : enemies) {
             if (enemy.getHealth() < 0) {
-                System.out.println(enemy.getPosition());
-                cells[enemy.getX()][enemy.getY()].setActor(null);
+
                 if (cells[enemy.getX()][enemy.getY()].getItem() == null) {
                     cells[enemy.getX()][enemy.getY()].setItem(new Coin(enemy.getPosition(), enemy.getCoinValue()));
                 }
-                enemies.remove(enemy);
+                System.out.println(enemy.getPosition().getX() + " pos x" + enemy.getPosition().getY() + " pos y");
+                System.out.println(cells[enemy.getPosition().getX()][enemy.getPosition().getY()].getActor());
+                System.out.println(enemy.getX()+"getx"+enemy.getY()+"gety");
+                System.out.println(this.getCell(enemy.getY(), enemy.getX()).getActor());
+                cells[enemy.getX()][enemy.getY()].setActor(null);
                 this.setCellActor(enemy.getX(), enemy.getY(), null);
+                enemies.remove(enemy);
+                System.out.println("");
                 break;
             }
         }

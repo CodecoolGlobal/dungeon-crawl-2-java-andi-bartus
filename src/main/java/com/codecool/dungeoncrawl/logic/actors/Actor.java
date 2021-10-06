@@ -54,7 +54,7 @@ public abstract class Actor implements Drawable {
     }
 
     public int getY() {
-        return position.getX();
+        return position.getY();
     }
 
     public void setHealth(int health) {

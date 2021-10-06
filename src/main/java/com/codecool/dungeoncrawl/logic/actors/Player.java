@@ -68,7 +68,7 @@ public class Player extends Actor {
 
 
     public void movePlayer(int dx, int dy, GameMap map) {
-        Cell nextCell = map.getCell(position.getX() + dx, position.getY() + dy);
+        Cell nextCell = map.getCell(this.position.getX() + dx, this.position.getY() + dy);
         System.out.println(nextCell.getX() + " "+ nextCell.getY());
         if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
             map.setCellActorbyPosition(position, null);
@@ -82,12 +82,12 @@ public class Player extends Actor {
                     if(canOpenGate(nextCell)) {
                         this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
                     }
-            System.out.println("player to gate");
         }else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {
+            System.out.println(nextCell.getActor().name+" élek more");
+            System.out.println(nextCell.getX()+" : X before death"+nextCell.getY()+" : Y before death");
             nextCell.getActor().setHealth(
                     nextCell.getActor().getHealth() - this.getDamage()
             );
-            System.out.println("hit enemy");
         }
     }
 
