@@ -34,8 +34,17 @@ public class GameStateDaoJdbc implements GameStateDao {
     }
 
     @Override
-    public void update(GameState state) {
-
+    public void update(String name, String json) {
+        try (Connection connection = dataSource.getConnection()){
+            String sql = Queries.updateExistingSave();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, json);
+            statement.setString(2, name);
+            statement.executeUpdate();
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

@@ -9,4 +9,8 @@ public class Queries {
         return "SELECT name FROM saves";
     }
 
+    public static String updateExistingSave(){
+        return "UPDATE saves SET json = ? WHERE name = ?";
+    }
+
 }

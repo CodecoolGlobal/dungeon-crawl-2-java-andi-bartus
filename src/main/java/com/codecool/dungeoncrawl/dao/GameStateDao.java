@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GameStateDao {
     void add(String name, String json);
-    void update(GameState state);
+    void update(String name, String json);
     GameState get(int id);
     List<String> getAll();
 }
