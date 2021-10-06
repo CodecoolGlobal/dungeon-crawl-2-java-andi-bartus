@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.items.*;
 import java.util.ArrayList;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import javafx.geometry.Pos;
 
 public class GameMap {
     private final int width;
@@ -23,6 +24,8 @@ public class GameMap {
         this.enemies = new ArrayList<>();
         this.gates = new ArrayList<>();
         cells = generateCells(width, height, defaultCellType);
+        System.out.println(height + "height");
+        System.out.println(width + "width");
     }
 
     public Cell[][] generateCells(int width, int height, CellType defaultCellType) {
@@ -75,18 +78,25 @@ public class GameMap {
     public void removeDeadEnemies() {
         for (Actor enemy : enemies) {
             if (enemy.getHealth() < 0) {
+                System.out.println(enemy.getPosition());
                 cells[enemy.getX()][enemy.getY()].setActor(null);
                 if (cells[enemy.getX()][enemy.getY()].getItem() == null) {
                     cells[enemy.getX()][enemy.getY()].setItem(new Coin(enemy.getPosition(), enemy.getCoinValue()));
                 }
                 enemies.remove(enemy);
+                this.setCellActor(enemy.getX(), enemy.getY(), null);
                 break;
             }
         }
     }
 
-    public void addItem(Item item) {
+    public void addItem(Item item, Position position) {
         this.items.add(item);
+        setCellItem(item, position);
+    }
+
+    public void setCellItem (Item item, Position position){
+        cells[position.getX()][position.getY()].setItem(item);
     }
 
     public void removeItem(Position position) {

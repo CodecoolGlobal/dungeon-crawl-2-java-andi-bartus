@@ -46,7 +46,7 @@ public class MapLoader {
                             break;
                        case 'k':
                             cell.setType(CellType.TOWN_ROAD);
-                            map.addItem(new Star(position, "star"));
+                            map.addItem(new Star(position, "star"), position);
                             break;
                         case '@':
                             cell.setType(CellType.TOWN_ROAD);
@@ -72,19 +72,19 @@ public class MapLoader {
                             break;
                         case 'g':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Gun(position, "gun"));
+                            map.addItem(new Gun(position, "gun"), position);
                             break;
                         case 't':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Tequila(position, "tequila"));
+                            map.addItem(new Tequila(position, "tequila"), position);
                             break;
                         case 'Y':
                             cell.setType(CellType.TOWN_ROAD);
-                            map.addItem(new Tequila(position, "tequila2"));
+                            map.addItem(new Tequila(position, "tequila2"), position);
                             break;
                         case 'X':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Tequila(position, "tequila3"));
+                            map.addItem(new Tequila(position, "tequila3"), position);
                             break;
                         case 'a':
                             cell.setType(CellType.RED_HOUSE1);
@@ -200,11 +200,11 @@ public class MapLoader {
                             break;
                         case 'q':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Boots(position, "boots"));
+                            map.addItem(new Boots(position, "boots"), position);
                             break;
                         case 'Ü':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Hat(position, "hat"));
+                            map.addItem(new Hat(position, "hat"), position);
                             break;
                         case 'ó':
                             cell.setType(CellType.HORSE);
@@ -332,11 +332,11 @@ public class MapLoader {
                             break;
                         case '9':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Chick(position, "chick"));
+                            map.addItem(new Chick(position, "chick"), position);
                             break;
                         case '8':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Rose(position, "rose"));
+                            map.addItem(new Rose(position, "rose"), position);
                             break;
 
                         default:

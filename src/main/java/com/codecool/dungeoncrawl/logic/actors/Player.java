@@ -69,9 +69,11 @@ public class Player extends Actor {
 
     public void movePlayer(int dx, int dy, GameMap map) {
         Cell nextCell = map.getCell(position.getX() + dx, position.getY() + dy);
+        System.out.println(nextCell.getX() + " "+ nextCell.getY());
         if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
             map.setCellActorbyPosition(position, null);
             map.setCellActorbyPosition(nextCell.getPosition(), this);
+            position.setPositionByPosition(nextCell.getPosition());
         } else if (!nextCell.getType().getCanStepOn() &&
                 (nextCell.getType().equals(CellType.GATE) ||
                 nextCell.getType().equals(CellType.GUN_STORE_DOOR) ||
@@ -80,10 +82,12 @@ public class Player extends Actor {
                     if(canOpenGate(nextCell)) {
                         this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
                     }
+            System.out.println("player to gate");
         }else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {
             nextCell.getActor().setHealth(
                     nextCell.getActor().getHealth() - this.getDamage()
             );
+            System.out.println("hit enemy");
         }
     }
 

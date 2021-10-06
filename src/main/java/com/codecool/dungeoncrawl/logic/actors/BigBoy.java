@@ -26,11 +26,13 @@ public class BigBoy extends Actor{
                 nextPosition = targetCells.get(0);
                 map.setCellActor(this.position.getX(), this.position.getY(), null);
                 map.setCellActor(nextPosition.getX(), nextPosition.getY(), this);
+                position.setPositionByPosition(nextPosition);
             } else if (targetCells.size() > 1) {
                 Random random = new Random();
                 nextPosition = targetCells.get(random.nextInt(targetCells.size()));
                 map.setCellActor(this.position.getX(), this.position.getY(), null);
                 map.setCellActor(nextPosition.getX(), nextPosition.getY(), this);
+                position.setPositionByPosition(nextPosition);
             }
             Random random = new Random();
             coolDown = random.nextInt(3);

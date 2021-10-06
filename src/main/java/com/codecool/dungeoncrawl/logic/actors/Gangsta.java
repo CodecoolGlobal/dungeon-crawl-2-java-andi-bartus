@@ -37,6 +37,7 @@ public class Gangsta extends Actor {
                 if (baseDistance >= possibleMoveDistance){
                     map.setCellActorbyPosition(position, null);
                     map.setCellActorbyPosition(possibleMove.getPosition(), this);
+                    position.setPositionByPosition(possibleMove.getPosition());
                     break;
                 }
             }

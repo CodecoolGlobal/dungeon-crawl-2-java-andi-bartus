@@ -32,6 +32,7 @@ public class FriendlyNPC extends Actor {
             nextPosition = targetPositions.get(0);
             map.setCellActor(this.position.getX(), this.position.getY(), null);
             map.setCellActor(nextPosition.getX(), nextPosition.getY(), this);
+            position.setPositionByPosition(nextPosition);
         }else if(targetPositions.size() > 1){
             Random random = new Random();
             nextPosition = targetPositions.get(random.nextInt(targetPositions.size()));

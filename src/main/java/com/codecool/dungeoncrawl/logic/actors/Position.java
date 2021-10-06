@@ -24,5 +24,13 @@ public class Position {
         return y;
     }
 
+    public void setPositionByPosition(Position position){
+        this.setX(position.getX());
+        this.setY(position.getY());
+    }
 
+    public void setPositionByXAndY(int x, int y){
+        this.setX(x);
+        this.setY(y);
+    }
 }

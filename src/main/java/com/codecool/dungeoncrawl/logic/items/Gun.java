@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Position;
 
@@ -17,9 +18,10 @@ public class Gun extends Item{
     }
 
     @Override
-    public void useItem(Player player){
+    public void useItem(Player player, GameMap map){
         player.setMoney(player.getMoney()-cost);
         player.setDamage(player.getDamage() + damage);
         player.getInventory().add(this);
+        map.setCellItem(null, position);
     }
 }

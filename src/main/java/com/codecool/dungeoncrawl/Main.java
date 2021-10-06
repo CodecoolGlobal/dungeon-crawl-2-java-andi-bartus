@@ -177,11 +177,12 @@ public class Main extends Application {
                 GameMap actualMap = maps.get(currentMap);
                 int x = actualMap.getPlayer().getX();
                 int y = actualMap.getPlayer().getY();
+                System.out.println(x + " " + y);
                 if (actualMap.getPlayer().getHealth()>0) {
                     if (actualMap.getCell(x, y).getItem() instanceof Chick && actualMap.getPlayer().canPickUpChick()) {
                         end();
-                    } else {
-                        actualMap.getCell(x, y).getItem().useItem(actualMap.getPlayer());                                            }
+                    } else if (actualMap.getCell(x, y).getItem() != null){
+                        actualMap.getCell(x, y).getItem().useItem(actualMap.getPlayer(), actualMap);                                            }
                 }
                 refresh();
                 break;
