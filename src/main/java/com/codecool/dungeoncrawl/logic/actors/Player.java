@@ -35,20 +35,7 @@ public class Player extends Actor {
     }
 
     public void addToInventory(Item item){
-        if (item instanceof Tequila){
-            ((Tequila) item).useTequila(this);
-        }
-        else if (item instanceof Coin){
-            ((Coin) item).pickupCoin(this);
-        }
-        else if (item != null){
-            if (item instanceof Gun) {
-                ((Gun) item).pickUpGun(this);
-            }
-                inventory.add(item);
-
-
-        }
+        item.useItem(this);
     }
 
     public int getPlayerMapLevel() {
