@@ -1,61 +1,125 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.GameMap;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Scorpion extends Actor{
-    private final String tileName = "scorpion";
+public class Scorpion extends Actor {
 
-    public Scorpion(Cell cell){
-        super(cell);
+
+    public Scorpion(Position position, String name) {
+        super(position, name);
         this.damage = 1;
         this.health = 10;
         this.coinValue = 9;
     }
 
     public String getTileName() {
-        return this.tileName;
+        return this.name;
     }
 
     @Override
-    public void move(){
-        ArrayList<Cell> targetCells = cell.getPossibleBotMoves();
-        Cell nextCell;
-        if (targetCells.size() == 1 && targetCells.get(0).getActor() == null
-            ){
-            Cell furtherMove = cell.getFurtherPlayer(getCell());
-            Cell cornerMove = cell.getCornerPlayer(getCell());
+    public void move(GameMap map) {
+        ArrayList<Position> targetPosition = map.getPossibleBotMoves();
+        Position nextPosition;
+        if (targetPosition.size() == 1 &&
+                map.getCell(targetPosition.get(0).getX(), targetPosition.get(0).getY()).getActor() == null) {
+            Position furtherMove = getFurtherPlayer(position, map);
+            Position cornerMove = getCornerPlayer(position, map);
 
-            if (furtherMove != null){
-                nextCell = furtherMove;
-            }else if(cornerMove != null){
-                nextCell = cornerMove;
-            }else{
-                nextCell = targetCells.get(0);
+            if (furtherMove != null) {
+                nextPosition = furtherMove;
+            } else if (cornerMove != null) {
+                nextPosition = cornerMove;
+            } else {
+                nextPosition = targetPosition.get(0);
             }
+            map.setCellActorbyPosition(position, null);
+            map.setCellActorbyPosition(nextPosition, this);
 
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-        } else if(targetCells.size() > 1){
-            Cell furtherMove = cell.getFurtherPlayer(getCell());
-            Cell cornerMove = cell.getCornerPlayer(getCell());
+        } else if (targetPosition.size() > 1) {
+            Position furtherMove = getFurtherPlayer(position, map);
+            Position cornerMove = getCornerPlayer(position, map);
 
-            if (furtherMove != null){
-                nextCell = furtherMove;
-            }else if(cornerMove != null){
-                nextCell = cornerMove;
-            }else{
+            if (furtherMove != null) {
+                nextPosition = furtherMove;
+            } else if (cornerMove != null) {
+                nextPosition = cornerMove;
+            } else {
                 Random random = new Random();
-                nextCell = targetCells.get(random.nextInt(targetCells.size()));
+                nextPosition = targetPosition.get(random.nextInt(targetPosition.size()));
             }
 
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
+            map.setCellActorbyPosition(position, null);
+            map.setCellActorbyPosition(nextPosition, this);
         }
+    }
+
+    public Position getFurtherPlayer(Position position, GameMap map) {
+        int[][] coordinateDifferences = {
+                {2, 0},
+                {0, 2},
+                {-2, 0},
+                {0, -2},
+        };
+
+        int newX;
+        int newY;
+        for (int[] CD : coordinateDifferences) {
+            newX = position.getX() + CD[0];
+            newY = position.getY() + CD[1];
+            if (newX >= 0 && newX < map.getWidth() &&
+                    newY >= 0 && newY < map.getHeight()) {
+
+                if (map.getCell(newX, newY).getActor() != null &&
+                        map.getCell(newX, newY).getActor().getTileName().equals("player")) {
+
+                    if (map.getCell(newX - CD[0] / 2, newY - CD[1] / 2).getActor() == null &&
+                            map.getCell(newX - CD[0] / 2, newY - CD[1] / 2).getType().getCanStepOn()) {
+
+                        return map.getCell(newX - CD[0] / 2, newY - CD[1] / 2).getPosition();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public Position getCornerPlayer(Position position, GameMap map) {
+        int[][] coordinateDifferences = {
+                {1, 1},
+                {-1, -1},
+                {1, -1},
+                {-1, 1},
+        };
+
+        int newX;
+        int newY;
+        for (int[] CD : coordinateDifferences) {
+            newX = position.getX() + CD[0];
+            newY = position.getY() + CD[1];
+            if (newX >= 0 && newX < map.getWidth() &&
+                    newY >= 0 && newY < map.getHeight()) {
+
+                if (map.getCell(newX, newY).getActor() != null &&
+                        map.getCell(newX, newY).getActor().getTileName().equals("player")) {
+
+                    if (map.getCell(position.getX(), newY).getActor() == null
+                            && map.getCell(position.getX(), newY).getType().getCanStepOn()) {
+
+                        return map.getCell(position.getX(), newY).getPosition();
+
+                    } else if (map.getCell(newX, position.getY()).getActor() == null
+                            && map.getCell(newX, position.getY()).getType().getCanStepOn()) {
+
+                        return map.getCell(newX, position.getY()).getPosition();
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 

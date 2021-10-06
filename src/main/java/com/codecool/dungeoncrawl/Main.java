@@ -215,24 +215,25 @@ public class Main extends Application {
     }
 
     private void movement(int dx, int dy){
-        if (maps.get(currentMap).getPlayer().getWaterLevel() > 0 && maps.get(currentMap).getPlayer().getHealth() > 0){
-            maps.get(currentMap).getPlayer().setWaterLevel(maps.get(currentMap).getPlayer().getWaterLevel()-1);
-        } else if (maps.get(currentMap).getPlayer().getHealth() > 0){
-            maps.get(currentMap).getPlayer().setHealth(maps.get(currentMap).getPlayer().getHealth()-1);
+        GameMap actaulMap = maps.get(currentMap)
+        if (actaulMap.getPlayer().getWaterLevel() > 0 && actaulMap.getPlayer().getHealth() > 0){
+            actaulMap.getPlayer().setWaterLevel(actaulMap.getPlayer().getWaterLevel()-1);
+        } else if (actaulMap.getPlayer().getHealth() > 0){
+            actaulMap.getPlayer().setHealth(actaulMap.getPlayer().getHealth()-1);
         }
-        if(maps.get(currentMap).getPlayer().getHealth() > 0){
-            maps.get(currentMap).getPlayer().movePlayer(dx, dy);
-            maps.get(currentMap).removeDeadEnemies();
-            maps.get(currentMap).moveEnemies();
-            if (currentMap != maps.get(currentMap).getPlayer().getPlayerMapLevel()) {
+        if(actaulMap.getPlayer().getHealth() > 0){
+            actaulMap.getPlayer().movePlayer(dx, dy, actaulMap);
+            actaulMap.removeDeadEnemies();
+            actaulMap.moveEnemies();
+            if (currentMap != actaulMap.getPlayer().getPlayerMapLevel()) {
                 this.lastMap = currentMap;
-                this.currentMap = maps.get(currentMap).getPlayer().getPlayerMapLevel();
-                maps.get(currentMap).setPlayerStats(maps.get(lastMap).getPlayer());
+                this.currentMap = actaulMap.getPlayer().getPlayerMapLevel();
+                actaulMap.setPlayerStats(maps.get(lastMap).getPlayer());
             }
         }
-        if(maps.get(currentMap).getPlayer().getHealth() < 1){
-            maps.get(currentMap).getPlayer().setHealth(0);
-            maps.get(currentMap).getPlayer().setTileNameToTombStone();
+        if(actaulMap.getPlayer().getHealth() < 1){
+            actaulMap.getPlayer().setHealth(0);
+            actaulMap.getPlayer().setTileNameToTombStone();
         }
         refresh();
     }

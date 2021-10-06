@@ -4,18 +4,16 @@ import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.util.ArrayList;
+
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class GameMap {
-    private int width;
-    private int height;
-    private Cell[][] cells;
+    private final int width;
+    private final int height;
+    private final Cell[][] cells;
     private ArrayList<Item> items;
-    private int ITEMS_OF_FIRST_MAP;
-
     private ArrayList<Actor> enemies;
-    private ArrayList<Gate> gates;
-
+    private final ArrayList<Gate> gates;
     private Player player;
 
     public GameMap(int width, int height, CellType defaultCellType) {
@@ -24,12 +22,18 @@ public class GameMap {
         this.items = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.gates = new ArrayList<>();
-        cells = new Cell[width][height];
+        cells = generateCells(width, height, defaultCellType);
+    }
+
+    public Cell[][] generateCells(int width, int height, CellType defaultCellType) {
+        Cell[][] cells = new Cell[width][height];
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                cells[x][y] = new Cell(this, x, y, defaultCellType);
+                cells[x][y] = new Cell(x, y, defaultCellType);
             }
         }
+        return cells;
     }
 
     public void setPlayerStats(Player originalPlayer) {
@@ -43,6 +47,9 @@ public class GameMap {
 
     public void setCellActor(int x, int y, Actor actor) {
         this.cells[x][y].setActor(actor);
+    }
+    public void setCellActorbyPosition(Position position, Actor actor) {
+        this.cells[position.getX()][position.getY()].setActor(actor);
     }
 
     public Cell getCell(int x, int y) {
@@ -65,11 +72,11 @@ public class GameMap {
         this.gates.add(gate);
     }
 
-    public void removeDeadEnemies(){
-        for (Actor enemy: enemies){
-            if (enemy.getHealth() < 0){
+    public void removeDeadEnemies() {
+        for (Actor enemy : enemies) {
+            if (enemy.getHealth() < 0) {
                 cells[enemy.getX()][enemy.getY()].setActor(null);
-                if(cells[enemy.getX()][enemy.getY()].getItem() == null){
+                if (cells[enemy.getX()][enemy.getY()].getItem() == null) {
                     cells[enemy.getX()][enemy.getY()].setItem(new Coin(cells[enemy.getX()][enemy.getY()], enemy.getCoinValue()));
                 }
                 enemies.remove(enemy);
@@ -82,25 +89,15 @@ public class GameMap {
         this.items.add(item);
     }
 
-    public void removeItem(Cell currentCell){
-        cells[currentCell.getX()][currentCell.getY()].setItem(null);
+    public void removeItem(Position position) {
+        cells[position.getX()][position.getY()].setItem(null);
 
     }
-
-    public void setEnemies(ArrayList<Actor> enemy) {
-        this.enemies = enemy;
-    }
-
-
 
     public void moveEnemies() {
-        for (Actor enemy:enemies){
-            enemy.move();
+        for (Actor enemy : enemies) {
+            enemy.move(this);
         }
-    }
-
-    public ArrayList<Actor> getEnemies() {
-        return enemies;
     }
 
     public int getWidth() {
@@ -111,7 +108,7 @@ public class GameMap {
         return height;
     }
 
-    public int[] getRefreshStartCoordinates(int visibleSize){
+    public int[] getRefreshStartCoordinates(int visibleSize) {
         int playerX = player.getX();
         int playerY = player.getY();
 
@@ -121,18 +118,76 @@ public class GameMap {
         int startY = playerY - side;
 
 
-        if (playerX - side < 0){
+        if (playerX - side < 0) {
             startX = 0;
-        }else if (playerX + side >= width-1){
+        } else if (playerX + side >= width - 1) {
             startX = width - visibleSize;
         }
 
-        if (playerY - side < 0){
+        if (playerY - side < 0) {
             startY = 0;
-        }else if (playerY + side >= height-1){
+        } else if (playerY + side >= height - 1) {
             startY = height - visibleSize;
         }
 
-        return new int[]{startX,startY};
+        return new int[]{startX, startY};
     }
+
+    public ArrayList<Position> getPossibleBotMoves(Position currentPosition) {
+        int x = currentPosition.getX();
+        int y = currentPosition.getY();
+        int[][] coordinateDifferences = {
+                {0, 1},
+                {0, -1},
+                {1, 0},
+                {-1, 0},
+        };
+        Cell neighbor;
+        ArrayList<Position> stepablePositions = new ArrayList<>();
+        for (int[] difference : coordinateDifferences) {
+            neighbor = this.getCell(x +difference[0], y + difference[1]);
+            if (neighbor.getActor() != null && (neighbor.getActor().getTileName().equals("player")
+                    || neighbor.getActor().getTileName().equals("player2"))) {
+
+                neighbor.getActor().setHealth(
+                        neighbor.getActor().getHealth() - this.getCell(x, y).getActor().getDamage()
+                );
+
+                ArrayList<Position> player = new ArrayList<>();
+                player.add(neighbor.getPosition());
+                return player;
+
+            } else if (neighbor.getType().getCanStepOn() && neighbor.getActor() == null) {
+                stepablePositions.add(neighbor.getPosition());
+            }
+        }
+        return stepablePositions;
+    }
+
+    public ArrayList<Position> getPossibleNPCMoves(Position position) {
+        int x = position.getX();
+        int y = position.getY();
+        int[][] coordinateDifferences = {
+                {0, 1},
+                {0, -1},
+                {1, 0},
+                {-1, 0},
+        };
+        Cell neighbor;
+        ArrayList<Position> stepAbleCells = new ArrayList<>();
+        for (int[] difference : coordinateDifferences) {
+            neighbor = this.getCell(x + difference[0], y + difference[1]);
+            if (neighbor.getType().getCanStepOn() && neighbor.getActor() == null) {
+                stepAbleCells.add(neighbor.getPosition());
+            }
+        }
+        return stepAbleCells;
+    }
+
+    public double getDistanceOfCells(Position basePosition, Position targetPosition) {
+        double dX = Math.abs(basePosition.getX() - targetPosition.getX());
+        double dY = Math.abs(basePosition.getX() - targetPosition.getY());
+        return (dX + dY) / 2;
+    }
+
 }
