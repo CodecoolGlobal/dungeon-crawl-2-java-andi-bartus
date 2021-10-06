@@ -34,6 +34,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -121,13 +122,13 @@ public class Main extends Application {
 //        saveButton.setTranslateY(0);
 
         cancelButton.setOnAction(e -> popupWindow.close());
-        saveButton.setOnAction(e -> {
+        saveButton.setOnAction(e -> { // todo outsource it to a method
             fileNameToSave = fileName.getText();
             if (names.contains(fileNameToSave)){
                 System.out.println("nonononoNOOOno");
-                //TODO pop-up window --> theres a name like this...
+                //TODO make it a class and make a closePopup method.
                 areYouSurePopup();
-                popupWindow.close();
+                popupWindow.close(); // todo delete it
             } else {
                 popupWindow.close();
                 try {
@@ -175,10 +176,24 @@ public class Main extends Application {
 //        Label message = new Label("Would you like to overwrite the already existing state?");
     }
 
+    private void popupForLoad() {
+        List<String> dialogData = dbManager.getAllNames();
+        ChoiceDialog<String> dialog = new ChoiceDialog(dialogData.get(0), dialogData);
+        dialog.setHeaderText("Choose where to load save from");
+        Optional<String> result = dialog.showAndWait();
+        String selected = "";
+        if (result.isPresent()) {
+            selected = result.get();
+            System.out.println(selected);
+            //todo call load function;
+        }
+    }
+
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
         KeyCombination saveCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+        KeyCombination loadCombination = new KeyCodeCombination(KeyCode.L, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
@@ -186,6 +201,8 @@ public class Main extends Application {
         }
         if (saveCombination.match(keyEvent))
             popup();
+        if (loadCombination.match(keyEvent))
+            popupForLoad();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
