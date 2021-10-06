@@ -378,11 +378,11 @@ public class Main extends Application {
         JsonObject new_save = new JsonObject(); // TODO bens
         List<String> names = dbManager.getAllNames();
         if (names.contains(saveName)) {
-            //ToDo update DB with new save
+            //ToDo update DB with new save1
         } else {
             dbManager.saveJSON(saveName, new_save.toString());
-            writeSaveToFile(saveName, new_save);
         }
+        writeSaveToFile(saveName, new_save);
 
 
     }
