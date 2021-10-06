@@ -22,7 +22,7 @@ public class Scorpion extends Actor {
 
     @Override
     public void move(GameMap map) {
-        ArrayList<Position> targetPosition = map.getPossibleBotMoves();
+        ArrayList<Position> targetPosition = map.getPossibleBotMoves(position);
         Position nextPosition;
         if (targetPosition.size() == 1 &&
                 map.getCell(targetPosition.get(0).getX(), targetPosition.get(0).getY()).getActor() == null) {

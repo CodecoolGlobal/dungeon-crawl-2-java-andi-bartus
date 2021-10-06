@@ -26,20 +26,6 @@ public class Player extends Actor {
         this.money = 0;
     }
 
-    public void addToInventory(Item item){ //TODO use interface for this one!!!!!!
-        if (item instanceof Tequila){
-            ((Tequila) item).useTequila(this);
-        }
-        else if (item instanceof Coin){
-            ((Coin) item).pickupCoin(this);
-        }
-        else if (item != null){
-            if (item instanceof Gun) {
-                ((Gun) item).pickUpGun(this);
-            }
-                inventory.add(item);
-        }
-    }
 
     public int getPlayerMapLevel() {
         return playerMapLevel;
@@ -56,14 +42,6 @@ public class Player extends Actor {
     public void setTileNameToTombStone() {
         this.name = "tombStone";
     }
-
-    public void setTileNameToPlayer2() {
-        this.name = "player2";
-    }
-
-     public void setTilenameToPlayer3() {
-        this.name = "player3";
-     }
 
     public void setWaterLevel(int waterLevel) {
         this.waterLevel = waterLevel;
@@ -83,10 +61,6 @@ public class Player extends Actor {
 
     public int getMoney() {
         return money;
-    }
-
-    public boolean checkMoneyForGun(){
-        return this.getMoney() >= Gun.getCost();
     }
 
     @Override

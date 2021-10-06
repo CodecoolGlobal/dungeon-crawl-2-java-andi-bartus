@@ -2,8 +2,6 @@ package com.codecool.dungeoncrawl;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
@@ -176,18 +174,14 @@ public class Main extends Application {
                 movement(1,0);
                 break;
             case E:
-                int x = maps.get(currentMap).getPlayer().getX();
-                int y = maps.get(currentMap).getPlayer().getY();
-                if (maps.get(currentMap).getPlayer().getHealth()>0) {
-                    if (maps.get(currentMap).getCell(x, y).getItem() instanceof Chick && maps.get(currentMap).getPlayer().canPickUpChick()) {
+                GameMap actualMap = maps.get(currentMap);
+                int x = actualMap.getPlayer().getX();
+                int y = actualMap.getPlayer().getY();
+                if (actualMap.getPlayer().getHealth()>0) {
+                    if (actualMap.getCell(x, y).getItem() instanceof Chick && actualMap.getPlayer().canPickUpChick()) {
                         end();
-                    } else if (!(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun) && !(maps.get(currentMap).getCell(x, y).getItem() instanceof Chick)) {
-                        maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
-                        maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
-                    } else if (maps.get(currentMap).getCell(x, y).getItem() instanceof Gun && maps.get(currentMap).getPlayer().checkMoneyForGun()) {
-                        maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
-                        maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
-                    }
+                    } else {
+                        actualMap.getCell(x, y).getItem().useItem(actualMap.getPlayer());                                            }
                 }
                 refresh();
                 break;
@@ -215,7 +209,7 @@ public class Main extends Application {
     }
 
     private void movement(int dx, int dy){
-        GameMap actaulMap = maps.get(currentMap)
+        GameMap actaulMap = maps.get(currentMap);
         if (actaulMap.getPlayer().getWaterLevel() > 0 && actaulMap.getPlayer().getHealth() > 0){
             actaulMap.getPlayer().setWaterLevel(actaulMap.getPlayer().getWaterLevel()-1);
         } else if (actaulMap.getPlayer().getHealth() > 0){

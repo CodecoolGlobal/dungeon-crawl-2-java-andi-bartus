@@ -33,6 +33,7 @@ public class MapLoader {
             for (int x = 0; x < width; x++) {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
+                    Position position = cell.getPosition();
                     switch (line.charAt(x)) {
                         case ' ':
                             cell.setType(CellType.EMPTY);
@@ -43,57 +44,47 @@ public class MapLoader {
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
-                        case 's':
-                            cell.setType(CellType.FLOOR);
-                            map.addEnemy(new Gangsta(cell));//make generic ? (<enemy> ? for multiple enemy types)
-                            break;
-                        case 'k':
+                       case 'k':
                             cell.setType(CellType.TOWN_ROAD);
-                            map.addItem(new Star(cell));
+                            map.addItem(new Star(position, "star"));
                             break;
                         case '@':
                             cell.setType(CellType.TOWN_ROAD);
-                            Player player2 = new Player(cell);
-                            player2.setTileNameToPlayer2();
+                            Player player2 = new Player(position, "player2");
                             map.setPlayer(player2);
                             break;
-
                         case 'ß':
                             cell.setType(CellType.SALOONFLOOR);
-                            Player player3 = new Player(cell);
-                            player3.setTilenameToPlayer3();
+                            Player player3 = new Player(position, "player3");
                             map.setPlayer(player3);
                             break;
-
                         case 'c':
                             cell.setType(CellType.FLOOR);
-                            map.addEnemy(new Scorpion(cell));
+                            map.addEnemy(new Scorpion(position, "scorpion"));
                             break;
                         case 'W':
                             cell.setType(CellType.FLOOR);
-                            map.addEnemy(new BigBoy(cell, "bigBoy"));
+                            map.addEnemy(new BigBoy(position, "bigBoy"));
                             break;
                         case 'b':
                             cell.setType(CellType.TOWN_ROAD);
-                            map.addEnemy(new BigBoy(cell, "bigBoy2"));
-
+                            map.addEnemy(new BigBoy(position, "bigBoy2"));
                             break;
                         case 'g':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Gun(cell));
+                            map.addItem(new Gun(position, "gun"));
                             break;
                         case 't':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Tequila(cell, "tequila"));
+                            map.addItem(new Tequila(position, "tequila"));
                             break;
-
                         case 'Y':
                             cell.setType(CellType.TOWN_ROAD);
-                            map.addItem(new Tequila(cell, "tequila2"));
+                            map.addItem(new Tequila(position, "tequila2"));
                             break;
                         case 'X':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Tequila(cell, "tequila3"));
+                            map.addItem(new Tequila(position, "tequila3"));
                             break;
                         case 'a':
                             cell.setType(CellType.RED_HOUSE1);
@@ -127,27 +118,27 @@ public class MapLoader {
                             break;
                         case 'D':
                             cell.setType(CellType.GATE);
-                            cell.addDoor(new Gate(cell, 1));
+                            cell.addDoor(new Gate(position, 1));
                             break;
                         case 'd':
                             cell.setType(CellType.GATE);
-                            cell.addDoor(new Gate(cell, 0));
+                            cell.addDoor(new Gate(position, 0));
                             break;
                         case 'É':
                             cell.setType(CellType.SALOON_DOOR);
-                            cell.addDoor(new Gate(cell, 3));
+                            cell.addDoor(new Gate(position, 3));
                             break;
                         case 'é':
                             cell.setType(CellType.SALOON_DOOR);
-                            cell.addDoor(new Gate(cell, 1));
+                            cell.addDoor(new Gate(position, 1));
                             break;
                         case 'Í':
                             cell.setType(CellType.GUN_STORE_DOOR);
-                            cell.addDoor(new Gate(cell, 2));
+                            cell.addDoor(new Gate(position, 2));
                             break;
                         case 'í':
                             cell.setType(CellType.GUN_STORE_DOOR);
-                            cell.addDoor(new Gate(cell, 1));
+                            cell.addDoor(new Gate(position, 1));
                             break;
                         case '-':
                             cell.setType(CellType.TOWN_ROAD);
@@ -205,15 +196,15 @@ public class MapLoader {
                             break;
                         case '&':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(new Player(position, "player"));
                             break;
                         case 'q':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Boots(cell));
+                            map.addItem(new Boots(position, "boots"));
                             break;
                         case 'Ü':
                             cell.setType(CellType.FLOOR);
-                            map.addItem(new Hat(cell));
+                            map.addItem(new Hat(position, "hat"));
                             break;
                         case 'ó':
                             cell.setType(CellType.HORSE);
@@ -226,7 +217,7 @@ public class MapLoader {
                             break;
                         case 'N':
                             cell.setType(CellType.TOWN_ROAD);
-                            map.addEnemy(new FriendlyNPC(cell, FriendlyNPC.getRandomNPCName()));
+                            map.addEnemy(new FriendlyNPC(position, FriendlyNPC.getRandomNPCName()));
                             break;
                         case '_':
                             cell.setType(CellType.SALOONFLOOR);
@@ -269,7 +260,7 @@ public class MapLoader {
                             break;
                         case 'm':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addEnemy(new Gangsta(cell));
+                            map.addEnemy(new Gangsta(position, "gangsta"));
                             break;
                         case 'V':
                             cell.setType(CellType.TABLE1);
@@ -298,7 +289,6 @@ public class MapLoader {
                         case 'ö':
                             cell.setType(CellType.TABLE9);
                             break;
-
                         case 'M':
                             cell.setType(CellType.SAMLI);
                             break;
@@ -312,7 +302,6 @@ public class MapLoader {
                         case 'h':
                             cell.setType(CellType.POKER3);
                             break;
-
                         case 'K':
                             cell.setType(CellType.POKER4);
                             break;
@@ -335,21 +324,19 @@ public class MapLoader {
                        case 'r':
                             cell.setType(CellType.REVOLVER);
                             break;
-
                         case 'u':
                             cell.setType(CellType.UZI);
                             break;
-
                         case 'ű':
                             cell.setType(CellType.SNIPER);
                             break;
                         case '9':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Chick(cell));
+                            map.addItem(new Chick(position, "chick"));
                             break;
                         case '8':
                             cell.setType(CellType.SALOONFLOOR);
-                            map.addItem(new Rose(cell));
+                            map.addItem(new Rose(position, "rose"));
                             break;
 
                         default:

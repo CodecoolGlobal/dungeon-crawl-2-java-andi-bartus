@@ -14,7 +14,7 @@ public class Cell implements Drawable {
     private Gate gate;
 
 
-    private Position position;
+    private Position position = new Position(0, 0);
 
     Cell(int x, int y, CellType type) {
         this.position.setX(x);

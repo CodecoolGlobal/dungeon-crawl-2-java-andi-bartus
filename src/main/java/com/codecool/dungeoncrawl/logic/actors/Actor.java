@@ -72,7 +72,7 @@ public abstract class Actor implements Drawable {
     public int getCoinValue() {
         return coinValue;}
 
-    public String getName() {
+    public String getTileName() {
         return name;
     }
 
