@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Coin;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Tequila;
@@ -12,31 +13,19 @@ public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
     private static final int initialWaterLevel = 20;
-    private String tileName = "player";
     private int playerMapLevel;
     private int money;
 
-    public Player(Cell cell) {
-        super(cell);
+    public Player(Position position, String name) {
+        super(position, name);
         this.damage = 5;
-        this.setHealth(100);
+        this.setHealth(100000);
         this.inventory = new ArrayList<>();
         this.waterLevel = initialWaterLevel;
-        this.playerMapLevel = 0;
+        this.playerMapLevel = 0 ;
         this.money = 0;
     }
 
-    public String getTileName() {
-        return this.tileName;
-    }
-
-    public void setCell(Cell cell) {
-        this.cell=cell;
-    }
-
-    public void addToInventory(Item item){
-        item.useItem(this);
-    }
 
     public int getPlayerMapLevel() {
         return playerMapLevel;
@@ -50,19 +39,9 @@ public class Player extends Actor {
         return inventory;
     }
 
-
     public void setTileNameToTombStone() {
-        this.tileName = "tombStone";
+        this.name = "tombStone";
     }
-
-    public void setTileNameToPlayer2() {
-        this.tileName = "player2";
-    }
-
-     public void setTilenameToPlayer3() {
-        this.tileName = "player3";
-     }
-
 
     public void setWaterLevel(int waterLevel) {
         this.waterLevel = waterLevel;
@@ -72,16 +51,28 @@ public class Player extends Actor {
         return waterLevel;
     }
 
+    public void setInventory(ArrayList<Item> inventory) {
+        this.inventory = inventory;
+    }
 
-    public void move(){}
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    @Override
+    public void move(GameMap map){}
 
 
-    public void movePlayer(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
+    public void movePlayer(int dx, int dy, GameMap map) {
+        Cell nextCell = map.getCell(this.position.getX() + dx, this.position.getY() + dy);
         if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
+            map.setCellActorbyPosition(position, null);
+            map.setCellActorbyPosition(nextCell.getPosition(), this);
+            position.setPositionByPosition(nextCell.getPosition());
         } else if (!nextCell.getType().getCanStepOn() &&
                 (nextCell.getType().equals(CellType.GATE) ||
                 nextCell.getType().equals(CellType.GUN_STORE_DOOR) ||
@@ -92,13 +83,13 @@ public class Player extends Actor {
                     }
         }else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {
             nextCell.getActor().setHealth(
-                    nextCell.getActor().getHealth() - cell.getActor().getDamage()
+                    nextCell.getActor().getHealth() - this.getDamage()
             );
         }
     }
 
 
-    private boolean canOpenGate(Cell gateCell) {
+    private boolean canOpenGate(Cell gateCell) { //TODO
         int counter = 0;
         for (Item item : inventory) {
             int toMapId = gateCell.getGate().getNewCurrentMap();
@@ -119,21 +110,6 @@ public class Player extends Actor {
         return counter == 2;
     }
 
-    public void setInventory(ArrayList<Item> inventory) {
-        this.inventory = inventory;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public boolean checkMoneyForGun(){
-        return this.getMoney() >= Gun.getCost();
-    }
 
     public boolean canPickUpChick() {
         for (int i = 0; i < inventory.size(); i++) {

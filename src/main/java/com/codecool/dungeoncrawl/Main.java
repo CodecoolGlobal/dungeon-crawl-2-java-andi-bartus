@@ -1,5 +1,10 @@
 package com.codecool.dungeoncrawl;
 
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import com.codecool.dungeoncrawl.dao.queries.Queries;
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.Cell;
@@ -7,6 +12,7 @@ import com.codecool.dungeoncrawl.popups.LoadPopup;
 import com.google.gson.JsonObject;
 
 import java.io.*;
+
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.actors.Player;
@@ -151,18 +157,15 @@ public class Main extends Application {
                 movement(1,0);
                 break;
             case E:
-                int x = maps.get(currentMap).getPlayer().getX();
-                int y = maps.get(currentMap).getPlayer().getY();
-                if (maps.get(currentMap).getPlayer().getHealth()>0) {
-                    if (maps.get(currentMap).getCell(x, y).getItem() instanceof Chick && maps.get(currentMap).getPlayer().canPickUpChick()) {
+                GameMap actualMap = maps.get(currentMap);
+                int x = actualMap.getPlayer().getX();
+                int y = actualMap.getPlayer().getY();
+                System.out.println(x + " " + y);
+                if (actualMap.getPlayer().getHealth()>0) {
+                    if (actualMap.getCell(x, y).getItem() instanceof Chick && actualMap.getPlayer().canPickUpChick()) {
                         end();
-                    } else if (!(maps.get(currentMap).getCell(x, y).getItem() instanceof Gun) && !(maps.get(currentMap).getCell(x, y).getItem() instanceof Chick)) {
-                        maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
-                        maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
-                    } else if (maps.get(currentMap).getCell(x, y).getItem() instanceof Gun && maps.get(currentMap).getPlayer().checkMoneyForGun()) {
-                        maps.get(currentMap).getPlayer().addToInventory(maps.get(currentMap).getCell(x, y).getItem());
-                        maps.get(currentMap).removeItem(maps.get(currentMap).getCell(x, y));
-                    }
+                    } else if (actualMap.getCell(x, y).getItem() != null){
+                        actualMap.getCell(x, y).getItem().useItem(actualMap.getPlayer(), actualMap);                                            }
                 }
                 refresh();
                 break;
@@ -182,32 +185,45 @@ public class Main extends Application {
                 maps.get(0).getCell(43, 3).setType(CellType.FLOOR);
                 refresh();
                 break;
-//            case S:
-//                Player player = maps.get(currentMap).getPlayer();
-//                dbManager.savePlayer(player);
-//                break;
+            case S:
+                soutMapToJson();
+                //Player player = maps.get(currentMap).getPlayer();
+                //dbManager.savePlayer(player);
+                break;
         }
     }
 
+    private void soutMapToJson(){
+        System.out.println(new Gson().toJson(maps.get(0).getPlayer().getMoney()));
+        System.out.println(new Gson().toJson(maps.get(0).getPlayer()));
+        System.out.println(new Gson().toJson(maps.get(0)));
+        //System.out.println(new Gson().toJson(maps.get(0)));
+        //System.out.println(new Gson().toJson(maps));
+    }
+
+
+
     private void movement(int dx, int dy){
-        if (maps.get(currentMap).getPlayer().getWaterLevel() > 0 && maps.get(currentMap).getPlayer().getHealth() > 0){
-            maps.get(currentMap).getPlayer().setWaterLevel(maps.get(currentMap).getPlayer().getWaterLevel()-1);
-        } else if (maps.get(currentMap).getPlayer().getHealth() > 0){
-            maps.get(currentMap).getPlayer().setHealth(maps.get(currentMap).getPlayer().getHealth()-1);
+        System.out.println(currentMap + "we are here man");
+        GameMap actaulMap = maps.get(currentMap);
+        if (actaulMap.getPlayer().getWaterLevel() > 0 && actaulMap.getPlayer().getHealth() > 0){
+            actaulMap.getPlayer().setWaterLevel(actaulMap.getPlayer().getWaterLevel()-1);
+        } else if (actaulMap.getPlayer().getHealth() > 0){
+            actaulMap.getPlayer().setHealth(actaulMap.getPlayer().getHealth()-1);
         }
-        if(maps.get(currentMap).getPlayer().getHealth() > 0){
-            maps.get(currentMap).getPlayer().movePlayer(dx, dy);
-            maps.get(currentMap).removeDeadEnemies();
-            maps.get(currentMap).moveEnemies();
-            if (currentMap != maps.get(currentMap).getPlayer().getPlayerMapLevel()) {
+        if(actaulMap.getPlayer().getHealth() > 0){
+            actaulMap.getPlayer().movePlayer(dx, dy, actaulMap);
+            actaulMap.removeDeadEnemies();
+            actaulMap.moveEnemies();
+            if (currentMap != actaulMap.getPlayer().getPlayerMapLevel()) {
                 this.lastMap = currentMap;
-                this.currentMap = maps.get(currentMap).getPlayer().getPlayerMapLevel();
-                maps.get(currentMap).setPlayerStats(maps.get(lastMap).getPlayer());
+                this.currentMap = actaulMap.getPlayer().getPlayerMapLevel();
+                actaulMap.setPlayerStats(maps.get(lastMap).getPlayer());
             }
         }
-        if(maps.get(currentMap).getPlayer().getHealth() < 1){
-            maps.get(currentMap).getPlayer().setHealth(0);
-            maps.get(currentMap).getPlayer().setTileNameToTombStone();
+        if(actaulMap.getPlayer().getHealth() < 1){
+            actaulMap.getPlayer().setHealth(0);
+            actaulMap.getPlayer().setTileNameToTombStone();
         }
         refresh();
     }
@@ -304,8 +320,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
     public void save(String saveName) throws SQLException, IOException {
-        JsonObject new_save = new JsonObject(); // TODO bens
+        String json = new Gson().toJson(maps.get(0).getPlayer().getMoney());
+       
         List<String> names = dbManager.getAllNames();
         if (names.contains(saveName)) {
             //ToDo update DB with new save1

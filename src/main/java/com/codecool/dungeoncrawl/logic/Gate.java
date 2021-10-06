@@ -1,16 +1,20 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Position;
+
 public class Gate {
-    private Cell cell;
+
+
+    private Position position;
     private final int newCurrentMap;
 
-    public Gate(Cell cell, int newCurrentMap) {
-        this.cell=cell;
+    public Gate(Position position, int newCurrentMap) {
+        this.position=position;
         this.newCurrentMap = newCurrentMap;
     }
 
-    public Cell getCell() {
-        return cell;
+    public Position getPosition() {
+        return position;
     }
 
     public int getNewCurrentMap() {
