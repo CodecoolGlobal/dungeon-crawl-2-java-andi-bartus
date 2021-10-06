@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.dao.queries.Queries;
 import com.google.gson.JsonObject;
 
 import java.io.*;
@@ -18,17 +19,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -38,7 +34,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Main extends Application {
     List<GameMap> maps = MapLoader.loadAllMaps();
@@ -111,27 +109,28 @@ public class Main extends Application {
 
         Stage popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
-        popupWindow.setTitle("This is a popup");
+        popupWindow.setTitle("Save the game");
 
         Label fileNameLabel = new Label("Filename:");
         TextField fileName = new TextField();
         fileName.setMaxWidth(300);
         Button cancelButton = new Button("Cancel");
-        cancelButton.setTranslateX(0);
-        cancelButton.setTranslateY(0);
+//        cancelButton.setTranslateX(0);
+//        cancelButton.setTranslateY(0);
         Button saveButton = new Button("Save");
-        saveButton.setTranslateX(0);
-        saveButton.setTranslateY(0);
+//        saveButton.setTranslateX(0);
+//        saveButton.setTranslateY(0);
 
         cancelButton.setOnAction(e -> popupWindow.close());
-        saveButton.setOnAction(e -> {
+        saveButton.setOnAction(e -> { // todo outsource it to a method
             fileNameToSave = fileName.getText();
-            popupWindow.close();
-
             if (names.contains(fileNameToSave)){
                 System.out.println("nonononoNOOOno");
-                //TODO pop-up window --> theres a name like this...
+                //TODO make it a class and make a closePopup method.
+                areYouSurePopup();
+                popupWindow.close(); // todo delete it
             } else {
+                popupWindow.close();
                 try {
                     save(fileNameToSave);
                 } catch (SQLException | IOException ex) {
@@ -148,10 +147,53 @@ public class Main extends Application {
         popupWindow.showAndWait();
     }
 
+    public void areYouSurePopup() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("confirmation");
+        alert.setContentText("Would you like to overwrite the already existing state?");
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        Optional<ButtonType> clickedButton = alert.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK ) {
+            try {
+                    save(fileNameToSave);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+        } else {
+            alert.close();
+        }
+
+
+//        Dialog<String> dialog = new TextInputDialog("");
+//        dialog.setTitle("ARE YOU SURE ???");
+//        dialog.setHeaderText("Would you like to overwrite the already existing state?");
+
+
+//        Stage areYouSurePopup = new Stage();
+//        areYouSurePopup.initModality(Modality.APPLICATION_MODAL);
+//        areYouSurePopup.setTitle("ARE YOU SURE???");
+//
+//        Label message = new Label("Would you like to overwrite the already existing state?");
+    }
+
+    private void popupForLoad() {
+        List<String> dialogData = dbManager.getAllNames();
+        ChoiceDialog<String> dialog = new ChoiceDialog(dialogData.get(0), dialogData);
+        dialog.setHeaderText("Choose where to load save from");
+        Optional<String> result = dialog.showAndWait();
+        String selected = "";
+        if (result.isPresent()) {
+            selected = result.get();
+            System.out.println(selected);
+            //todo call load function;
+        }
+    }
+
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
         KeyCombination saveCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+        KeyCombination loadCombination = new KeyCodeCombination(KeyCode.L, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
@@ -159,6 +201,8 @@ public class Main extends Application {
         }
         if (saveCombination.match(keyEvent))
             popup();
+        if (loadCombination.match(keyEvent))
+            popupForLoad();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -329,11 +373,17 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void save(String saveName) throws SQLException, IOException {
-        JsonObject new_save = new JsonObject();// TODO bens
-        writeSaveToFile(saveName, new_save);
 
-        dbManager.saveJSON(saveName, new_save.toString());
+    public void save(String saveName) throws SQLException {
+        JsonObject new_save = new JsonObject(); // TODO bens
+        List<String> names = dbManager.getAllNames();
+        if (names.contains(saveName)) {
+            //ToDo update DB with new save
+        } else {
+            dbManager.saveJSON(saveName, new_save.toString());
+            writeSaveToFile(saveName, new_save);
+        }
+
 
     }
 
