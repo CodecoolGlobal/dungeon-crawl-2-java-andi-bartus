@@ -32,11 +32,15 @@ public class GameDatabaseManager {
         gameStateDao.add(name, jsonString);
     }
 
+    public void updateJSON(String name, String jsonString){
+        gameStateDao.update(name, jsonString);
+    }
+
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         String dbName = "dungeonCrawl";
-        String user = "totoo";
-        String password = "950929";
+        String user = "sjpeti97";
+        String password = "58545652";
 
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);

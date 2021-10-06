@@ -1,9 +1,13 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameSaver {
@@ -14,14 +18,25 @@ public class GameSaver {
         this.dbManager = dbManager;
     }
 
-    public void save(String saveName) throws SQLException {
-        JsonObject new_save = new JsonObject(); // TODO bens
+    public void save(String saveName, ArrayList<GameMap> maps) throws SQLException, IOException {
+        String json = new Gson().toJson(maps);
         List<String> names = dbManager.getAllNames();
         if (names.contains(saveName)) {
-            //ToDo update DB with new save
+            dbManager.updateJSON(saveName, json);
         } else {
-            dbManager.saveJSON(saveName, new_save.toString());
+            dbManager.saveJSON(saveName, json);
         }
+        writeSaveToFile(saveName, json);
+    }
 
+    public void writeSaveToFile(String saveName, String saveContent) throws IOException {
+        try {
+            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.txt", saveName));
+            writer.write(saveContent);
+            writer.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

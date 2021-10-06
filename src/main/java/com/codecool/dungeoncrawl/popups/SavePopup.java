@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.popups;
 
+import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.GameSaver;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,7 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +22,7 @@ public class SavePopup {
     private static String fileNameToSave;
     private static Stage popupWindow;
 
-    public static void savePopup(List<String> names, GameSaver gameSaver) {
+    public static void savePopup(List<String> names, GameSaver gameSaver, ArrayList<GameMap> maps) {
 
         popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
@@ -33,7 +36,7 @@ public class SavePopup {
         // to move the button use --> cancelButton.setTranslateX(0);
 
         cancelButton.setOnAction(e -> popupWindow.close());
-        saveButton.setOnAction(e -> saveOrConfirm(names, fileName, gameSaver));
+        saveButton.setOnAction(e -> saveOrConfirm(names, fileName, gameSaver, maps));
         VBox layout = new VBox(10);
         layout.getChildren().addAll(fileNameLabel, fileName, saveButton, cancelButton);
         layout.setAlignment(Pos.CENTER);
@@ -42,15 +45,15 @@ public class SavePopup {
         popupWindow.showAndWait();
     }
 
-    private static void saveOrConfirm(List<String> names, TextField fileName, GameSaver gameSaver) {
+    private static void saveOrConfirm(List<String> names, TextField fileName, GameSaver gameSaver, ArrayList<GameMap> maps) {
         fileNameToSave = fileName.getText();
         if (names.contains(fileNameToSave)){
-            AreYouSurePopup.areYouSurePopup(gameSaver);
+            AreYouSurePopup.areYouSurePopup(gameSaver, maps);
         } else {
             popupWindow.close();
             try {
-                gameSaver.save(fileNameToSave);
-            } catch (SQLException ex) {
+                gameSaver.save(fileNameToSave, maps);
+            } catch (SQLException | IOException ex) {
                 ex.printStackTrace();
             }
         }

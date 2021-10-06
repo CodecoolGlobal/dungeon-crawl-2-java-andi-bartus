@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Main extends Application {
-    List<GameMap> maps = MapLoader.loadAllMaps();
+    ArrayList<GameMap> maps = MapLoader.loadAllMaps();
     int currentMap = 0;
     int lastMap;
     int visibleSize = 25;
@@ -139,7 +139,7 @@ public class Main extends Application {
 
     private void getNamesAndUsePopup() {
         List<String> names = dbManager.getAllNames();
-        SavePopup.savePopup(names, gameSaver);
+        SavePopup.savePopup(names, gameSaver, maps);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -321,28 +321,28 @@ public class Main extends Application {
     }
 
 
-    public void save(String saveName) throws SQLException, IOException {
-        String json = new Gson().toJson(maps.get(0).getPlayer().getMoney());
-       
-        List<String> names = dbManager.getAllNames();
-        if (names.contains(saveName)) {
-            //ToDo update DB with new save1
-        } else {
-            dbManager.saveJSON(saveName, new_save.toString());
-        }
-        writeSaveToFile(saveName, new_save);
-
-
-    }
-
-    public void writeSaveToFile(String saveName, JsonObject saveContent) throws IOException {
-        try {
-            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.txt", saveName));
-            writer.write(saveContent.toString());
-            writer.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
+//    public void save(String saveName) throws SQLException, IOException {
+//        String json = new Gson().toJson(maps.get(0).getPlayer().getMoney());
+//
+//        List<String> names = dbManager.getAllNames();
+//        if (names.contains(saveName)) {
+//            //ToDo update DB with new save1
+//        } else {
+//            dbManager.saveJSON(saveName, new_save.toString());
+//        }
+//        writeSaveToFile(saveName, new_save);
+//
+//
+//    }
+//
+//    public void writeSaveToFile(String saveName, JsonObject saveContent) throws IOException {
+//        try {
+//            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.txt", saveName));
+//            writer.write(saveContent.toString());
+//            writer.close();
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
 }
