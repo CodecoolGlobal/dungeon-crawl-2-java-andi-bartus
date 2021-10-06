@@ -156,7 +156,7 @@ public class Main extends Application {
         if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK ) {
             try {
                     save(fileNameToSave);
-                } catch (SQLException ex) {
+                } catch (SQLException | IOException ex) {
                     ex.printStackTrace();
                 }
         } else {
@@ -374,7 +374,7 @@ public class Main extends Application {
     }
 
 
-    public void save(String saveName) throws SQLException {
+    public void save(String saveName) throws SQLException, IOException {
         JsonObject new_save = new JsonObject(); // TODO bens
         List<String> names = dbManager.getAllNames();
         if (names.contains(saveName)) {
