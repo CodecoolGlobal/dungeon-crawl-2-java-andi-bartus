@@ -1,16 +1,28 @@
 package com.codecool.dungeoncrawl;
 
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import com.codecool.dungeoncrawl.dao.queries.Queries;
+import com.codecool.dungeoncrawl.logic.*;
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.popups.LoadPopup;
+import com.google.gson.JsonObject;
+
+import java.io.*;
+
+
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Chick;
 import com.codecool.dungeoncrawl.logic.items.Gun;
+import com.codecool.dungeoncrawl.popups.SavePopup;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,17 +30,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -36,8 +43,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Main extends Application {
     List<GameMap> maps = MapLoader.loadAllMaps();
@@ -62,6 +72,9 @@ public class Main extends Application {
     Label moneyLabel = new Label();
     Stage primaryStage;
     GameDatabaseManager dbManager;
+    private GameSaver gameSaver;
+    private LoadPopup loadPopup;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -70,6 +83,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         setupDbManager();
+        gameSaver = new GameSaver(dbManager);
+        loadPopup = new LoadPopup(dbManager);
         this.primaryStage = primaryStage;
         GridPane ui = new GridPane();
         ui.setStyle("-fx-font-size: 25px");
@@ -105,59 +120,26 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
     }
 
-    public void popup() {
-        List<String> names = dbManager.getAllNames();
-
-        Stage popupWindow = new Stage();
-        popupWindow.initModality(Modality.APPLICATION_MODAL);
-        popupWindow.setTitle("This is a popup");
-
-        Label fileNameLabel = new Label("Filename:");
-        TextField fileName = new TextField();
-        fileName.setMaxWidth(300);
-        Button cancelButton = new Button("Cancel");
-        cancelButton.setTranslateX(0);
-        cancelButton.setTranslateY(0);
-        Button saveButton = new Button("Save");
-        saveButton.setTranslateX(0);
-        saveButton.setTranslateY(0);
-
-        cancelButton.setOnAction(e -> popupWindow.close());
-        saveButton.setOnAction(e -> {
-            fileNameToSave = fileName.getText();
-            popupWindow.close();
-
-            if (names.contains(fileNameToSave)){
-                System.out.println("nonononoNOOOno");
-                //TODO pop-up window --> theres a name like this...
-            } else {
-                try {
-                    save(fileNameToSave);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-        });
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(fileNameLabel, fileName, saveButton, cancelButton);
-        layout.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(layout, 500, 500);
-        popupWindow.setScene(scene);
-        popupWindow.showAndWait();
-    }
 
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
         KeyCombination saveCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+        KeyCombination loadCombination = new KeyCodeCombination(KeyCode.L, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
         }
         if (saveCombination.match(keyEvent))
-            popup();
+            getNamesAndUsePopup();
+        if (loadCombination.match(keyEvent))
+            loadPopup.popupForLoad();
+    }
+
+    private void getNamesAndUsePopup() {
+        List<String> names = dbManager.getAllNames();
+        SavePopup.savePopup(names, gameSaver);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -338,10 +320,29 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void save(String saveName) throws SQLException {
+
+    public void save(String saveName) throws SQLException, IOException {
         String json = new Gson().toJson(maps.get(0).getPlayer().getMoney());
-        dbManager.saveJSON(saveName, json);
+       
+        List<String> names = dbManager.getAllNames();
+        if (names.contains(saveName)) {
+            //ToDo update DB with new save1
+        } else {
+            dbManager.saveJSON(saveName, new_save.toString());
+        }
+        writeSaveToFile(saveName, new_save);
+
 
     }
 
+    public void writeSaveToFile(String saveName, JsonObject saveContent) throws IOException {
+        try {
+            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.txt", saveName));
+            writer.write(saveContent.toString());
+            writer.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

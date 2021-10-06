@@ -23,5 +23,6 @@ public class Gun extends Item{
         player.setDamage(player.getDamage() + damage);
         player.getInventory().add(this);
         map.setCellItem(null, position);
+
     }
 }
