@@ -19,10 +19,10 @@ public class Player extends Actor {
     public Player(Position position, String name) {
         super(position, name);
         this.damage = 5;
-        this.setHealth(100);
+        this.setHealth(100000);
         this.inventory = new ArrayList<>();
         this.waterLevel = initialWaterLevel;
-        this.playerMapLevel = 0;
+        this.playerMapLevel = 0 ;
         this.money = 0;
     }
 
@@ -69,7 +69,6 @@ public class Player extends Actor {
 
     public void movePlayer(int dx, int dy, GameMap map) {
         Cell nextCell = map.getCell(this.position.getX() + dx, this.position.getY() + dy);
-        System.out.println(nextCell.getX() + " "+ nextCell.getY());
         if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
             map.setCellActorbyPosition(position, null);
             map.setCellActorbyPosition(nextCell.getPosition(), this);
@@ -83,8 +82,6 @@ public class Player extends Actor {
                         this.playerMapLevel=nextCell.getGate().getNewCurrentMap();
                     }
         }else if (nextCell.getActor()!=null && !(nextCell.getActor() instanceof FriendlyNPC)) {
-            System.out.println(nextCell.getActor().name+" élek more");
-            System.out.println(nextCell.getX()+" : X before death"+nextCell.getY()+" : Y before death");
             nextCell.getActor().setHealth(
                     nextCell.getActor().getHealth() - this.getDamage()
             );

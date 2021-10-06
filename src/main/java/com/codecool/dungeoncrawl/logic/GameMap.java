@@ -110,8 +110,12 @@ public class GameMap {
     }
 
     public void moveEnemies() {
+        int i = 0;
+        System.out.println(player.getX() + " player x, " + player.getY() + " player y");
         for (Actor enemy : enemies) {
             enemy.move(this);
+            i++;
+            System.out.println(i+". : " + enemy.getX() + " enemy x" + enemy.getY() + " enemy y");
         }
     }
 

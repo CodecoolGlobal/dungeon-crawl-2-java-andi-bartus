@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
@@ -202,14 +203,26 @@ public class Main extends Application {
                 maps.get(0).getCell(43, 3).setType(CellType.FLOOR);
                 refresh();
                 break;
-//            case S:
-//                Player player = maps.get(currentMap).getPlayer();
-//                dbManager.savePlayer(player);
-//                break;
+            case S:
+                soutMapToJson();
+                //Player player = maps.get(currentMap).getPlayer();
+                //dbManager.savePlayer(player);
+                break;
         }
     }
 
+    private void soutMapToJson(){
+        System.out.println(new Gson().toJson(maps.get(0).getPlayer().getMoney()));
+        System.out.println(new Gson().toJson(maps.get(0).getPlayer()));
+        System.out.println(new Gson().toJson(maps.get(0)));
+        //System.out.println(new Gson().toJson(maps.get(0)));
+        //System.out.println(new Gson().toJson(maps));
+    }
+
+
+
     private void movement(int dx, int dy){
+        System.out.println(currentMap + "we are here man");
         GameMap actaulMap = maps.get(currentMap);
         if (actaulMap.getPlayer().getWaterLevel() > 0 && actaulMap.getPlayer().getHealth() > 0){
             actaulMap.getPlayer().setWaterLevel(actaulMap.getPlayer().getWaterLevel()-1);

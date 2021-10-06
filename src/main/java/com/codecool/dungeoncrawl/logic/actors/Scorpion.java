@@ -24,7 +24,7 @@ public class Scorpion extends Actor {
     public void move(GameMap map) {
         ArrayList<Position> targetPosition = map.getPossibleBotMoves(position);
         Position nextPosition;
-
+        System.out.println(targetPosition.size());
         if (targetPosition.size() == 1 &&
                 map.getCell(targetPosition.get(0).getX(), targetPosition.get(0).getY()).getActor() == null) {
             Position furtherMove = getFurtherPlayer(position, map);
@@ -40,6 +40,7 @@ public class Scorpion extends Actor {
             map.setCellActorbyPosition(position, null);
             map.setCellActorbyPosition(nextPosition, this);
             position.setPositionByPosition(nextPosition);
+            System.out.println("step on only cell possible");
         } else if (targetPosition.size() > 1) {
             Position furtherMove = getFurtherPlayer(position, map);
             Position cornerMove = getCornerPlayer(position, map);
@@ -55,6 +56,8 @@ public class Scorpion extends Actor {
             map.setCellActorbyPosition(position, null);
             map.setCellActorbyPosition(nextPosition, this);
             position.setPositionByPosition(nextPosition);
+            System.out.println("step on random cell");
+
         }
     }
 
