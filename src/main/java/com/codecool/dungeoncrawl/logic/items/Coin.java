@@ -16,7 +16,8 @@ public class Coin extends Item{
         return "coin";
     }
 
-    public void pickupCoin(Player player){
+    @Override
+    public void useItem(Player player){
         player.setMoney(player.getMoney() + this.value);
     }
 }
