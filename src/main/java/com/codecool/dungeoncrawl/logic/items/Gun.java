@@ -15,9 +15,11 @@ public class Gun extends Item{
         return "gun";
     }
 
-    public void pickUpGun(Player player){
+    @Override
+    public void useItem(Player player){
         player.setMoney(player.getMoney()-cost);
         player.setDamage(player.getDamage() + damage);
+        player.getInventory().add(this);
     }
 
     public static int getCost() {

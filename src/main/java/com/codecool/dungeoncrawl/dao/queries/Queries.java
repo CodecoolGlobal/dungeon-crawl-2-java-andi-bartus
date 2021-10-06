@@ -6,7 +6,7 @@ public class Queries {
     }
 
     public static String getAllSaveNames(){
-        return "SELECT json FROM saves";
+        return "SELECT name FROM saves";
     }
 
     public static String updateExistingSave(){

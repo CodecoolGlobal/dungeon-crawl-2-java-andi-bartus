@@ -17,7 +17,8 @@ public class Tequila extends Item{
         return name;
     }
 
-    public void useTequila(Player player) {
+    @Override
+    public void useItem(Player player) {
         player.setHealth(player.getHealth() + healAmount);
         player.setWaterLevel(player.getWaterLevel() + waterAmount);
     }

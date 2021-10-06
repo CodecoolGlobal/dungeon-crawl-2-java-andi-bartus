@@ -1,5 +1,9 @@
 package com.codecool.dungeoncrawl;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
@@ -10,12 +14,14 @@ import com.codecool.dungeoncrawl.logic.items.Chick;
 import com.codecool.dungeoncrawl.logic.items.Gun;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -23,13 +29,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,6 +45,7 @@ public class Main extends Application {
     int currentMap = 0;
     int lastMap;
     int visibleSize = 25;
+    String fileNameToSave;
     Canvas canvas = new Canvas(
             visibleSize* Tiles.TILE_WIDTH*1.25,
             visibleSize* Tiles.TILE_WIDTH*1.25);
@@ -55,6 +63,7 @@ public class Main extends Application {
     Label moneyLabel = new Label();
     Stage primaryStage;
     GameDatabaseManager dbManager;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -97,14 +106,59 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
     }
 
+    public void popup() {
+        List<String> names = dbManager.getAllNames();
+
+        Stage popupWindow = new Stage();
+        popupWindow.initModality(Modality.APPLICATION_MODAL);
+        popupWindow.setTitle("This is a popup");
+
+        Label fileNameLabel = new Label("Filename:");
+        TextField fileName = new TextField();
+        fileName.setMaxWidth(300);
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setTranslateX(0);
+        cancelButton.setTranslateY(0);
+        Button saveButton = new Button("Save");
+        saveButton.setTranslateX(0);
+        saveButton.setTranslateY(0);
+
+        cancelButton.setOnAction(e -> popupWindow.close());
+        saveButton.setOnAction(e -> {
+            fileNameToSave = fileName.getText();
+            popupWindow.close();
+
+            if (names.contains(fileNameToSave)){
+                System.out.println("nonononoNOOOno");
+                //TODO pop-up window --> theres a name like this...
+            } else {
+                try {
+                    save(fileNameToSave);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+        });
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(fileNameLabel, fileName, saveButton, cancelButton);
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout, 500, 500);
+        popupWindow.setScene(scene);
+        popupWindow.showAndWait();
+    }
+
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        KeyCombination saveCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
         }
+        if (saveCombination.match(keyEvent))
+            popup();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -153,10 +207,10 @@ public class Main extends Application {
                 maps.get(0).getCell(43, 3).setType(CellType.FLOOR);
                 refresh();
                 break;
-            case S:
-                Player player = maps.get(currentMap).getPlayer();
-                dbManager.savePlayer(player);
-                break;
+//            case S:
+//                Player player = maps.get(currentMap).getPlayer();
+//                dbManager.savePlayer(player);
+//                break;
         }
     }
 
@@ -273,6 +327,13 @@ public class Main extends Application {
         primaryStage.setTitle("Sample Application");
 
         primaryStage.show();
+    }
+
+    public void save(String saveName) throws SQLException {
+        JsonObject new_save = new JsonObject(); // TODO bens
+
+        dbManager.saveJSON(saveName, new_save.toString());
+
     }
 
 }
