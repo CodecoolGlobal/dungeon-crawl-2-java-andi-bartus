@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.dao.queries.Queries;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -19,17 +20,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -39,6 +35,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class Main extends Application {
     List<GameMap> maps = MapLoader.loadAllMaps();
@@ -111,27 +108,28 @@ public class Main extends Application {
 
         Stage popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
-        popupWindow.setTitle("This is a popup");
+        popupWindow.setTitle("Save the game");
 
         Label fileNameLabel = new Label("Filename:");
         TextField fileName = new TextField();
         fileName.setMaxWidth(300);
         Button cancelButton = new Button("Cancel");
-        cancelButton.setTranslateX(0);
-        cancelButton.setTranslateY(0);
+//        cancelButton.setTranslateX(0);
+//        cancelButton.setTranslateY(0);
         Button saveButton = new Button("Save");
-        saveButton.setTranslateX(0);
-        saveButton.setTranslateY(0);
+//        saveButton.setTranslateX(0);
+//        saveButton.setTranslateY(0);
 
         cancelButton.setOnAction(e -> popupWindow.close());
         saveButton.setOnAction(e -> {
             fileNameToSave = fileName.getText();
-            popupWindow.close();
-
             if (names.contains(fileNameToSave)){
                 System.out.println("nonononoNOOOno");
                 //TODO pop-up window --> theres a name like this...
+                areYouSurePopup();
+                popupWindow.close();
             } else {
+                popupWindow.close();
                 try {
                     save(fileNameToSave);
                 } catch (SQLException ex) {
@@ -146,6 +144,35 @@ public class Main extends Application {
         Scene scene = new Scene(layout, 500, 500);
         popupWindow.setScene(scene);
         popupWindow.showAndWait();
+    }
+
+    public void areYouSurePopup() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("confirmation");
+        alert.setContentText("Would you like to overwrite the already existing state?");
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        Optional<ButtonType> clickedButton = alert.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK ) {
+            try {
+                    save(fileNameToSave);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+        } else {
+            alert.close();
+        }
+
+
+//        Dialog<String> dialog = new TextInputDialog("");
+//        dialog.setTitle("ARE YOU SURE ???");
+//        dialog.setHeaderText("Would you like to overwrite the already existing state?");
+
+
+//        Stage areYouSurePopup = new Stage();
+//        areYouSurePopup.initModality(Modality.APPLICATION_MODAL);
+//        areYouSurePopup.setTitle("ARE YOU SURE???");
+//
+//        Label message = new Label("Would you like to overwrite the already existing state?");
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -331,8 +358,12 @@ public class Main extends Application {
 
     public void save(String saveName) throws SQLException {
         JsonObject new_save = new JsonObject(); // TODO bens
-
-        dbManager.saveJSON(saveName, new_save.toString());
+        List<String> names = dbManager.getAllNames();
+        if (names.contains(saveName)) {
+            //ToDo update DB with new save
+        } else {
+            dbManager.saveJSON(saveName, new_save.toString());
+        }
 
     }
 
