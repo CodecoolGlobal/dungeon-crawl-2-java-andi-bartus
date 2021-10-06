@@ -339,9 +339,8 @@ public class Main extends Application {
     }
 
     public void save(String saveName) throws SQLException {
-        JsonObject new_save = new JsonObject(); // TODO bens
-
-        dbManager.saveJSON(saveName, new_save.toString());
+        String json = new Gson().toJson(maps.get(0).getPlayer().getMoney());
+        dbManager.saveJSON(saveName, json);
 
     }
 
