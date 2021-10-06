@@ -1,17 +1,22 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.dao.queries.Queries;
+import com.codecool.dungeoncrawl.logic.*;
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.popups.LoadPopup;
 import com.google.gson.JsonObject;
 
 import java.io.*;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.Chick;
 import com.codecool.dungeoncrawl.logic.items.Gun;
+import com.codecool.dungeoncrawl.popups.SavePopup;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -61,6 +66,9 @@ public class Main extends Application {
     Label moneyLabel = new Label();
     Stage primaryStage;
     GameDatabaseManager dbManager;
+    private GameSaver gameSaver;
+    private LoadPopup loadPopup;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -69,6 +77,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         setupDbManager();
+        gameSaver = new GameSaver(dbManager);
+        loadPopup = new LoadPopup(dbManager);
         this.primaryStage = primaryStage;
         GridPane ui = new GridPane();
         ui.setStyle("-fx-font-size: 25px");
@@ -104,90 +114,6 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
     }
 
-    public void popup() {
-        List<String> names = dbManager.getAllNames();
-
-        Stage popupWindow = new Stage();
-        popupWindow.initModality(Modality.APPLICATION_MODAL);
-        popupWindow.setTitle("Save the game");
-
-        Label fileNameLabel = new Label("Filename:");
-        TextField fileName = new TextField();
-        fileName.setMaxWidth(300);
-        Button cancelButton = new Button("Cancel");
-//        cancelButton.setTranslateX(0);
-//        cancelButton.setTranslateY(0);
-        Button saveButton = new Button("Save");
-//        saveButton.setTranslateX(0);
-//        saveButton.setTranslateY(0);
-
-        cancelButton.setOnAction(e -> popupWindow.close());
-        saveButton.setOnAction(e -> { // todo outsource it to a method
-            fileNameToSave = fileName.getText();
-            if (names.contains(fileNameToSave)){
-                System.out.println("nonononoNOOOno");
-                //TODO make it a class and make a closePopup method.
-                areYouSurePopup();
-                popupWindow.close(); // todo delete it
-            } else {
-                popupWindow.close();
-                try {
-                    save(fileNameToSave);
-                } catch (SQLException | IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-        });
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(fileNameLabel, fileName, saveButton, cancelButton);
-        layout.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(layout, 500, 500);
-        popupWindow.setScene(scene);
-        popupWindow.showAndWait();
-    }
-
-    public void areYouSurePopup() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("confirmation");
-        alert.setContentText("Would you like to overwrite the already existing state?");
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        Optional<ButtonType> clickedButton = alert.showAndWait();
-        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK ) {
-            try {
-                    save(fileNameToSave);
-                } catch (SQLException | IOException ex) {
-                    ex.printStackTrace();
-                }
-        } else {
-            alert.close();
-        }
-
-
-//        Dialog<String> dialog = new TextInputDialog("");
-//        dialog.setTitle("ARE YOU SURE ???");
-//        dialog.setHeaderText("Would you like to overwrite the already existing state?");
-
-
-//        Stage areYouSurePopup = new Stage();
-//        areYouSurePopup.initModality(Modality.APPLICATION_MODAL);
-//        areYouSurePopup.setTitle("ARE YOU SURE???");
-//
-//        Label message = new Label("Would you like to overwrite the already existing state?");
-    }
-
-    private void popupForLoad() {
-        List<String> dialogData = dbManager.getAllNames();
-        ChoiceDialog<String> dialog = new ChoiceDialog(dialogData.get(0), dialogData);
-        dialog.setHeaderText("Choose where to load save from");
-        Optional<String> result = dialog.showAndWait();
-        String selected = "";
-        if (result.isPresent()) {
-            selected = result.get();
-            System.out.println(selected);
-            //todo call load function;
-        }
-    }
 
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
@@ -200,9 +126,14 @@ public class Main extends Application {
             exit();
         }
         if (saveCombination.match(keyEvent))
-            popup();
+            getNamesAndUsePopup();
         if (loadCombination.match(keyEvent))
-            popupForLoad();
+            loadPopup.popupForLoad();
+    }
+
+    private void getNamesAndUsePopup() {
+        List<String> names = dbManager.getAllNames();
+        SavePopup.savePopup(names, gameSaver);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -373,7 +304,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
     public void save(String saveName) throws SQLException, IOException {
         JsonObject new_save = new JsonObject(); // TODO bens
         List<String> names = dbManager.getAllNames();
@@ -397,5 +327,4 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 }
