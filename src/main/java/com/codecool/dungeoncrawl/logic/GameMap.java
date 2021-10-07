@@ -199,7 +199,7 @@ public class GameMap {
 
     public double getDistanceOfCells(Position basePosition, Position targetPosition) {
         double dX = Math.abs(basePosition.getX() - targetPosition.getX());
-        double dY = Math.abs(basePosition.getX() - targetPosition.getY());
+        double dY = Math.abs(basePosition.getY() - targetPosition.getY());//base pos . get x ..........................
         return (dX + dY) / 2;
     }
 
