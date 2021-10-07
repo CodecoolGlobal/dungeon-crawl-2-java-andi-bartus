@@ -136,7 +136,8 @@ public class Main extends Application {
             getNamesAndUsePopup();
         if (loadCombination.match(keyEvent)) {
             loadPopup.popupForLoad();
-            GameLoader.loadGame();
+            GameLoader gameloader = new GameLoader();
+            gameloader.loadGame();
         }
     }
 
