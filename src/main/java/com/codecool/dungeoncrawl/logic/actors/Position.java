@@ -29,7 +29,7 @@ public class Position {
         this.setY(position.getY());
     }
 
-    public void setPositionByXAndY(int x, int y){
+    public void setPositionByXAndY(int x, int y){ //TODO DELETE????
         this.setX(x);
         this.setY(y);
     }

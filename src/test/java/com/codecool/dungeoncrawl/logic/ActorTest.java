@@ -277,39 +277,4 @@ class PlayerTest {
         assertEquals(25, gangsta.getHealth());
 
     }
-
-
-
-
-
-
-
-
-
-
- /*   @Test
-    void scorpioCannotMoveIntoPlayer() {
-        Player player = new Player(new Position(6, 4), "player");
-        Scorpion gangsta = new Scorpion(new Position(7, 4), "scorpion"); //7, 5
-        gameMap.setCellActorbyPosition(new Position(1, 1), player);
-        gameMap.setCellActorbyPosition(new Position(1, 2), gangsta);
-        player.movePlayer(0, 1, gameMap);
-        gangsta.move(gameMap);
-        System.out.println(gangsta.getX());
-        System.out.println(gangsta.getY());
-        System.out.println(player.getX());
-        System.out.println(player.getY());
-        assertEquals(6, player.getX());
-        assertEquals(5, player.getY());
-        assertEquals(7, gangsta.getX());
-        assertEquals(4, gangsta.getY());
-
-
-        assertEquals(gangsta, gameMap.getCell(7, 4).getActor());
-    }*/
-
-
-    public static class EnemyTest {
-        GameMap map = new GameMap(3, 3, CellType.FLOOR);
-    }
 }
