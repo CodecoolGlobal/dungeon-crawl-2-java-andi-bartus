@@ -49,6 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class Main extends Application {
     ArrayList<GameMap> maps = MapLoader.loadAllMaps();
     int currentMap = 0;
@@ -81,7 +82,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         setupDbManager();
         gameSaver = new GameSaver(dbManager);
         loadPopup = new LoadPopup(dbManager);
@@ -133,8 +134,10 @@ public class Main extends Application {
         }
         if (saveCombination.match(keyEvent))
             getNamesAndUsePopup();
-        if (loadCombination.match(keyEvent))
+        if (loadCombination.match(keyEvent)) {
             loadPopup.popupForLoad();
+            GameLoader.loadGame();
+        }
     }
 
     private void getNamesAndUsePopup() {
