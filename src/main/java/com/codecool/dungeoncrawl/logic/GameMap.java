@@ -24,8 +24,6 @@ public class GameMap {
         this.enemies = new ArrayList<>();
         this.gates = new ArrayList<>();
         cells = generateCells(width, height, defaultCellType);
-        System.out.println(height + "height");
-        System.out.println(width + "width");
     }
 
     public Cell[][] generateCells(int width, int height, CellType defaultCellType) {
@@ -66,9 +64,13 @@ public class GameMap {
     public Player getPlayer() {
         return player;
     }
+    public void setPlayerPosition(Position position){
+        this.player.setPosition(position);
+    }
 
     public void addEnemy(Actor enemy) {
         this.enemies.add(enemy);
+        cells[enemy.getX()][enemy.getY()].setActor(enemy);
     }
 
     public void addDoor(Gate gate) {
@@ -82,14 +84,8 @@ public class GameMap {
                 if (cells[enemy.getX()][enemy.getY()].getItem() == null) {
                     cells[enemy.getX()][enemy.getY()].setItem(new Coin(enemy.getPosition(), enemy.getCoinValue()));
                 }
-                System.out.println(enemy.getPosition().getX() + " pos x" + enemy.getPosition().getY() + " pos y");
-                System.out.println(cells[enemy.getPosition().getX()][enemy.getPosition().getY()].getActor());
-                System.out.println(enemy.getX()+"getx"+enemy.getY()+"gety");
-                System.out.println(this.getCell(enemy.getY(), enemy.getX()).getActor());
                 cells[enemy.getX()][enemy.getY()].setActor(null);
-                this.setCellActor(enemy.getX(), enemy.getY(), null);
                 enemies.remove(enemy);
-                System.out.println("");
                 break;
             }
         }
@@ -111,11 +107,9 @@ public class GameMap {
 
     public void moveEnemies() {
         int i = 0;
-        System.out.println(player.getX() + " player x, " + player.getY() + " player y");
         for (Actor enemy : enemies) {
             enemy.move(this);
             i++;
-            System.out.println(i+". : " + enemy.getX() + " enemy x" + enemy.getY() + " enemy y");
         }
     }
 
@@ -172,9 +166,9 @@ public class GameMap {
                         neighbor.getActor().getHealth() - this.getCell(x, y).getActor().getDamage()
                 );
 
-                ArrayList<Position> player = new ArrayList<>();
-                player.add(neighbor.getPosition());
-                return player;
+                ArrayList<Position> playerPosition = new ArrayList<>();
+                playerPosition.add(neighbor.getPosition());
+                return playerPosition;
 
             } else if (neighbor.getType().getCanStepOn() && neighbor.getActor() == null) {
                 stepablePositions.add(neighbor.getPosition());
@@ -205,7 +199,7 @@ public class GameMap {
 
     public double getDistanceOfCells(Position basePosition, Position targetPosition) {
         double dX = Math.abs(basePosition.getX() - targetPosition.getX());
-        double dY = Math.abs(basePosition.getX() - targetPosition.getY());
+        double dY = Math.abs(basePosition.getY() - targetPosition.getY());//base pos . get x ..........................
         return (dX + dY) / 2;
     }
 

@@ -2,6 +2,9 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import javafx.geometry.Pos;
+
+import java.util.ArrayList;
 
 public class Gangsta extends Actor {
     public Gangsta(Position position, String name) {
@@ -12,10 +15,12 @@ public class Gangsta extends Actor {
     }
 
     @Override
+    public void move(GameMap map){}
+
+    /*@Override
     public void move(GameMap map){
-        int gangstaX = position.getX();
-        int gangstaY = position.getY();
-        double baseDistance = map.getDistanceOfCells(map.getPlayer().getPosition(), position);
+        int gangstaX = this.position.getX();
+        int gangstaY = this.position.getY();
         int[][] coordinateDifferences ={
                 {1,  0},
                 {-1, 0},
@@ -23,24 +28,47 @@ public class Gangsta extends Actor {
                 {0, 1},
         };
 
-        Cell possibleMove;
-        double possibleMoveDistance;
-        for (int[] difference:coordinateDifferences) {
-            possibleMove = map.getCell(gangstaX + difference[0], gangstaY + difference[1]);
 
-            if (possibleMove.getActor() != null && possibleMove.getActor().getTileName().equals("player3")){
-                map.getPlayer().setHealth(
+        boolean hasValidMove = false;
+        boolean iDidNotHitHer = true;
+        Position possibleMove = new Position(-1,-1);
+        Position bestPosition = new Position(-1,-1);
+        double moveDistance;
+        double bestMoveDistance = Double.MAX_VALUE;
+        for (int[] difference:coordinateDifferences) {
+            System.out.println("bot ");
+            possibleMove = map.getCell(gangstaX + difference[0], gangstaY + difference[1]).getPosition();
+            Cell currentCell = map.getCell(possibleMove.getX(), possibleMove.getY());
+
+            if(currentCell.getActor() != null){
+                if (currentCell.getActor().getTileName().equals("player3"))
+                    System.out.println("hit");
+                    map.getPlayer().setHealth(
                         map.getPlayer().getHealth() - map.getCell(gangstaX, gangstaY).getActor().getDamage()
                 );
-            }else if (possibleMove.getType().getCanStepOn() && possibleMove.getActor()==null){
-                possibleMoveDistance = map.getDistanceOfCells(map.getPlayer().getPosition(), position);
-                if (baseDistance >= possibleMoveDistance){
-                    map.setCellActorbyPosition(position, null);
-                    map.setCellActorbyPosition(possibleMove.getPosition(), this);
-                    position.setPositionByPosition(possibleMove.getPosition());
-                    break;
+                iDidNotHitHer = false;
+            }else if(currentCell.getType().getCanStepOn()){//can step on
+                if(currentCell.getActor() == null){//no entity
+                    moveDistance = map.getDistanceOfCells(map.getPlayer().getPosition(), possibleMove);
+                    if (bestMoveDistance > moveDistance){//better movepos
+                        System.out.println("move");
+                        bestPosition.setPositionByPosition(possibleMove);
+
+                        System.out.println(map.getPlayer().getX() + " x" + map.getPlayer().getY());
+                        System.out.println(bestPosition.getX() + " x" + bestPosition.getY());
+                        System.out.println(currentCell.getType().getTileName());
+                        System.out.println(currentCell.getType().getCanStepOn());
+                        bestMoveDistance = moveDistance;
+                        hasValidMove = true;
+                    }
                 }
             }
         }
-    }
+        System.out.println(hasValidMove + "   " + iDidNotHitHer);
+        if (hasValidMove && iDidNotHitHer){
+            map.setCellActorbyPosition(position, null);
+            map.setCellActorbyPosition(possibleMove, this);
+            position.setPositionByPosition(possibleMove);
+        }
+    }*/
 }

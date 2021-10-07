@@ -22,7 +22,7 @@ public class Player extends Actor {
         this.setHealth(100000);
         this.inventory = new ArrayList<>();
         this.waterLevel = initialWaterLevel;
-        this.playerMapLevel = 0 ;
+        this.playerMapLevel = 3  ;
         this.money = 0;
     }
 
@@ -70,9 +70,9 @@ public class Player extends Actor {
     public void movePlayer(int dx, int dy, GameMap map) {
         Cell nextCell = map.getCell(this.position.getX() + dx, this.position.getY() + dy);
         if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
-            map.setCellActorbyPosition(position, null);
+            map.setCellActorbyPosition(this.position, null);
             map.setCellActorbyPosition(nextCell.getPosition(), this);
-            position.setPositionByPosition(nextCell.getPosition());
+            this.position.setPositionByPosition(nextCell.getPosition());
         } else if (!nextCell.getType().getCanStepOn() &&
                 (nextCell.getType().equals(CellType.GATE) ||
                 nextCell.getType().equals(CellType.GUN_STORE_DOOR) ||
