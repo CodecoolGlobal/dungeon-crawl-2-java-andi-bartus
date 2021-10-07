@@ -52,14 +52,18 @@ public class GameLoader {
     }
     public GameMap loadMap(JsonObject jsonMap, GameMap map){
         int[] mapSizes = getMapSizes(jsonMap);
-
+        getCellsOfMap(jsonMap, map);
+        getGates(jsonMap, map);
+        /*
+        player
+        enemies
+        */
         return map;
     }
 
     public int[] getMapSizes(JsonObject jsonMap){
-        int width = Integer.parseInt(jsonMap.get("width").toString());
-        int height = Integer.parseInt(jsonMap.get("height").toString());
-
+        int width = jsonMap.get("width").getAsInt();
+        int height = jsonMap.get("height").getAsInt();
         return new int[]{width, height};
     }
 
@@ -96,5 +100,26 @@ public class GameLoader {
         int x = Integer.parseInt(jsonObject.get("position").getAsJsonObject().get("x").toString());
         int y = Integer.parseInt(jsonObject.get("position").getAsJsonObject().get("y").toString());
         return new Position(x,y);
+    }
+
+    public void getGates(JsonObject jsonMap, GameMap map){
+        ArrayList<Gate> gates = new ArrayList<>();
+
+        JsonArray jsonGates = jsonMap.get("gates").getAsJsonArray();
+        for (JsonElement jsonGate : jsonGates) {
+            Gate gate = createGateFromJson(jsonGate.getAsJsonObject());
+            gates.add(gate);
+        }
+        map.setGates(gates);
+    }
+
+    public Gate createGateFromJson(JsonObject jsonGate){
+        Position gatePosition = getObjectPosition(jsonGate);
+        int newCurrentMap = getNewCurrentMapValueOfGate(jsonGate);
+        return  new Gate(gatePosition, newCurrentMap);
+    }
+
+    public int getNewCurrentMapValueOfGate(JsonObject jsonGate){
+        return jsonGate.get("newCurrentMap").getAsInt();
     }
 }

@@ -78,6 +78,11 @@ public class GameMap {
         this.gates.add(gate);
     }
 
+
+    public void setGates(ArrayList<Gate> gates){
+        this.gates = gates;
+    }
+
     public void removeDeadEnemies() {
         for (Actor enemy : enemies) {
             if (enemy.getHealth() < 0) {
