@@ -10,6 +10,13 @@ public class Gangsta extends Actor {
         this.health = 30;
     }
 
+    public Gangsta(Position position, String name, int health) {
+        super(position, name);
+        this.damage = 10;
+        this.coinValue = 25;
+        this.health = health;
+    }
+
     @Override
     public void move(GameMap map){}
 

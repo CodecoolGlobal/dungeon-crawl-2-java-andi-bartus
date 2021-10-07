@@ -87,6 +87,9 @@ public enum CellType {
         this.tileName = tileName;
         this.canStepOn = canStepOn;
     }
+    public CellType getStatusByName(String tileName){
+        return valueOf(tileName);
+    }
 
     public boolean getCanStepOn() {
         return canStepOn;

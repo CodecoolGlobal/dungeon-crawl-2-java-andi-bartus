@@ -11,10 +11,33 @@ import javafx.geometry.Pos;
 public class GameMap {
     private final int width;
     private final int height;
-    private final Cell[][] cells;
+    private Cell[][] cells;
     private ArrayList<Item> items;
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public ArrayList<Item> getItems() {
+        System.out.println("get items" + items.size());
+        return items;
+    }
+
+    public ArrayList<Actor> getEnemies() {
+        return enemies;
+    }
+
+    public ArrayList<Gate> getGates() {
+        return gates;
+    }
+    public void setCellGateByPosition(Position position, Gate gate){
+        this.cells[position.getX()][position.getY()].setGate(gate);
+        this.cells[position.getX()][position.getY()].setType(gate.getType());
+    }
+
     private ArrayList<Actor> enemies;
-    private final ArrayList<Gate> gates;
+    private ArrayList<Gate> gates;
+
     private Player player;
 
     public GameMap(int width, int height, CellType defaultCellType) {
@@ -24,6 +47,11 @@ public class GameMap {
         this.enemies = new ArrayList<>();
         this.gates = new ArrayList<>();
         cells = generateCells(width, height, defaultCellType);
+    }
+
+    public GameMap(int width, int height){
+        this.width = width;
+        this.height = height;
     }
 
     public Cell[][] generateCells(int width, int height, CellType defaultCellType) {
@@ -37,6 +65,10 @@ public class GameMap {
         return cells;
     }
 
+    public void setEnemies(ArrayList<Actor> enemies) {
+        this.enemies = enemies;
+    }
+
     public void setPlayerStats(Player originalPlayer) {
         player.setPlayerMapLevel(originalPlayer.getPlayerMapLevel());
         player.setInventory(originalPlayer.getInventory());
@@ -44,6 +76,14 @@ public class GameMap {
         player.setHealth(originalPlayer.getHealth());
         player.setDamage(originalPlayer.getDamage());
         player.setMoney(originalPlayer.getMoney());
+    }
+
+    public void setCells(Cell[][] cells){
+        this.cells = cells;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
     }
 
     public void setCellActor(int x, int y, Actor actor) {
@@ -77,6 +117,11 @@ public class GameMap {
         this.gates.add(gate);
     }
 
+
+    public void setGates(ArrayList<Gate> gates){
+        this.gates = gates;
+    }
+
     public void removeDeadEnemies() {
         for (Actor enemy : enemies) {
             if (enemy.getHealth() < 0) {
@@ -90,7 +135,9 @@ public class GameMap {
             }
         }
     }
-
+    public void removeItem(Item item){
+        this.items.remove(item);
+    }
     public void addItem(Item item, Position position) {
         this.items.add(item);
         setCellItem(item, position);

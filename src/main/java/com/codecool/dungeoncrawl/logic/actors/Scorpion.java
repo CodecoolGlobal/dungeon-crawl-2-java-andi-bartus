@@ -15,6 +15,13 @@ public class Scorpion extends Actor {
         this.coinValue = 9;
     }
 
+    public Scorpion(Position position, String name, int health){
+        super(position, name);
+        this.damage = 1;
+        this.health = health;
+        this.coinValue = 9;
+    }
+
     public String getTileName() {
         return this.name;
     }

@@ -40,6 +40,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Main extends Application {
     ArrayList<GameMap> maps = MapLoader.loadAllMaps();
     int currentMap = 3;
@@ -72,7 +73,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         setupDbManager();
         gameSaver = new GameSaver(dbManager);
         gameLoader = new GameLoader(dbManager);
@@ -167,8 +168,14 @@ public class Main extends Application {
         }
         if (saveCombination.match(keyEvent))
             getNamesAndUsePopup();
-        if (loadCombination.match(keyEvent))
+        if (loadCombination.match(keyEvent)) {
             loadPopup.popupForLoad();
+            GameLoader gameloader = new GameLoader();
+            maps = gameloader.loadGame(maps);
+            currentMap = 0;
+            refresh();
+            System.out.println("load plS");
+        }
     }
 
     private void getNamesAndUsePopup() {
