@@ -81,6 +81,8 @@ public class Main extends Application {
         GridPane ui = new GridPane();
         Button exportButton = new Button("Export");
         Button importButton = new Button("Import");
+        exportButton.setFocusTraversable(false);
+        importButton.setFocusTraversable(false);
         activateExport(primaryStage, exportButton, canvas);
         activateImport(primaryStage, importButton, canvas);
         ui.setStyle("-fx-font-size: 25px");
