@@ -118,32 +118,32 @@ public class MapLoader {
                             break;
                         case 'D':
                             cell.setType(CellType.GATE);
-                            cell.addDoor(new Gate(position, 1));
+                            cell.addDoor(new Gate(position, 1, CellType.GATE));
                             map.addDoor(cell.getGate());
                             break;
                         case 'd':
                             cell.setType(CellType.GATE);
-                            cell.addDoor(new Gate(position, 0));
+                            cell.addDoor(new Gate(position, 0, CellType.GATE));
                             map.addDoor(cell.getGate());
                             break;
                         case 'É':
                             cell.setType(CellType.SALOON_DOOR);
-                            cell.addDoor(new Gate(position, 3));
+                            cell.addDoor(new Gate(position, 3, CellType.SALOON_DOOR));
                             map.addDoor(cell.getGate());
                             break;
                         case 'é':
                             cell.setType(CellType.SALOON_DOOR);
-                            cell.addDoor(new Gate(position, 1));
+                            cell.addDoor(new Gate(position, 1, CellType.SALOON_DOOR));
                             map.addDoor(cell.getGate());
                             break;
                         case 'Í':
                             cell.setType(CellType.GUN_STORE_DOOR);
-                            cell.addDoor(new Gate(position, 2));
+                            cell.addDoor(new Gate(position, 2, CellType.GUN_STORE_DOOR));
                             map.addDoor(cell.getGate());
                             break;
                         case 'í':
                             cell.setType(CellType.GUN_STORE_DOOR);
-                            cell.addDoor(new Gate(position, 1));
+                            cell.addDoor(new Gate(position, 1, CellType.GUN_STORE_DOOR));
                             map.addDoor(cell.getGate());
                             break;
                         case '-':

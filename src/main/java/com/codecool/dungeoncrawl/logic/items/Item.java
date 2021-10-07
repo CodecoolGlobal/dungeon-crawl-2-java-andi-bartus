@@ -28,6 +28,7 @@ public abstract class Item implements Drawable {
     public void useItem(Player player, GameMap map){
         player.getInventory().add(this);
         map.setCellItem(null, position);
+        map.removeItem(this);
     }
 
 

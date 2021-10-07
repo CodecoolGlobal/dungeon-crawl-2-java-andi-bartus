@@ -8,9 +8,17 @@ public class Gate {
     private Position position;
     private final int newCurrentMap;
 
-    public Gate(Position position, int newCurrentMap) {
+
+    private CellType type;
+
+    public CellType getType() {
+        return type;
+    }
+
+    public Gate(Position position, int newCurrentMap, CellType cellType) {
         this.position=position;
         this.newCurrentMap = newCurrentMap;
+        this.type = cellType;
     }
 
     public Position getPosition() {

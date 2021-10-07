@@ -11,6 +11,11 @@ public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
     private Item item;
+
+    public void setGate(Gate gate) {
+        this.gate = gate;
+    }
+
     private Gate gate;
 
 

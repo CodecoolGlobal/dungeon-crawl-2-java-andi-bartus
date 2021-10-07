@@ -138,7 +138,9 @@ public class Main extends Application {
             loadPopup.popupForLoad();
             GameLoader gameloader = new GameLoader();
             maps = gameloader.loadGame(maps);
-            currentMap = maps.get(0).getPlayer().getPlayerMapLevel();
+            currentMap = 0;
+            refresh();
+            System.out.println("load plS");
         }
     }
 

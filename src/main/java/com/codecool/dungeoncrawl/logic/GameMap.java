@@ -13,6 +13,28 @@ public class GameMap {
     private final int height;
     private Cell[][] cells;
     private ArrayList<Item> items;
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public ArrayList<Item> getItems() {
+        System.out.println("get items" + items.size());
+        return items;
+    }
+
+    public ArrayList<Actor> getEnemies() {
+        return enemies;
+    }
+
+    public ArrayList<Gate> getGates() {
+        return gates;
+    }
+    public void setCellGateByPosition(Position position, Gate gate){
+        this.cells[position.getX()][position.getY()].setGate(gate);
+        this.cells[position.getX()][position.getY()].setType(gate.getType());
+    }
+
     private ArrayList<Actor> enemies;
     private ArrayList<Gate> gates;
 
@@ -117,7 +139,9 @@ public class GameMap {
             }
         }
     }
-
+    public void removeItem(Item item){
+        this.items.remove(item);
+    }
     public void addItem(Item item, Position position) {
         this.items.add(item);
         setCellItem(item, position);
