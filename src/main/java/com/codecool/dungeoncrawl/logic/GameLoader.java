@@ -65,17 +65,31 @@ public class GameLoader {
 
     public void getCellsOfMap(JsonObject jsonMap, GameMap map){
         Cell[][] cells = new Cell[map.getWidth()][map.getHeight()];
-
+        int x = 0;
+        int y = 0;
         JsonArray rows = jsonMap.get("cells").getAsJsonArray();
         for (JsonElement row : rows){
             JsonArray rowAsArray = row.getAsJsonArray();
-            for (JsonElement cell : rowAsArray){
-                JsonObject cellObject = cell.getAsJsonObject();
-                //Cell cell1 = ;
-                System.out.println(cellObject);
+            for (JsonElement jsonCell : rowAsArray){
+                Cell cell = getCell(jsonCell.getAsJsonObject());
+                x++;
+                cells[x][y] = cell;
             }
+            x = 0;
+            y++;
         }
         map.setCells(cells);
+    }
+
+    public Cell getCell(JsonObject cellObject){
+        Position cellPosition = getObjectPosition(cellObject);
+        CellType type = getCellType(cellObject);
+        return new Cell(cellPosition, type);
+    }
+
+    public CellType getCellType(JsonObject jsonCell){
+        String jsonCellType = jsonCell.get("type").getAsJsonObject().toString();
+        return CellType.valueOf(jsonCellType);
     }
 
     public Position getObjectPosition(JsonObject jsonObject){
