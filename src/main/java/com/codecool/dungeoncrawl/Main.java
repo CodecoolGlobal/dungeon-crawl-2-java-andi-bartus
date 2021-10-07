@@ -2,30 +2,22 @@ package com.codecool.dungeoncrawl;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import com.codecool.dungeoncrawl.dao.queries.Queries;
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.popups.LoadPopup;
-import com.google.gson.JsonObject;
 
 import java.io.*;
 
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.Chick;
-import com.codecool.dungeoncrawl.logic.items.Gun;
 import com.codecool.dungeoncrawl.popups.SavePopup;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -41,20 +33,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Main extends Application {
     ArrayList<GameMap> maps = MapLoader.loadAllMaps();
     int currentMap = 3;
     int lastMap;
     int visibleSize = 25;
-    String fileNameToSave;
     Canvas canvas = new Canvas(
             visibleSize* Tiles.TILE_WIDTH*1.25,
             visibleSize* Tiles.TILE_WIDTH*1.25);
@@ -73,6 +63,7 @@ public class Main extends Application {
     Stage primaryStage;
     GameDatabaseManager dbManager;
     private GameSaver gameSaver;
+    private GameLoader gameLoader;
     private LoadPopup loadPopup;
 
 
@@ -84,16 +75,24 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         setupDbManager();
         gameSaver = new GameSaver(dbManager);
+        gameLoader = new GameLoader(dbManager);
         loadPopup = new LoadPopup(dbManager);
         this.primaryStage = primaryStage;
         GridPane ui = new GridPane();
+        Button exportButton = new Button("Export");
+        Button importButton = new Button("Import");
+        activateExport(primaryStage, exportButton, canvas);
+        activateImport(primaryStage, importButton, canvas);
         ui.setStyle("-fx-font-size: 25px");
         ui.setPrefWidth(350);
         ui.setPadding(new Insets(10));
 
+
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        ui.add(exportButton, 2, 0);
         ui.add(new Label("Water level: "), 0, 1);
+        ui.add(importButton, 2, 1);
         ui.add(waterLevelLabel, 1, 1);
         ui.add(new Label("Money: "), 0, 2);
         ui.add(moneyLabel, 1, 2);
@@ -118,6 +117,39 @@ public class Main extends Application {
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
         primaryStage.setMaximized(true);
+        canvas.requestFocus();
+    }
+
+    private void activateImport(Stage stage, Button button, Canvas canvas) {
+        button.setOnAction(actionEvent -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open a json file to load");
+            File file = fileChooser.showOpenDialog(stage);
+            if (file!=null) {
+                gameLoader.loadGame(file);
+            }
+            canvas.requestFocus();
+        });
+    }
+
+    private void activateExport(Stage primaryStage, Button exportButton, Canvas canvas) {
+        exportButton.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("json files (*.json)", "*.json");
+            fileChooser.getExtensionFilters().add(extFilter);
+
+            File file = fileChooser.showSaveDialog(primaryStage);
+
+            if(file != null){
+                try {
+                    gameSaver.exportSave(fileChooser.getInitialFileName(), file, maps);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            canvas.requestFocus();
+        });
     }
 
 

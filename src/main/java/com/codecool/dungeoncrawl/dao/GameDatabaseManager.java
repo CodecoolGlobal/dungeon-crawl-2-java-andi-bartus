@@ -39,8 +39,8 @@ public class GameDatabaseManager {
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         String dbName = "dungeonCrawl";
-        String user = "postgres";
-        String password = "postgres";
+        String user = "sjpeti97";
+        String password = "58545652";
 
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);
