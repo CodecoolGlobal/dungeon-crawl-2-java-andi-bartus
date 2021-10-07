@@ -1,22 +1,16 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Position;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GameLoader {
-    private static final Type TYPE = new TypeToken<List<GameMap>>(){}.getType();
 
     public static void loadGame() {
         try{
@@ -24,6 +18,7 @@ public class GameLoader {
             JsonArray jsonArray = (JsonArray) parser.parse(new FileReader("src/main/resources/saves/asd.json"));
             ArrayList<JsonObject> jsonMaps = new ArrayList<>();
             ArrayList<GameMap> maps = new ArrayList<GameMap>();
+            ArrayList<Item> items = new ArrayList<>();
 
             for (Object object : jsonArray) {
                 jsonMaps.add((JsonObject) object);
@@ -35,15 +30,6 @@ public class GameLoader {
             System.out.println(jsonMaps.get(0));
 
 
-
-            /*Map<?, ?> map = gson.fromJson(reader, Map.class);
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + "=" + entry.getValue());
-            }
-            reader.close();*/
-            //JsonReader jsonReader = new JsonReader(new FileReader(filename));
-            //List<GameMap> maps = gson.fromJson(jsonReader, TYPE);
-            //System.out.println(maps.toString());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -99,6 +85,46 @@ public class GameLoader {
     }
 
     public String getName(JsonObject jsonObject){
-        return jsonObject.get(jsonObject.toString()).getAsJsonObject().get("name").toString();
+        return jsonObject.get("name").toString();
     }
+
+    public int getCoinValue(JsonObject jsonObject){
+        return jsonObject.get("value").getAsInt();
+    }
+
+    public Item getItem(JsonObject jsonObject){
+        Position position = getObjectPosition(jsonObject);
+        String name = getName(jsonObject);
+        switch (name){
+            case "star":
+                return new Star(position, name);
+            case "chick":
+                return new Chick(position, name);
+            case "coin":
+                int value = getCoinValue(jsonObject);
+                return new Coin(position, value);
+            case "gun":
+                return new Gun(position, name);
+            case "hat":
+                return new Hat(position, name);
+            case "rose":
+                return new Rose(position, name);
+            case "tequila":
+                return new Tequila(position, name);
+        }
+        return null;
+    }
+
+    public void getItems(JsonObject jsonMap, GameMap map){
+        ArrayList<Item> items = new ArrayList<>();
+
+        JsonArray jsonItems = jsonMap.get("items").getAsJsonArray();
+        for(JsonElement jsonItem : jsonItems){
+            Item item = getItem(jsonItem.getAsJsonObject());
+            items.add(item);
+        }
+
+        map.setItems(items);
+    }
+
 }
