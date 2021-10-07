@@ -15,7 +15,7 @@ public class Gate {
 
     public Position getPosition() {
         return position;
-    }
+    } //TODO DELETE????
 
     public int getNewCurrentMap() {
         return newCurrentMap;

@@ -1,12 +1,10 @@
 package com.codecool.dungeoncrawl.logic.actors;
-
-import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BigBoy extends Actor{
+public class BigBoy extends Actor {
     private int coolDown;
 
     public BigBoy(Position position, String name) {
@@ -40,39 +38,5 @@ public class BigBoy extends Actor{
             coolDown--;
         }
 
-
-
-
-
-
-  /*  @Override
-    public String getTileName() {
-        return name;
-    }
-
-    @Override
-    public void move(){
-        if(coolDown == 0){
-            ArrayList<Cell> targetCells = cell.getPossibleBotMoves();
-            Cell nextCell;
-            if (targetCells.size() == 1 && targetCells.get(0).getActor() == null){//move to that cell; (does it work?)
-                nextCell = targetCells.get(0);
-                cell.setActor(null);
-                nextCell.setActor(this);
-                cell = nextCell;
-            }else if(targetCells.size() > 1){
-                Random random = new Random();
-                nextCell = targetCells.get(random.nextInt(targetCells.size()));
-                cell.setActor(null);
-                nextCell.setActor(this);
-                cell = nextCell;
-            }
-            Random random = new Random();
-            coolDown = random.nextInt(3);
-        }
-        else{
-            coolDown--;
-        }
-    }*/
     }
 }

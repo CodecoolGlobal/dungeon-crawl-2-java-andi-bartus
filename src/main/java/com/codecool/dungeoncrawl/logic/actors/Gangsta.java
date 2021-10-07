@@ -1,11 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
-
-import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import javafx.geometry.Pos;
-
 import java.util.ArrayList;
-
 public class Gangsta extends Actor {
     public Gangsta(Position position, String name) {
         super(position, name);

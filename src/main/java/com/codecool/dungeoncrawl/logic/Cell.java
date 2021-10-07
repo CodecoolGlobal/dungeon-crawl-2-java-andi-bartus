@@ -65,11 +65,11 @@ public class Cell implements Drawable {
 
     public int getX() {
         return position.getX();
-    }
+    } //TODO DELETE????
 
     public int getY() {
         return position.getY();
-    }
+    } //TODO DELELTE???
 
     public Position getPosition() { return position; }
 

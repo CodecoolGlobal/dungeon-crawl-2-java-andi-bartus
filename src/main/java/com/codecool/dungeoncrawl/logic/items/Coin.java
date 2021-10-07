@@ -23,4 +23,8 @@ public class Coin extends Item{
         player.setMoney(player.getMoney() + this.value);
         map.setCellItem(null, position);
     }
+
+    public int getValue() {
+        return value;
+    }
 }
