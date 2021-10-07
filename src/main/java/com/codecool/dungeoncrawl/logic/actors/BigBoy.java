@@ -16,6 +16,13 @@ public class BigBoy extends Actor{
         this.coinValue = 50;
     }
 
+    public BigBoy(Position position, String name, int health) {
+        super(position, name);
+        this.health = health;
+        this.damage = 20;
+        this.coinValue = 50;
+    }
+
     @Override
     public void move(GameMap map) {
         if (coolDown == 0) {

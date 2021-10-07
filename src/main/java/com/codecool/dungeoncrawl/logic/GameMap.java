@@ -15,6 +15,7 @@ public class GameMap {
     private ArrayList<Item> items;
     private ArrayList<Actor> enemies;
     private ArrayList<Gate> gates;
+
     private Player player;
 
     public GameMap(int width, int height, CellType defaultCellType) {
@@ -37,6 +38,10 @@ public class GameMap {
             }
         }
         return cells;
+    }
+
+    public void setEnemies(ArrayList<Actor> enemies) {
+        this.enemies = enemies;
     }
 
     public void setPlayerStats(Player originalPlayer) {

@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.Position;
+import com.codecool.dungeoncrawl.logic.actors.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class GameLoader {
     private static final Type TYPE = new TypeToken<List<GameMap>>(){}.getType();
@@ -81,6 +82,15 @@ public class GameLoader {
         map.setCells(cells);
     }
 
+    public void getActorsOfMap(JsonObject jsonMap, GameMap map) {
+        ArrayList<Actor> enemyList = new ArrayList<>();
+        JsonArray enemies = jsonMap.get("enemies").getAsJsonArray();
+        for (JsonElement enemy : enemies) {
+            enemyList.add(getActor(enemy));
+        }
+        map.setEnemies(enemyList);
+    }
+
     public Cell getCell(JsonObject cellObject){
         Position cellPosition = getObjectPosition(cellObject);
         CellType type = getCellType(cellObject);
@@ -99,6 +109,27 @@ public class GameLoader {
     }
 
     public String getName(JsonObject jsonObject){
-        return jsonObject.get(jsonObject.toString()).getAsJsonObject().get("name").toString();
+        return jsonObject.get("name").toString();
+    }
+
+    public Actor getActor(JsonElement enemy) {
+        Position position = getObjectPosition(enemy.getAsJsonObject());
+        int health = getHealth(enemy);
+        String name = getName(enemy.getAsJsonObject());
+        Actor actor;
+        if (Objects.equals(name, "scorpion")) {
+            actor = new Scorpion(position, name, health);
+        } else if (Objects.equals(name, "bigBoy") || Objects.equals(name, "bigBoy2")) {
+            actor = new BigBoy(position, name, health);
+        } else if (Objects.equals(name, "gangsta")) {
+            actor = new Gangsta(position, name, health);
+        } else {
+            actor = new FriendlyNPC(position, name);
+        }
+        return actor;
+    }
+
+    public int getHealth(JsonElement actor) {
+        return Integer.parseInt(actor.getAsJsonObject().get("health").toString());
     }
 }
