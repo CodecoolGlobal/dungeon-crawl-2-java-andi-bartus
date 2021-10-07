@@ -83,4 +83,8 @@ public class GameLoader {
         int y = Integer.parseInt(jsonObject.get("position").getAsJsonObject().get("y").toString());
         return new Position(x,y);
     }
+
+    public String getName(JsonObject jsonObject){
+        return jsonObject.get(jsonObject.toString()).getAsJsonObject().get("name").toString();
+    }
 }
