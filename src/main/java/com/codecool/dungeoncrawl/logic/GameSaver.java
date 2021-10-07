@@ -31,7 +31,7 @@ public class GameSaver {
 
     public void writeSaveToFile(String saveName, String saveContent) throws IOException {
         try {
-            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.txt", saveName));
+            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.json", saveName));
             writer.write(saveContent);
             writer.close();
         }
