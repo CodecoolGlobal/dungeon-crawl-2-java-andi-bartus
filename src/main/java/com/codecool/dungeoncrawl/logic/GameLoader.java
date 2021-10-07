@@ -5,13 +5,9 @@ import com.codecool.dungeoncrawl.logic.actors.Position;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.*;
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.FileReader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class GameLoader {
@@ -54,7 +50,7 @@ public class GameLoader {
 
     public void loadObjectsToMap(GameMap map) {
         for (Actor enemy : map.getEnemies()) {
-            map.setCellActorbyPosition(enemy.getPosition(), enemy);
+            map.setCellActorByPosition(enemy.getPosition(), enemy);
         }
 
         for (Item item : map.getItems()) {
@@ -64,7 +60,7 @@ public class GameLoader {
         for (Gate gate : map.getGates()) {
             map.setCellGateByPosition(gate.getPosition(), gate);
         }
-        map.setCellActorbyPosition(map.getPlayer().getPosition(), map.getPlayer());
+        map.setCellActorByPosition(map.getPlayer().getPosition(), map.getPlayer());
     }
 
     public int[] getMapSizes(JsonObject jsonMap) {
@@ -106,7 +102,6 @@ public class GameLoader {
         String jsonCellType = jsonCell.get("type").toString();
         jsonCellType = jsonCellType.substring(1, jsonCellType.length() - 1);
         return CellType.valueOf(jsonCellType);
-
     }
 
     public Position getObjectPosition(JsonObject jsonObject) {

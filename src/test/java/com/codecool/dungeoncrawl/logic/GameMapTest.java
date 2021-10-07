@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameMapTest {
     GameMap map;
@@ -30,13 +29,13 @@ public class GameMapTest {
         gangsta.setHealth(-1);
 
         map.removeDeadEnemies();
-        assertEquals(map.getCell(1,1).getActor(), null);
+        assertNull(map.getCell(1, 1).getActor());
     }
 
     @Test
     void setPlayersStat(){
         Star testItem = new Star(new Position(2, 2), "star");
-        ArrayList<Item> testInventory = new ArrayList<Item>();
+        ArrayList<Item> testInventory = new ArrayList<>();
         testInventory.add(testItem);
 
         Player newPlayer = new Player(new Position(1, 1), "player");
@@ -56,7 +55,6 @@ public class GameMapTest {
         assertEquals(newPlayer.getDamage(), 3);
         assertEquals(newPlayer.getInventory(), testInventory);
         assertEquals(newPlayer.getWaterLevel(), 1);
-
     }
 
     @Test
@@ -70,7 +68,6 @@ public class GameMapTest {
         int value = coin.getValue();
 
         assertEquals(25, value);
-
     }
 
     @Test
@@ -79,9 +76,7 @@ public class GameMapTest {
 
         map.addItem(testStar, testStar.getPosition());
 
-
         assertEquals(testStar, map.getCell(1, 1).getItem());
-
     }
 
     @Test
@@ -98,7 +93,5 @@ public class GameMapTest {
         assertNotEquals(map.getCell(1, 1).getActor(), bigBoy);
         assertNotEquals(map.getCell(4, 4).getActor(), bigBoy2);
         assertNotEquals(map.getCell(6, 6).getActor(), bigBooy3);
-
     }
-
 }

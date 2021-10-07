@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -30,7 +29,7 @@ public class GameSaver {
         writeSaveToFile(saveName, json);
     }
 
-    public void writeSaveToFile(String saveName, String saveContent) throws IOException {
+    public void writeSaveToFile(String saveName, String saveContent){
         try {
             FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.json", saveName));
             writer.write(saveContent);
@@ -41,7 +40,7 @@ public class GameSaver {
         }
     }
 
-    public void exportSave(String saveName, File location, ArrayList<GameMap> maps) throws IOException {
+    public void exportSave(File location, ArrayList<GameMap> maps) throws IOException {
         try {
             String json = new Gson().toJson(maps);
             FileWriter writer = new FileWriter(location+".json");

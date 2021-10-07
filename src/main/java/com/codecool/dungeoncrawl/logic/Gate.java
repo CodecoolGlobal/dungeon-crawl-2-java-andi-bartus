@@ -4,10 +4,8 @@ import com.codecool.dungeoncrawl.logic.actors.Position;
 
 public class Gate {
 
-
     private Position position;
     private final int newCurrentMap;
-
 
     private CellType type;
 
@@ -23,7 +21,7 @@ public class Gate {
 
     public Position getPosition() {
         return position;
-    } //TODO DELETE????
+    }
 
     public int getNewCurrentMap() {
         return newCurrentMap;

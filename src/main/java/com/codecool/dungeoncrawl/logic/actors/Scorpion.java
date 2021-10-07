@@ -1,12 +1,10 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-
 import com.codecool.dungeoncrawl.logic.GameMap;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Scorpion extends Actor {
-
 
     public Scorpion(Position position, String name) {
         super(position, name);
@@ -42,8 +40,8 @@ public class Scorpion extends Actor {
             } else {
                 nextPosition.setPositionByPosition(targetPosition.get(0));
             }
-            map.setCellActorbyPosition(position, null);
-            map.setCellActorbyPosition(nextPosition, this);
+            map.setCellActorByPosition(position, null);
+            map.setCellActorByPosition(nextPosition, this);
             position.setPositionByPosition(nextPosition);
         } else if (targetPosition.size() > 1) {
             Position furtherMove = getFurtherPlayer(position, map);
@@ -57,8 +55,8 @@ public class Scorpion extends Actor {
                 Random random = new Random();
                 nextPosition.setPositionByPosition(targetPosition.get(random.nextInt(targetPosition.size())));
             }
-            map.setCellActorbyPosition(position, null);
-            map.setCellActorbyPosition(nextPosition, this);
+            map.setCellActorByPosition(position, null);
+            map.setCellActorByPosition(nextPosition, this);
             position.setPositionByPosition(nextPosition);
         }
     }
@@ -127,6 +125,4 @@ public class Scorpion extends Actor {
         }
         return null;
     }
-
-
 }

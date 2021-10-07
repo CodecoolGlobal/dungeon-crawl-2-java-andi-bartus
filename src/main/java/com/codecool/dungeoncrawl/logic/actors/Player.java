@@ -5,8 +5,8 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
-
 import java.util.ArrayList;
+
 public class Player extends Actor {
     ArrayList<Item> inventory;
     int waterLevel;
@@ -34,7 +34,6 @@ public class Player extends Actor {
         this.health = health;
         this.coinValue = coinValue;
     }
-
 
     public int getPlayerMapLevel() {
         return playerMapLevel;
@@ -75,12 +74,11 @@ public class Player extends Actor {
     @Override
     public void move(GameMap map){}
 
-
     public void movePlayer(int dx, int dy, GameMap map) {
         Cell nextCell = map.getCell(this.position.getX() + dx, this.position.getY() + dy);
         if (nextCell.getType().getCanStepOn() && nextCell.getActor()==null) {
-            map.setCellActorbyPosition(this.position, null);
-            map.setCellActorbyPosition(nextCell.getPosition(), this);
+            map.setCellActorByPosition(this.position, null);
+            map.setCellActorByPosition(nextCell.getPosition(), this);
             this.position.setPositionByPosition(nextCell.getPosition());
         } else if (!nextCell.getType().getCanStepOn() &&
                 (nextCell.getType().equals(CellType.GATE) ||
@@ -96,7 +94,6 @@ public class Player extends Actor {
             );
         }
     }
-
 
     private boolean canOpenGate(Cell gateCell) { //TODO
         int counter = 0;
@@ -119,13 +116,12 @@ public class Player extends Actor {
         return counter == 2;
     }
 
-
     public boolean canPickUpChick() {
-        for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i).getTileName().equals("rose")){
+        for (Item item : inventory) {
+            if (item.getTileName().equals("rose")) {
                 return true;
             }
-
-        } return false;
+        }
+        return false;
     }
 }

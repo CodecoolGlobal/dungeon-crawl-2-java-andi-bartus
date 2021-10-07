@@ -1,11 +1,8 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Gangsta;
 import com.codecool.dungeoncrawl.logic.actors.Position;
 import com.codecool.dungeoncrawl.logic.items.Item;
-
-import java.util.ArrayList;
 
 public class Cell implements Drawable {
     private CellType type;
@@ -17,7 +14,6 @@ public class Cell implements Drawable {
     }
 
     private Gate gate;
-
 
     private Position position = new Position(0, 0);
 
@@ -67,14 +63,6 @@ public class Cell implements Drawable {
     public String getTileName() {
         return type.getTileName();
     }
-
-    public int getX() {
-        return position.getX();
-    } //TODO DELETE????
-
-    public int getY() {
-        return position.getY();
-    } //TODO DELELTE???
 
     public Position getPosition() { return position; }
 

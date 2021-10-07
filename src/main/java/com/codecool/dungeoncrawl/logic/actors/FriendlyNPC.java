@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.logic.actors;
+
 import com.codecool.dungeoncrawl.logic.GameMap;
 
 import java.util.ArrayList;
@@ -25,17 +26,18 @@ public class FriendlyNPC extends Actor {
     public void move(GameMap map){
         ArrayList<Position> targetPositions = map.getPossibleNPCMoves(position);
         Position nextPosition = new Position(0,0);
+
         if (targetPositions.size() == 1 &&
             map.getCell(targetPositions.get(0).getX(), targetPositions.get(0).getY()).getActor() == null){
             nextPosition.setPositionByPosition(targetPositions.get(0));
-            map.setCellActorbyPosition(position, null);
-            map.setCellActorbyPosition(nextPosition, this);
+            map.setCellActorByPosition(position, null);
+            map.setCellActorByPosition(nextPosition, this);
             position.setPositionByPosition(nextPosition);
         }else if(targetPositions.size() > 1){
             Random random = new Random();
             nextPosition.setPositionByPosition(targetPositions.get(random.nextInt(targetPositions.size())));
-            map.setCellActorbyPosition(position, null);
-            map.setCellActorbyPosition(nextPosition, this);
+            map.setCellActorByPosition(position, null);
+            map.setCellActorByPosition(nextPosition, this);
             position.setPositionByPosition(nextPosition);
         }
     }

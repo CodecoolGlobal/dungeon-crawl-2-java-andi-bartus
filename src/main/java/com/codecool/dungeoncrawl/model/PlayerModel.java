@@ -8,36 +8,20 @@ public class PlayerModel extends BaseModel {
     private int x;
     private int y;
 
-    public PlayerModel(String playerName, int x, int y) {
-        this.playerName = playerName;
-        this.x = x;
-        this.y = y;
-    }
-
     public PlayerModel(Player player) {
-//        this.playerName = player.getName(); ToDo create player name
         this.playerName = "Béla";
         this.x = player.getX();
         this.y = player.getY();
 
         this.hp = player.getHealth();
-
     }
 
     public String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public int getHp() {
         return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
     }
 
     public int getX() {

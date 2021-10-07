@@ -126,7 +126,6 @@ public class Tiles {
         tileMap.put("sniper", new Tile(10, 31));
         tileMap.put("coin", new Tile(19, 28));
         tileMap.put("rose", new Tile(2, 2));
-
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

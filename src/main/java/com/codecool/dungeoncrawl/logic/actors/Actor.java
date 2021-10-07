@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
+
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
-
 
 public abstract class Actor implements Drawable {
     protected Position position;
@@ -17,22 +17,14 @@ public abstract class Actor implements Drawable {
 
     public abstract void move(GameMap map);
 
-    public void move(int dx, int dy) {
-    }
-
-    public void setPositionbyXandY(int x, int y) {
+    public void setPositionByXAndY(int x, int y) {
         this.position.setX(x);
         this.position.setY(y);
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    } //TODO DELELTE??
-
     public Position getPosition() {
         return position;
     }
-
 
     public int getHealth() {
         return health;
@@ -65,6 +57,4 @@ public abstract class Actor implements Drawable {
     public String getTileName() {
         return name;
     }
-
-
 }

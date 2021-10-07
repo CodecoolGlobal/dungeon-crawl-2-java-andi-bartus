@@ -87,7 +87,7 @@ public class GameMap {
     public void setCellActor(int x, int y, Actor actor) {
         this.cells[x][y].setActor(actor);
     }
-    public void setCellActorbyPosition(Position position, Actor actor) {
+    public void setCellActorByPosition(Position position, Actor actor) {
         this.cells[position.getX()][position.getY()].setActor(actor);
     }
 
@@ -102,9 +102,6 @@ public class GameMap {
     public Player getPlayer() {
         return player;
     }
-    public void setPlayerPosition(Position position){ //TODO DELELTE???
-        this.player.setPosition(position);
-    }
 
     public void addEnemy(Actor enemy) {
         this.enemies.add(enemy);
@@ -115,7 +112,6 @@ public class GameMap {
         this.gates.add(gate);
     }
 
-
     public void setGates(ArrayList<Gate> gates){
         this.gates = gates;
     }
@@ -123,7 +119,6 @@ public class GameMap {
     public void removeDeadEnemies() {
         for (Actor enemy : enemies) {
             if (enemy.getHealth() < 0) {
-
                 if (cells[enemy.getX()][enemy.getY()].getItem() == null) {
                     Coin money = new Coin(enemy.getPosition(), enemy.getCoinValue());
                     cells[enemy.getX()][enemy.getY()].setItem(money);
@@ -139,6 +134,7 @@ public class GameMap {
     public void removeItem(Item item){
         this.items.remove(item);
     }
+
     public void addItem(Item item, Position position) {
         this.items.add(item);
         setCellItem(item, position);
@@ -146,11 +142,6 @@ public class GameMap {
 
     public void setCellItem (Item item, Position position){
         cells[position.getX()][position.getY()].setItem(item);
-    }
-
-    public void removeItem(Position position) {  //TODO DELELETE??????
-        cells[position.getX()][position.getY()].setItem(null);
-
     }
 
     public void moveEnemies() {
@@ -177,7 +168,6 @@ public class GameMap {
 
         int startX = playerX - side;
         int startY = playerY - side;
-
 
         if (playerX - side < 0) {
             startX = 0;
@@ -245,9 +235,9 @@ public class GameMap {
         return stepAbleCells;
     }
 
-    public double getDistanceOfCells(Position basePosition, Position targetPosition) { //TODO DELETE?????????
+    public double getDistanceOfCells(Position basePosition, Position targetPosition) {//gangstaWouldUseIt
         double dX = Math.abs(basePosition.getX() - targetPosition.getX());
-        double dY = Math.abs(basePosition.getY() - targetPosition.getY());//base pos . get x ..........................
+        double dY = Math.abs(basePosition.getY() - targetPosition.getY());
         return (dX + dY) / 2;
     }
 

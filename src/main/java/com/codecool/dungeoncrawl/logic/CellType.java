@@ -78,17 +78,12 @@ public enum CellType {
     GANGSTA("gangsta", true);
 
 
-
-
     private final String tileName;
     private final boolean canStepOn;
 
     CellType(String tileName, boolean canStepOn) {
         this.tileName = tileName;
         this.canStepOn = canStepOn;
-    }
-    public CellType getStatusByName(String tileName){
-        return valueOf(tileName);
     }
 
     public boolean getCanStepOn() {

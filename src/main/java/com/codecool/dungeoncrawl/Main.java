@@ -1,14 +1,10 @@
 package com.codecool.dungeoncrawl;
 
-
-import com.google.gson.Gson;
-
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.popups.LoadPopup;
 
 import java.io.*;
-
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.CellType;
@@ -40,7 +36,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Main extends Application {
     ArrayList<GameMap> maps = MapLoader.loadAllMaps();
     int currentMap = 0;
@@ -50,12 +45,12 @@ public class Main extends Application {
             visibleSize* Tiles.TILE_WIDTH*1.25,
             visibleSize* Tiles.TILE_WIDTH*1.25);
 
-    Canvas inventorycanvas = new Canvas(
+    Canvas inventoryCanvas = new Canvas(
             4 * Tiles.TILE_WIDTH,
             8 * Tiles.TILE_WIDTH);
 
     GraphicsContext context = canvas.getGraphicsContext2D();
-    GraphicsContext inventoryContext = inventorycanvas.getGraphicsContext2D();
+    GraphicsContext inventoryContext = inventoryCanvas.getGraphicsContext2D();
 
     Label healthLabel = new Label();
     Label inventoryLabel = new Label();
@@ -66,7 +61,6 @@ public class Main extends Application {
     private GameSaver gameSaver;
     private GameLoader gameLoader;
     private LoadPopup loadPopup;
-
 
     public static void main(String[] args) {
         launch(args);
@@ -90,7 +84,6 @@ public class Main extends Application {
         ui.setPrefWidth(350);
         ui.setPadding(new Insets(10));
 
-
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
         ui.add(exportButton, 2, 0);
@@ -102,7 +95,7 @@ public class Main extends Application {
         ui.add(new Label("Inventory: "), 0, 3);
         ui.add(inventoryLabel, 0, 4);
 
-        ui.add(inventorycanvas, 0, 10);
+        ui.add(inventoryCanvas, 0, 10);
 
         BorderPane borderPane = new BorderPane();
 
@@ -132,6 +125,7 @@ public class Main extends Application {
                 maps = gameLoader.loadGame(maps, file.toString());
                 currentMap = 0;
             }
+            refresh();
             canvas.requestFocus();
         });
     }
@@ -147,7 +141,7 @@ public class Main extends Application {
 
             if(file != null){
                 try {
-                    gameSaver.exportSave(fileChooser.getInitialFileName(), file, maps);
+                    gameSaver.exportSave(file, maps);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -311,7 +305,6 @@ public class Main extends Application {
     public void end() {
         Text text = new Text();
 
-
         text.setText("You win!");
         text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 100));
         text.setFill(Color.FUCHSIA);
@@ -338,39 +331,10 @@ public class Main extends Application {
         borderPane.setLeft(ui);
         borderPane.setStyle("-fx-background-color:black;");
 
-
-
         primaryStage.setScene(new Scene(borderPane, x, y));
-
 
         primaryStage.setTitle("Sample Application");
 
         primaryStage.show();
     }
-
-
-//    public void save(String saveName) throws SQLException, IOException {
-//        String json = new Gson().toJson(maps.get(0).getPlayer().getMoney());
-//
-//        List<String> names = dbManager.getAllNames();
-//        if (names.contains(saveName)) {
-//            //ToDo update DB with new save1
-//        } else {
-//            dbManager.saveJSON(saveName, new_save.toString());
-//        }
-//        writeSaveToFile(saveName, new_save);
-//
-//
-//    }
-//
-//    public void writeSaveToFile(String saveName, JsonObject saveContent) throws IOException {
-//        try {
-//            FileWriter writer = new FileWriter(String.format("src/main/resources/saves/%s.txt", saveName));
-//            writer.write(saveContent.toString());
-//            writer.close();
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
 }

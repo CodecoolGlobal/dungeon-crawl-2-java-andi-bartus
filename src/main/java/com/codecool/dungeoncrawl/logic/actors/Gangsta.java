@@ -1,7 +1,8 @@
 package com.codecool.dungeoncrawl.logic.actors;
+import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
-import javafx.geometry.Pos;
 import java.util.ArrayList;
+
 public class Gangsta extends Actor {
     public Gangsta(Position position, String name) {
         super(position, name);
@@ -20,7 +21,7 @@ public class Gangsta extends Actor {
     @Override
     public void move(GameMap map){}
 
-    /*@Override
+    /*@Override //TODO fix function
     public void move(GameMap map){
         int gangstaX = this.position.getX();
         int gangstaY = this.position.getY();
@@ -30,7 +31,6 @@ public class Gangsta extends Actor {
                 {0,  -1},
                 {0, 1},
         };
-
 
         boolean hasValidMove = false;
         boolean iDidNotHitHer = true;
@@ -69,8 +69,8 @@ public class Gangsta extends Actor {
         }
         System.out.println(hasValidMove + "   " + iDidNotHitHer);
         if (hasValidMove && iDidNotHitHer){
-            map.setCellActorbyPosition(position, null);
-            map.setCellActorbyPosition(possibleMove, this);
+            map.setCellActorByPosition(position, null);
+            map.setCellActorByPosition(possibleMove, this);
             position.setPositionByPosition(possibleMove);
         }
     }*/

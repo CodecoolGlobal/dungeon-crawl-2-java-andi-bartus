@@ -10,15 +10,14 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class PlayerTest {
+class ActorTest {
     GameMap gameMap = new GameMap(10, 10, CellType.FLOOR);
     Player player;
-/*
+
     @BeforeEach
     public void createPlayer(){
         player = new Player(new Position(1, 1), "player");
     }
-
 
     @Test
     void moveUpdatesCells() {
@@ -26,7 +25,7 @@ class PlayerTest {
 
         assertEquals(2, player.getX());
         assertEquals(1, player.getY());
-        assertEquals(null, gameMap.getCell(1, 1).getActor());
+        assertNull(gameMap.getCell(1, 1).getActor());
         assertEquals(player, gameMap.getCell(2, 1).getActor());
     }
 
@@ -50,8 +49,8 @@ class PlayerTest {
     @Test
     void cannotMoveIntoGangsta() {
         Gangsta gangsta = new Gangsta(new Position(1, 2), "gangsta");
-        gameMap.setCellActorbyPosition(new Position(1, 1), player);
-        gameMap.setCellActorbyPosition(new Position(1, 2), gangsta);
+        gameMap.setCellActorByPosition(new Position(1, 1), player);
+        gameMap.setCellActorByPosition(new Position(1, 2), gangsta);
         player.movePlayer(0, 1, gameMap);
         assertEquals(1, player.getX());
         assertEquals(1, player.getY());
@@ -64,8 +63,8 @@ class PlayerTest {
     @Test
     void cannotMoveIntoScorpion() {
         Scorpion scorpion = new Scorpion(new Position(1, 2), "scorpion");
-        gameMap.setCellActorbyPosition(new Position(1, 1), player);
-        gameMap.setCellActorbyPosition(new Position(1, 2), scorpion);
+        gameMap.setCellActorByPosition(new Position(1, 1), player);
+        gameMap.setCellActorByPosition(new Position(1, 2), scorpion);
         player.movePlayer(0, 1, gameMap);
         assertEquals(1, player.getX());
         assertEquals(1, player.getY());
@@ -74,9 +73,6 @@ class PlayerTest {
 
         assertEquals(scorpion, gameMap.getCell(1, 2).getActor());
     }
-
-
-
 
     @Test
     void addGunToInventory(){
@@ -116,12 +112,11 @@ class PlayerTest {
     @Test
     void drinkTequilaIncreaseHealtandWaterlevel(){
         Tequila tequila = new Tequila(new Position(1, 2), "tequila");
+        player.setHealth(100000);
         tequila.useItem(player, gameMap);
-
         assertEquals(player.getWaterLevel(), 35);
         assertEquals(player.getHealth(), 100005);
     }
-
 
     @Test
     void pickUpCoinIncreaseMoneyValue(){
@@ -136,7 +131,6 @@ class PlayerTest {
         Rose rose = new Rose(new Position(1, 2), "rose");
         rose.useItem(player, gameMap);
         assertTrue(player.canPickUpChick());
-
     }
 
     @Test
@@ -144,10 +138,9 @@ class PlayerTest {
         assertFalse(player.canPickUpChick());
     }
 
-
     @Test
     void canPlayerMoveFromMap0ToMap1(){
-        Gate gate = new Gate(new Position(1, 2), 1);
+        Gate gate = new Gate(new Position(1, 2), 1, CellType.GATE);
 
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
@@ -157,12 +150,11 @@ class PlayerTest {
         player.getInventory().add(new Boots(new Position(2, 3), "boots"));
         player.movePlayer(0, 1, gameMap);
         assertEquals(1, player.getPlayerMapLevel());
-
     }
 
     @Test
     void canPlayerMoveFromMap0ToMap1WitoutHat(){
-        Gate gate = new Gate(new Position(1, 2), 1);
+        Gate gate = new Gate(new Position(1, 2), 1, CellType.GATE);
 
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
@@ -170,13 +162,11 @@ class PlayerTest {
         player.getInventory().add(new Boots(new Position(2, 3), "boots"));
         player.movePlayer(0, 1, gameMap);
         assertEquals(0, player.getPlayerMapLevel());
-
-
     }
 
     @Test
     void canPlayerMoveFromMap0ToMap1WitoutBoots(){
-        Gate gate = new Gate(new Position(1, 2), 1);
+        Gate gate = new Gate(new Position(1, 2), 1, CellType.GATE);
 
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
@@ -188,7 +178,7 @@ class PlayerTest {
 
     @Test
     void canPlayerMoveFromMap0ToMap1WitEmptyInventory(){
-        Gate gate = new Gate(new Position(1, 2), 1);
+        Gate gate = new Gate(new Position(1, 2), 1,  CellType.GATE);
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
         gameMap.getCell(1, 2).setType(CellType.GATE);
@@ -199,7 +189,7 @@ class PlayerTest {
     @Test
     void canPlayerMoveFromMap1ToMap2(){ //from town to gunstore
         player.setPlayerMapLevel(1);
-        Gate gate = new Gate(new Position(1, 2), 2);
+        Gate gate = new Gate(new Position(1, 2), 2,  CellType.GUN_STORE_DOOR);
 
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
@@ -208,13 +198,12 @@ class PlayerTest {
         player.getInventory().add(new Star(new Position(2,2), "star"));
         player.movePlayer(0, 1, gameMap);
         assertEquals(2, player.getPlayerMapLevel());
-
     }
 
     @Test
     void canPlayerMoveFromMap1ToMap2WithoutStar(){ //from town to gunstore
         player.setPlayerMapLevel(1);
-        Gate gate = new Gate(new Position(1, 2), 2);
+        Gate gate = new Gate(new Position(1, 2), 2,  CellType.GUN_STORE_DOOR);
 
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
@@ -223,13 +212,12 @@ class PlayerTest {
 
         player.movePlayer(0, 1, gameMap);
         assertEquals(1, player.getPlayerMapLevel());
-
     }
 
     @Test
     void canPlayerMoveFromMap1ToMap3(){ //from town to saloon
         player.setPlayerMapLevel(1);
-        Gate gate = new Gate(new Position(1, 2), 3);
+        Gate gate = new Gate(new Position(1, 2), 3,  CellType.SALOON_DOOR);
 
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
@@ -239,13 +227,12 @@ class PlayerTest {
         player.getInventory().add(new Gun(new Position(2, 3), "gun"));
         player.movePlayer(0, 1, gameMap);
         assertEquals(3, player.getPlayerMapLevel());
-
     }
 
     @Test
     void canPlayerMoveFromMap1ToMap3WithoutGun(){ //from town to saloon
         player.setPlayerMapLevel(1);
-        Gate gate = new Gate(new Position(1, 2), 3);
+        Gate gate = new Gate(new Position(1, 2), 3,  CellType.SALOON_DOOR);
 
         gameMap.addDoor(gate);
         gameMap.getCell(1, 2).addDoor(gate);
@@ -255,26 +242,26 @@ class PlayerTest {
 
         player.movePlayer(0, 1, gameMap);
         assertEquals(1, player.getPlayerMapLevel());
-
     }
 
     @Test
     void canPlayerGotHurtFromNPSs(){
         FriendlyNPC grandma = new FriendlyNPC(new Position(1, 2), "NPC1");
+        player.setHealth(100000);
+        grandma.move(gameMap);
         player.movePlayer(0, 1, gameMap);
         assertEquals(100000, player.getHealth());
-
     }
 
     @Test
-    void enemyShealthPointDecreasefromDamage(){
+    void enemyHealthPointDecreaseFromDamage(){
         Gangsta gangsta = new Gangsta(new Position(1, 2), "gangsta");
 
-        gameMap.setCellActorbyPosition(new Position(1, 1), player);
-        gameMap.setCellActorbyPosition(new Position(1, 2), gangsta);
+        gameMap.setCellActorByPosition(new Position(1, 1), player);
+        gameMap.setCellActorByPosition(new Position(1, 2), gangsta);
         player.movePlayer(0, 1, gameMap);
 
         assertEquals(25, gangsta.getHealth());
 
-    }*/
+    }
 }

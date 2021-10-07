@@ -28,9 +28,4 @@ public class Position {
         this.setX(position.getX());
         this.setY(position.getY());
     }
-
-    public void setPositionByXAndY(int x, int y){ //TODO DELETE????
-        this.setX(x);
-        this.setY(y);
-    }
 }

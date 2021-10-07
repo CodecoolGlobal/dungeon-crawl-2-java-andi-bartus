@@ -1,7 +1,5 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
@@ -17,11 +15,6 @@ public class GameDatabaseManager {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
-    }
-
-    public void savePlayer(Player player) {
-        PlayerModel model = new PlayerModel(player);
-        playerDao.add(model);
     }
 
     public List<String> getAllNames(){
@@ -51,13 +44,5 @@ public class GameDatabaseManager {
         System.out.println("Connection ok.");
 
         return dataSource;
-    }
-
-    public PlayerDao getPlayerDao() {
-        return playerDao;
-    }
-
-    public GameStateDao getGameStateDao() {
-        return gameStateDao;
     }
 }

@@ -9,24 +9,22 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static final String[] mapFileNames = {"/map.txt", "/map2.txt","/gunstore.txt", "/map3.txt"};
+    private static final String[] mapFileNames = {"/map.txt", "/map2.txt","/gunStore.txt", "/map3.txt"};
 
     public static ArrayList<GameMap> loadAllMaps() {
-        int currentMapNumber = 0;
         ArrayList<GameMap> allMaps = new ArrayList<>();
         for(String mapName : mapFileNames) {
-            allMaps.add(loadMap(mapName, currentMapNumber));
-            currentMapNumber++;
+            allMaps.add(loadMap(mapName));
         }
         return allMaps;
     }
 
-    public static GameMap loadMap(String mapFileName, int currentMap) {
+    public static GameMap loadMap(String mapFileName) {
         InputStream is = MapLoader.class.getResourceAsStream(mapFileName);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
-        scanner.nextLine(); // empty line
+        scanner.nextLine();
         GameMap map = new GameMap(width, height, CellType.EMPTY);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
@@ -360,7 +358,6 @@ public class MapLoader {
                             cell.setType(CellType.SALOONFLOOR);
                             map.addItem(new Rose(position, "rose"), position);
                             break;
-
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

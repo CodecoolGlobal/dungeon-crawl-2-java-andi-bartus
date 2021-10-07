@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class SavePopup {
 
     private static String fileNameToSave;
@@ -33,7 +32,6 @@ public class SavePopup {
         fileName.setMaxWidth(300);
         Button cancelButton = new Button("Cancel");
         Button saveButton = new Button("Save");
-        // to move the button use --> cancelButton.setTranslateX(0);
 
         cancelButton.setOnAction(e -> popupWindow.close());
         saveButton.setOnAction(e -> saveOrConfirm(names, fileName, gameSaver, maps));

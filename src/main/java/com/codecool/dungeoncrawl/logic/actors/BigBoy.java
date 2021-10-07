@@ -26,6 +26,7 @@ public class BigBoy extends Actor {
         if (coolDown == 0) {
             ArrayList<Position> targetCells = map.getPossibleBotMoves(position);
             Position nextPosition;
+
             if (targetCells.size() == 1 &&
                     map.getCell(targetCells.get(0).getX(), targetCells.get(0).getY()).getActor() == null) {//move to that cell; (does it work?)
                 nextPosition = targetCells.get(0);
@@ -39,8 +40,10 @@ public class BigBoy extends Actor {
                 map.setCellActor(nextPosition.getX(), nextPosition.getY(), this);
                 position.setPositionByPosition(nextPosition);
             }
+
             Random random = new Random();
             coolDown = random.nextInt(3);
+
         } else {
             coolDown--;
         }
