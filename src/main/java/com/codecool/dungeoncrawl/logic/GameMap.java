@@ -56,6 +56,11 @@ public class GameMap {
     public void setCells(Cell[][] cells){
         this.cells = cells;
     }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
     public void setCellActor(int x, int y, Actor actor) {
         this.cells[x][y].setActor(actor);
     }
@@ -81,6 +86,11 @@ public class GameMap {
 
     public void addDoor(Gate gate) {
         this.gates.add(gate);
+    }
+
+
+    public void setGates(ArrayList<Gate> gates){
+        this.gates = gates;
     }
 
     public void removeDeadEnemies() {

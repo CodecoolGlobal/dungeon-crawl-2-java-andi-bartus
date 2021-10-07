@@ -1,23 +1,19 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Position;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class GameLoader {
-    private static final Type TYPE = new TypeToken<List<GameMap>>(){}.getType();
 
     public static void loadGame() {
         try{
@@ -25,6 +21,7 @@ public class GameLoader {
             JsonArray jsonArray = (JsonArray) parser.parse(new FileReader("src/main/resources/saves/asd.json"));
             ArrayList<JsonObject> jsonMaps = new ArrayList<>();
             ArrayList<GameMap> maps = new ArrayList<GameMap>();
+            ArrayList<Item> items = new ArrayList<>();
 
             for (Object object : jsonArray) {
                 jsonMaps.add((JsonObject) object);
@@ -36,15 +33,6 @@ public class GameLoader {
             System.out.println(jsonMaps.get(0));
 
 
-
-            /*Map<?, ?> map = gson.fromJson(reader, Map.class);
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + "=" + entry.getValue());
-            }
-            reader.close();*/
-            //JsonReader jsonReader = new JsonReader(new FileReader(filename));
-            //List<GameMap> maps = gson.fromJson(jsonReader, TYPE);
-            //System.out.println(maps.toString());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -53,14 +41,18 @@ public class GameLoader {
     }
     public GameMap loadMap(JsonObject jsonMap, GameMap map){
         int[] mapSizes = getMapSizes(jsonMap);
-
+        getCellsOfMap(jsonMap, map);
+        getGates(jsonMap, map);
+        /*
+        player
+        enemies
+        */
         return map;
     }
 
     public int[] getMapSizes(JsonObject jsonMap){
-        int width = Integer.parseInt(jsonMap.get("width").toString());
-        int height = Integer.parseInt(jsonMap.get("height").toString());
-
+        int width = jsonMap.get("width").getAsInt();
+        int height = jsonMap.get("height").getAsInt();
         return new int[]{width, height};
     }
 
@@ -112,6 +104,10 @@ public class GameLoader {
         return jsonObject.get("name").toString();
     }
 
+    public int getCoinValue(JsonObject jsonObject){
+        return jsonObject.get("value").getAsInt();
+    }
+
     public Actor getActor(JsonElement enemy) {
         Position position = getObjectPosition(enemy.getAsJsonObject());
         int health = getHealth(enemy);
@@ -132,4 +128,63 @@ public class GameLoader {
     public int getHealth(JsonElement actor) {
         return Integer.parseInt(actor.getAsJsonObject().get("health").toString());
     }
+
+
+    public Item getItem(JsonObject jsonObject){
+        Position position = getObjectPosition(jsonObject);
+        String name = getName(jsonObject);
+        switch (name){
+            case "star":
+                return new Star(position, name);
+            case "chick":
+                return new Chick(position, name);
+            case "coin":
+                int value = getCoinValue(jsonObject);
+                return new Coin(position, value);
+            case "gun":
+                return new Gun(position, name);
+            case "hat":
+                return new Hat(position, name);
+            case "rose":
+                return new Rose(position, name);
+            case "tequila":
+                return new Tequila(position, name);
+        }
+        return null;
+    }
+
+    public void getItems(JsonObject jsonMap, GameMap map){
+        ArrayList<Item> items = new ArrayList<>();
+
+        JsonArray jsonItems = jsonMap.get("items").getAsJsonArray();
+        for(JsonElement jsonItem : jsonItems){
+            Item item = getItem(jsonItem.getAsJsonObject());
+            items.add(item);
+        }
+
+        map.setItems(items);
+    }
+
+
+    public void getGates(JsonObject jsonMap, GameMap map){
+        ArrayList<Gate> gates = new ArrayList<>();
+
+        JsonArray jsonGates = jsonMap.get("gates").getAsJsonArray();
+        for (JsonElement jsonGate : jsonGates) {
+            Gate gate = createGateFromJson(jsonGate.getAsJsonObject());
+            gates.add(gate);
+        }
+        map.setGates(gates);
+    }
+
+    public Gate createGateFromJson(JsonObject jsonGate){
+        Position gatePosition = getObjectPosition(jsonGate);
+        int newCurrentMap = getNewCurrentMapValueOfGate(jsonGate);
+        return  new Gate(gatePosition, newCurrentMap);
+    }
+
+    public int getNewCurrentMapValueOfGate(JsonObject jsonGate){
+        return jsonGate.get("newCurrentMap").getAsInt();
+    }
+
 }
