@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
     GameMap gameMap = new GameMap(10, 10, CellType.FLOOR);
     Player player;
-
+/*
     @BeforeEach
     public void createPlayer(){
         player = new Player(new Position(1, 1), "player");
@@ -276,5 +276,5 @@ class PlayerTest {
 
         assertEquals(25, gangsta.getHealth());
 
-    }
+    }*/
 }

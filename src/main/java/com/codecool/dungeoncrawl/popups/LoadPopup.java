@@ -14,7 +14,7 @@ public class LoadPopup {
         this.dbManager = dbManager;
     }
 
-    public void popupForLoad() {
+    public String popupForLoad() {
         List<String> dialogData = dbManager.getAllNames();
         ChoiceDialog<String> dialog = new ChoiceDialog(dialogData.get(0), dialogData);
         dialog.setHeaderText("Choose where to load save from");
@@ -22,8 +22,7 @@ public class LoadPopup {
         String selected = "";
         if (result.isPresent()) {
             selected = result.get();
-            System.out.println(selected);
-            //todo call load function;
         }
+        return selected;
     }
 }

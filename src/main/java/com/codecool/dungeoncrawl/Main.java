@@ -43,7 +43,7 @@ import java.util.List;
 
 public class Main extends Application {
     ArrayList<GameMap> maps = MapLoader.loadAllMaps();
-    int currentMap = 3;
+    int currentMap = 0;
     int lastMap;
     int visibleSize = 25;
     Canvas canvas = new Canvas(
@@ -76,7 +76,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         setupDbManager();
         gameSaver = new GameSaver(dbManager);
-        gameLoader = new GameLoader(dbManager);
+        gameLoader = new GameLoader();
         loadPopup = new LoadPopup(dbManager);
         this.primaryStage = primaryStage;
         GridPane ui = new GridPane();
@@ -129,7 +129,8 @@ public class Main extends Application {
             fileChooser.setTitle("Open a json file to load");
             File file = fileChooser.showOpenDialog(stage);
             if (file!=null) {
-                gameLoader.loadGame(file);
+                maps = gameLoader.loadGame(maps, file.toString());
+                currentMap = 0;
             }
             canvas.requestFocus();
         });
@@ -169,12 +170,14 @@ public class Main extends Application {
         if (saveCombination.match(keyEvent))
             getNamesAndUsePopup();
         if (loadCombination.match(keyEvent)) {
-            loadPopup.popupForLoad();
+            String root = "src/main/resources/saves/";
+            String saveName = loadPopup.popupForLoad();
+            String format = ".json";
+
             GameLoader gameloader = new GameLoader();
-            maps = gameloader.loadGame(maps);
+            maps = gameloader.loadGame(maps, root+saveName+format);
             currentMap = 0;
             refresh();
-            System.out.println("load plS");
         }
     }
 
@@ -201,7 +204,6 @@ public class Main extends Application {
                 GameMap actualMap = maps.get(currentMap);
                 int x = actualMap.getPlayer().getX();
                 int y = actualMap.getPlayer().getY();
-                System.out.println(x + " " + y);
                 if (actualMap.getPlayer().getHealth()>0) {
                     if (actualMap.getCell(x, y).getItem() instanceof Chick && actualMap.getPlayer().canPickUpChick()) {
                         end();
@@ -226,23 +228,8 @@ public class Main extends Application {
                 maps.get(0).getCell(43, 3).setType(CellType.FLOOR);
                 refresh();
                 break;
-            case S:
-                soutMapToJson();
-                //Player player = maps.get(currentMap).getPlayer();
-                //dbManager.savePlayer(player);
-                break;
         }
     }
-
-    private void soutMapToJson(){
-        System.out.println(new Gson().toJson(maps.get(0).getPlayer().getMoney()));
-        System.out.println(new Gson().toJson(maps.get(0).getPlayer()));
-        System.out.println(new Gson().toJson(maps.get(0)));
-        //System.out.println(new Gson().toJson(maps.get(0)));
-        //System.out.println(new Gson().toJson(maps));
-    }
-
-
 
     private void movement(int dx, int dy){
         GameMap actaulMap = maps.get(currentMap);

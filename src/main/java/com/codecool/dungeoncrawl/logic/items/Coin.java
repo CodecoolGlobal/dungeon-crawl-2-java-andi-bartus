@@ -22,6 +22,7 @@ public class Coin extends Item{
     public void useItem(Player player, GameMap map){
         player.setMoney(player.getMoney() + this.value);
         map.setCellItem(null, position);
+        map.removeItem(this);
     }
 
     public int getValue() {

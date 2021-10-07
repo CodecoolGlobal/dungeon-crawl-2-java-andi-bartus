@@ -16,10 +16,10 @@ import java.util.Objects;
 
 public class GameLoader {
 
-    public ArrayList<GameMap> loadGame(ArrayList<GameMap> resultMaps) {
+    public ArrayList<GameMap> loadGame(ArrayList<GameMap> resultMaps, String filename) {
         try {
             JsonParser parser = new JsonParser();
-            JsonArray jsonArray = (JsonArray) parser.parse(new FileReader("src/main/resources/saves/asd.json"));
+            JsonArray jsonArray = (JsonArray) parser.parse(new FileReader(filename));
             ArrayList<JsonObject> jsonMaps = new ArrayList<>();
 
             for (Object object : jsonArray) {
@@ -58,7 +58,6 @@ public class GameLoader {
         }
 
         for (Item item : map.getItems()) {
-            System.out.println(item);
             map.setCellItem(item, item.getPosition());
         }
 
@@ -187,10 +186,6 @@ public class GameLoader {
                 item =  new Tequila(position, name);
                 break;
         }
-        if (item == null){
-
-            System.out.println("i am a 0 iq boii"+name);
-        }
         return item;
     }
 
@@ -198,7 +193,6 @@ public class GameLoader {
         ArrayList<Item> items = new ArrayList<>();
 
         JsonArray jsonItems = jsonMap.get("items").getAsJsonArray();
-        System.out.println("my size is not null " + jsonItems.size());
         for (JsonElement jsonItem : jsonItems) {
             Item item = getItem(jsonItem.getAsJsonObject());
             items.add(item);

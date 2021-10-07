@@ -6,7 +6,6 @@ import com.codecool.dungeoncrawl.logic.items.*;
 import java.util.ArrayList;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import javafx.geometry.Pos;
 
 public class GameMap {
     private final int width;
@@ -19,7 +18,6 @@ public class GameMap {
     }
 
     public ArrayList<Item> getItems() {
-        System.out.println("get items" + items.size());
         return items;
     }
 
@@ -127,9 +125,12 @@ public class GameMap {
             if (enemy.getHealth() < 0) {
 
                 if (cells[enemy.getX()][enemy.getY()].getItem() == null) {
-                    cells[enemy.getX()][enemy.getY()].setItem(new Coin(enemy.getPosition(), enemy.getCoinValue()));
+                    Coin money = new Coin(enemy.getPosition(), enemy.getCoinValue());
+                    cells[enemy.getX()][enemy.getY()].setItem(money);
+                    this.items.add(money);
                 }
                 cells[enemy.getX()][enemy.getY()].setActor(null);
+
                 enemies.remove(enemy);
                 break;
             }

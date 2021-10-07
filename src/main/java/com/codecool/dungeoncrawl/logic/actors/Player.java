@@ -17,10 +17,10 @@ public class Player extends Actor {
     public Player(Position position, String name) {
         super(position, name);
         this.damage = 5;
-        this.setHealth(100000);
+        this.setHealth(100);
         this.inventory = new ArrayList<>();
         this.waterLevel = initialWaterLevel;
-        this.playerMapLevel = 3  ;
+        this.playerMapLevel = 0;
         this.money = 0;
     }
 
