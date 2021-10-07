@@ -28,6 +28,11 @@ public class GameMap {
         System.out.println(width + "width");
     }
 
+    public GameMap(int width, int height){
+        this.width = width;
+        this.height = height;
+    }
+
     public Cell[][] generateCells(int width, int height, CellType defaultCellType) {
         Cell[][] cells = new Cell[width][height];
 

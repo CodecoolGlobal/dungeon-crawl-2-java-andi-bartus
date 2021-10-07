@@ -12,22 +12,20 @@ import java.util.List;
 
 public class GameLoader {
 
-    public static void loadGame() {
+    public void loadGame() {
         try{
             JsonParser parser = new JsonParser();
             JsonArray jsonArray = (JsonArray) parser.parse(new FileReader("src/main/resources/saves/asd.json"));
             ArrayList<JsonObject> jsonMaps = new ArrayList<>();
             ArrayList<GameMap> maps = new ArrayList<GameMap>();
-            ArrayList<Item> items = new ArrayList<>();
 
             for (Object object : jsonArray) {
                 jsonMaps.add((JsonObject) object);
             }
 
-            for(JsonObject map : jsonMaps){
-
+            for(JsonObject jsonMap : jsonMaps){
+                maps.add(loadMap(jsonMap));
             }
-            System.out.println(jsonMaps.get(0));
 
 
         }
@@ -35,9 +33,11 @@ public class GameLoader {
             e.printStackTrace();
         }
 
+
     }
-    public GameMap loadMap(JsonObject jsonMap, GameMap map){
+    public GameMap loadMap(JsonObject jsonMap){
         int[] mapSizes = getMapSizes(jsonMap);
+        GameMap map = new GameMap(mapSizes[0], mapSizes[1]);
         getCellsOfMap(jsonMap, map);
         getGates(jsonMap, map);
         /*
