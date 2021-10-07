@@ -11,10 +11,10 @@ import javafx.geometry.Pos;
 public class GameMap {
     private final int width;
     private final int height;
-    private final Cell[][] cells;
+    private Cell[][] cells;
     private ArrayList<Item> items;
     private ArrayList<Actor> enemies;
-    private final ArrayList<Gate> gates;
+    private ArrayList<Gate> gates;
     private Player player;
 
     public GameMap(int width, int height, CellType defaultCellType) {
@@ -48,6 +48,9 @@ public class GameMap {
         player.setMoney(originalPlayer.getMoney());
     }
 
+    public void setCells(Cell[][] cells){
+        this.cells = cells;
+    }
     public void setCellActor(int x, int y, Actor actor) {
         this.cells[x][y].setActor(actor);
     }
