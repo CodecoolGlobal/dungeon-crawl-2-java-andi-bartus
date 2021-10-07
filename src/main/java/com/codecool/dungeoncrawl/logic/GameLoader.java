@@ -43,9 +43,10 @@ public class GameLoader {
         GameMap map = new GameMap(mapSizes[0], mapSizes[1]);
         getCellsOfMap(jsonMap, map);
         getGates(jsonMap, map);
+        getActorsOfMap(jsonMap, map);
+        getItems(jsonMap, map);
         /*
         player
-        enemies
         */
         return map;
     }
