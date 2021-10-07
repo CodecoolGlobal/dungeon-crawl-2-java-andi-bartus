@@ -26,18 +26,19 @@ public class FriendlyNPC extends Actor {
     @Override
     public void move(GameMap map){
         ArrayList<Position> targetPositions = map.getPossibleNPCMoves(position);
-        Position nextPosition;
+        Position nextPosition = new Position(0,0);
         if (targetPositions.size() == 1 &&
             map.getCell(targetPositions.get(0).getX(), targetPositions.get(0).getY()).getActor() == null){
-            nextPosition = targetPositions.get(0);
-            map.setCellActor(this.position.getX(), this.position.getY(), null);
-            map.setCellActor(nextPosition.getX(), nextPosition.getY(), this);
+            nextPosition.setPositionByPosition(targetPositions.get(0));
+            map.setCellActorbyPosition(position, null);
+            map.setCellActorbyPosition(nextPosition, this);
             position.setPositionByPosition(nextPosition);
         }else if(targetPositions.size() > 1){
             Random random = new Random();
-            nextPosition = targetPositions.get(random.nextInt(targetPositions.size()));
-            map.setCellActor(this.position.getX(), this.position.getY(), null);
-            map.setCellActor(nextPosition.getX(), nextPosition.getY(), this);
+            nextPosition.setPositionByPosition(targetPositions.get(random.nextInt(targetPositions.size())));
+            map.setCellActorbyPosition(position, null);
+            map.setCellActorbyPosition(nextPosition, this);
+            position.setPositionByPosition(nextPosition);
         }
     }
 }

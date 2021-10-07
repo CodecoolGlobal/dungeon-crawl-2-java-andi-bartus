@@ -44,7 +44,6 @@ public class Tiles {
         tileMap.put("tombStone", new Tile(1, 14));//0:14 or 1:14 ?
         tileMap.put("skull1", new Tile(1, 15));
         tileMap.put("skull2", new Tile(0, 15));
-        tileMap.put("scorpio", new Tile(25, 5));
         tileMap.put("tequila", new Tile(16, 25));
         tileMap.put("tequila2", new Tile(25, 23));
         tileMap.put("tequila3", new Tile(24, 23));

@@ -51,7 +51,7 @@ import java.util.Optional;
 
 public class Main extends Application {
     ArrayList<GameMap> maps = MapLoader.loadAllMaps();
-    int currentMap = 0;
+    int currentMap = 3;
     int lastMap;
     int visibleSize = 25;
     String fileNameToSave;
@@ -204,7 +204,6 @@ public class Main extends Application {
 
 
     private void movement(int dx, int dy){
-        System.out.println(currentMap + "we are here man");
         GameMap actaulMap = maps.get(currentMap);
         if (actaulMap.getPlayer().getWaterLevel() > 0 && actaulMap.getPlayer().getHealth() > 0){
             actaulMap.getPlayer().setWaterLevel(actaulMap.getPlayer().getWaterLevel()-1);
@@ -218,6 +217,7 @@ public class Main extends Application {
             if (currentMap != actaulMap.getPlayer().getPlayerMapLevel()) {
                 this.lastMap = currentMap;
                 this.currentMap = actaulMap.getPlayer().getPlayerMapLevel();
+                actaulMap = maps.get(currentMap);
                 actaulMap.setPlayerStats(maps.get(lastMap).getPlayer());
             }
         }
