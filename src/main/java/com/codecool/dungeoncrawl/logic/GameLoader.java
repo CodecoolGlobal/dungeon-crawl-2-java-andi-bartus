@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Position;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.google.gson.*;
@@ -151,6 +152,53 @@ public class GameLoader {
 
     public int getNewCurrentMapValueOfGate(JsonObject jsonGate){
         return jsonGate.get("newCurrentMap").getAsInt();
+    }
+
+    public void getPlayer(JsonObject jsonObject, GameMap map){
+        Position position = getObjectPosition(jsonObject);
+        String name = getName(jsonObject);
+        int damage = getDamage(jsonObject);
+        int waterLevel = getWaterLevel(jsonObject);
+        ArrayList<Item> inventory = getInventory(jsonObject);
+        int money = getMoney(jsonObject);
+        int playerMapLevel = getPlayerMapLevel(jsonObject);
+        int health = getHealth(jsonObject);
+        int coinValue = getCoinValue(jsonObject);
+
+        map.setPlayer(new Player(position, name, damage, waterLevel, inventory, money, playerMapLevel, health, coinValue));
+
+
+    }
+
+    public int getDamage(JsonObject jsonObject){
+        return jsonObject.get("damage").getAsInt();
+    }
+
+    public int getWaterLevel(JsonObject jsonObject){
+        return jsonObject.get("waterLevel").getAsInt();
+    }
+
+    public ArrayList<Item> getInventory(JsonObject jsonObject){
+        ArrayList<Item> inventory = new ArrayList<>();
+        JsonArray inventoryJSON = jsonObject.get("inventory").getAsJsonArray();
+
+        for (JsonElement itemJSON : inventoryJSON){
+            Item item = getItem(itemJSON.getAsJsonObject());
+            inventory.add(item);
+        }
+        return inventory;
+    }
+
+    public int getMoney(JsonObject jsonObject){
+        return jsonObject.get("money").getAsInt();
+    }
+
+    public int getPlayerMapLevel(JsonObject jsonObject){
+        return jsonObject.get("playerMapLevel").getAsInt();
+    }
+
+    public int getHealth(JsonObject jsonObject){
+        return jsonObject.get("health").getAsInt();
     }
 
 }
