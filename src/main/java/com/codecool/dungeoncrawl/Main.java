@@ -137,7 +137,8 @@ public class Main extends Application {
         if (loadCombination.match(keyEvent)) {
             loadPopup.popupForLoad();
             GameLoader gameloader = new GameLoader();
-            gameloader.loadGame();
+            maps = gameloader.loadGame(maps);
+            currentMap = maps.get(0).getPlayer().getPlayerMapLevel();
         }
     }
 

@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class GameLoader {
 
-    public void loadGame() {
+    public ArrayList<GameMap> loadGame(ArrayList<GameMap> resultMaps) {
         try{
             JsonParser parser = new JsonParser();
             JsonArray jsonArray = (JsonArray) parser.parse(new FileReader("src/main/resources/saves/asd.json"));
@@ -31,12 +31,12 @@ public class GameLoader {
             }
 
 
+            return maps;
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
-
+        return resultMaps;
     }
     public GameMap loadMap(JsonObject jsonMap){
         int[] mapSizes = getMapSizes(jsonMap);
