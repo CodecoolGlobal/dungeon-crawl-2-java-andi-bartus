@@ -26,6 +26,17 @@ public class Player extends Actor {
         this.money = 0;
     }
 
+    public Player(Position position, String name, int damage, int waterLevel, ArrayList<Item> inventory, int money, int playerMapLevel, int health, int coinValue) {
+        super(position, name);
+        this.damage = damage;
+        this.waterLevel = waterLevel;
+        this.inventory = inventory;
+        this.money = money;
+        this.playerMapLevel = playerMapLevel;
+        this.health = health;
+        this.coinValue = coinValue;
+    }
+
 
     public int getPlayerMapLevel() {
         return playerMapLevel;
