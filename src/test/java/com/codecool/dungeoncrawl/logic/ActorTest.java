@@ -77,6 +77,7 @@ class ActorTest {
     @Test
     void addGunToInventory(){
         Gun gun = new Gun(new Position(1, 2), "gun");
+        player.setMoney(100);
         gun.useItem(player, gameMap);
         ArrayList<Item> inventory = new ArrayList<>();
         inventory.add(gun);
@@ -99,7 +100,7 @@ class ActorTest {
         testInventory.add(hat);
         testInventory.add(rose);
         testInventory.add(star);
-
+        player.setMoney(100);
         boots.useItem(player, gameMap);
         chick.useItem(player, gameMap);
         gun.useItem(player, gameMap);
@@ -262,6 +263,5 @@ class ActorTest {
         player.movePlayer(0, 1, gameMap);
 
         assertEquals(25, gangsta.getHealth());
-
     }
 }
