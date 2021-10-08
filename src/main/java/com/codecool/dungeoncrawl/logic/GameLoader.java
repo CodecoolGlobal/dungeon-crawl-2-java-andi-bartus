@@ -36,7 +36,9 @@ public class GameLoader {
 
     public GameMap loadMap(JsonObject jsonMap) {
         int[] mapSizes = getMapSizes(jsonMap);
+
         GameMap map = new GameMap(mapSizes[0], mapSizes[1]);
+
         getCellsOfMap(jsonMap, map);
         getGates(jsonMap, map);
         getActorsOfMap(jsonMap, map);

@@ -17,7 +17,7 @@ public class Player extends Actor {
     public Player(Position position, String name) {
         super(position, name);
         this.damage = 5;
-        this.setHealth(10000);
+        this.setHealth(100);
         this.inventory = new ArrayList<>();
         this.waterLevel = initialWaterLevel;
         this.playerMapLevel = 0;
