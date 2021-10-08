@@ -12,16 +12,14 @@ public class Gun extends Item{
         super(position, name);
     }
 
-    public static int getCost() {
-        return cost;
-    }
-
     @Override
     public void useItem(Player player, GameMap map){
-        player.setMoney(player.getMoney()-cost);
-        player.setDamage(player.getDamage() + damage);
-        player.getInventory().add(this);
-        map.setCellItem(null, position);
-        map.removeItem(this);
+        if (player.getMoney() >= 100){
+            player.setMoney(player.getMoney()-cost);
+            player.setDamage(player.getDamage() + damage);
+            player.getInventory().add(this);
+            map.setCellItem(null, position);
+            map.removeItem(this);
+        }
     }
 }
